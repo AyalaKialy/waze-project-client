@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 type User = {
-    id: number,
+    _id: number,
     name: string,
     email: string
 }
 
-export function UserComponent() {
+export interface IUsers { }
+
+const Users: React.FunctionComponent<IUsers> = (props) => {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
@@ -27,10 +29,10 @@ export function UserComponent() {
         <>
             <div>hi for all the users</div>
             {users && users.map(user =>
-                <div key={user.id}>{user.name}</div>
+                <div key={user._id}>{user.name}</div>
             )}
         </>
     )
 }
 
-
+export default Users;

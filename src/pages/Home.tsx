@@ -1,6 +1,7 @@
 import React from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import Users from '../components/users'
+
 export interface IHomePageProps { }
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {

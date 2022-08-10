@@ -22,7 +22,8 @@ const SignUpPage: React.FunctionComponent<ISignUpPageProps> = (props) => {
       if (user) {
         navigate("/")
       };
-  }, [user, loading]);
+    }, [user, loading]);
+  
     const signUpWithPassword = async () => {
         registerWithEmailAndPassword(firstName+lastName,email, password);
   }

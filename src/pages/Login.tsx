@@ -8,34 +8,22 @@ import '../css/login.css'
 export interface ILoginPageProps { }
 const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
     const navigate = useNavigate();
-    const [authing, setAuthing] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, loading, error] = useAuthState(auth);
 
-
-    const signInWithGoogle = async () => {
-        setAuthing(true);
-        try {
-            const res = await signInWithPopup(auth, new GoogleAuthProvider())
-            console.log(res.user.uid);
-            navigate('/');
-        }
-        catch (err) {
-            console.log(err);
-            setAuthing(false);
-        };
+   useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (user) navigate("/");
+   }, [user, loading]);
+  
+    const signInGoogle = async () => {
+      signInWithGoogle();
     };
     const signInWithPassword = async () => {
-        setAuthing(true);
-        try {
-            const res = await signInWithEmailAndPassword(auth, email, password);
-            console.log(res.user.uid);
-            navigate('/');
-        } catch (err) {
-            console.log(err);
-            setAuthing(false);
-        }
+       logInWithEmailAndPassword(email, password);
     }
 
     return (

@@ -5,8 +5,9 @@ import LoginPage from './pages/Login';
 import SignUpPage from './pages/signUp';
 import AuthRoute from './components/AuthRoute';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
-initializeApp(config.firebaseConfig);
+import CreateSystem from './components/createSystem';
+import Users from './components/users';
+import Systems from './components/systems';
 
 export interface IApplicationProps { }
 

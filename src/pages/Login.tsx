@@ -6,7 +6,6 @@ import '../css/login.css'
 
 
 export interface ILoginPageProps { }
-
 const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
     const navigate = useNavigate();
     const [authing, setAuthing] = useState(false);
@@ -14,22 +13,31 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
     const [password, setPassword] = useState('');
     const [user, loading, error] = useAuthState(auth);
 
-    useEffect(() => {
-    if (loading) {
-      return;
-    }
-    if (user) navigate("/");
-  }, [user, loading]);
 
-    const signInGoogle = () => {
+    const signInWithGoogle = async () => {
         setAuthing(true);
-        signInWithGoogle()
+        try {
+            const res = await signInWithPopup(auth, new GoogleAuthProvider())
+            console.log(res.user.uid);
+            navigate('/');
+        }
+        catch (err) {
+            console.log(err);
+            setAuthing(false);
+        };
     };
-  
-  const signInWithPassword = () => { 
-            setAuthing(true);
-    logInWithEmailAndPassword(email, password);
-  }
+    const signInWithPassword = async () => {
+        setAuthing(true);
+        try {
+            const res = await signInWithEmailAndPassword(auth, email, password);
+            console.log(res.user.uid);
+            navigate('/');
+        } catch (err) {
+            console.log(err);
+            setAuthing(false);
+        }
+    }
+
     return (
         <form className='auth-inner' onSubmit = {signInWithPassword}>
         <h3>Sign In</h3>

@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import {User} from '../models/user.model';
+import{ getAllUsers } from '../api/user';
 
-type User = {
-    _id: number,
-    name: string,
-    email: string
-}
 
-export interface IUsers { }
+export default function Users() {
 
-const Users: React.FunctionComponent<IUsers> = (props) => {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
-        getAllUsers();
+        getAll();
     }, [])
 
-    const getAllUsers = async () => {
+    const getAll = async () => {
         try {
-            const res = await axios.get(`http://localhost:3333/user`);
-            setUsers(res.data);
+            const res = await getAllUsers();
+            setUsers(res);
+            console.log(res);
         } catch (err) {
             console.log(err)
         }
@@ -29,10 +25,8 @@ const Users: React.FunctionComponent<IUsers> = (props) => {
         <>
             <div>hi for all the users</div>
             {users && users.map(user =>
-                <div key={user._id}>{user.name}</div>
+                <div key={user._id}>{user._id}</div>
             )}
-        </>
+        </> 
     )
 }
-
-export default Users;

@@ -17,8 +17,8 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
         setAuthing(true);
         try {
             const res = await signInWithPopup(auth, new GoogleAuthProvider())
-            console.log(res.user.uid);
-            navigate('/');
+            console.log(res.user.email);
+            navigate(`/HomePage/${res.user.email}`);
         }
         catch (err) {
             console.log(err);

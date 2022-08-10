@@ -21,7 +21,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<AuthRoute><HomePage /></AuthRoute>}/>
-                
+                <Route path="/HomePage:managerEmail" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/CreateSystem" element={<CreateSystem />} />

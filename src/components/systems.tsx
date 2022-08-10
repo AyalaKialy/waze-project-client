@@ -10,11 +10,11 @@ export default function Systems() {
     useEffect(() => {
         getAll();
     }, [])
+     // <button><Link to={`/${}`}></Link></button>
 
     const getAll = async () => {
         try {
             const res = await getSystemByManagerId("62f25a4210ea639da632b916");
-            // <button><Link to={`/${}`}></Link></button>
             setSystems(res);
             console.log(res);
         } catch (err) {

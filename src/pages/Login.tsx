@@ -16,11 +16,13 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
     if (loading) {
       return;
     }
-    if (user) navigate("/");
+    if (user)  
+      navigate(`/HomePage/${user.email}`);
    }, [user, loading]);
   
     const signInGoogle = async () => {
       signInWithGoogle();
+
     };
     const signInWithPassword = async () => {
        logInWithEmailAndPassword(email, password);

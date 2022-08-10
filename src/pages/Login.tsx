@@ -5,7 +5,6 @@ import '../css/login.css'
 
 
 export interface ILoginPageProps { }
-
 const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
     const auth = getAuth();
     const navigate = useNavigate();
@@ -31,7 +30,8 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
         try {
             const res = await signInWithEmailAndPassword(auth, email, password);
             console.log(res.user.uid);
-            navigate('/');
+            
+            navigate(`/`);
         } catch (err) {
             console.log(err);
             setAuthing(false);

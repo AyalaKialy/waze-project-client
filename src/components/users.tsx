@@ -25,7 +25,7 @@ export default function Users() {
         <>
             <div>hi for all the users</div>
             {users && users.map(user =>
-                <div key={user._id}>{user._id}</div>
+                <div key={user.email}>{user.firstName+' '+user.lastName}</div>
             )}
         </> 
     )

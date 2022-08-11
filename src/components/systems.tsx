@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {System} from '../models/system.model';
 import{ getSystemByManagerId } from '../api/system';
-
+import { Link, useParams ,useNavigate} from 'react-router-dom';
 
 export default function Systems() {
-
+    const navigate = useNavigate();
     const [systems, setSystems] = useState<System[]>([]);
+    const {userId}=useParams();
 
     useEffect(() => {
+        console.log(userId);
         getAll();
     }, [])
-     // <button><Link to={`/${}`}></Link></button>
+     
 
     const getAll = async () => {
         try {
-            const res = await getSystemByManagerId("62f25a4210ea639da632b916");
+            const res = await getSystemByManagerId(String(userId));
             setSystems(res);
             console.log(res);
         } catch (err) {
@@ -22,11 +24,17 @@ export default function Systems() {
         }
     };
 
+    //map מה קורה אם יש רק אוביקט אחד במערך-לא בטוח שמצליח לעבור עם 
     return (
-        <>
-            {systems && systems.map(system =>
-                <div key={system._id}>{system.topic}</div>
+        <div>
+            {systems.length>0 && systems.map(system =>
+                <div key={system.urlName}>
+                <button type="button" 
+                onClick={()=>navigate(`/MySystem/${system.urlName}`)}>
+                {system.urlName}</button>
+                </div>
             )}
-        </> 
+           
+        </div> 
     )
 }

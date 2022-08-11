@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 import Users from '../components/users'
+import  NavBar  from '../components/navBar';
 export interface IHomePageProps { }
 
   export default function HomePage() {
@@ -9,6 +10,7 @@ export interface IHomePageProps { }
     const navigate = useNavigate();
     return (
         <div>
+            <NavBar/>
             <p>Home Page (Protected by Firebase!)</p>
             <button type="button" onClick={e=> navigate('/CreateSystem')}>Create System</button>
             <button type="button" onClick={e=> navigate('/Systems')}>Systems</button>

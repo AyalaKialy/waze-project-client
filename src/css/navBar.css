@@ -1,0 +1,13 @@
+.navbar{
+  z-index: 99999;
+  background-color:white}
+
+.nav-item{
+  margin:0px 10px;
+  color:darkorange;
+  font-size:larger;
+}
+
+.navbar-brand{
+    color:darkorange;
+}

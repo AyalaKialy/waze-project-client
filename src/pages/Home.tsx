@@ -1,31 +1,42 @@
 
 import React, { useEffect, useState } from 'react';
-import { getAuth, signOut } from 'firebase/auth';
-import Users from '../components/users'
-import { useNavigate, useParams } from 'react-router-dom';
-import { getUserByEmail } from '../api/user';
+import { auth ,logout} from '../firebase';
+import {  useNavigate, useParams } from 'react-router-dom';
+import { getUserByUid } from '../api/user';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
   export default function HomePage() {
-    const auth = getAuth();
     const navigate = useNavigate();
-    const {managerEmail}=useParams();
-    const [managerId,setManagerId]=useState('');
+    const [userId,setUserId]=useState('');
+    const {uid}=useParams();
+      const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
-      getUserByEmailFromServer();
+      getUserByUidFromServer();
     },[]);
     
-    const getUserByEmailFromServer= async () => {
-      const user=await getUserByEmail(String(managerEmail));
-        setManagerId(user._id);
+    const getUserByUidFromServer= async () => {
+      const user=await getUserByUid(String(uid));
+        setUserId(user._id);
     }
+
+     useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (!user)  {
+      console.log('if  not user');
+      navigate('/');   
+    }
+   }, [user, loading]);
+
     return (
         <div>
             <p>Home Page (Protected by Firebase!)</p>
-            <button type="button" onClick={e=> navigate(`/CreateSystem/${managerId}}`)}>Create System</button>
-            <button type="button" onClick={e=> navigate(`/Systems/${managerId}`)}>Systems</button>
-            <button onClick={() => signOut(auth)}>Sign out of Firebase</button>
+            <button type="button" onClick={e=> navigate(`/CreateSystem/${userId}`)}>Create System</button>
+            <button type="button" onClick={e=> navigate(`/Systems/${userId}`)}>Systems</button>
+            <button onClick={logout}>Sign out of Firebase</button>
         </div>
     );
 };

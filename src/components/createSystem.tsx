@@ -1,53 +1,44 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-// import { create } from 'domain';
 import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
+import {  useNavigate, useParams } from 'react-router-dom';
 
 export default function CreateSystem() {
+
+    const navigate = useNavigate();
+    const {userId} = useParams();
 
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
-    const [urlName, setUrlName] = useState('');//????
+    const [urlName, setUrlName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
     const create = async () => {
-        // e.preventDefault();
-        const system={
+        const system = {
           topic: topic,
           objectName: objectName,
-          managerId:"62f25a4210ea639da632b916" ,
+          managerId:String(userId),
           description: description,
-          urlName:"perfectShoes",
+          urlName:urlName,
           email:email,
           phone:phone
             }
-        }
-        try {
-        //   const ans= await createSystem(system);
-        //     console.log(ans);
-            // navigate('/');
-        } catch (err) {
-            console.log(err);
+            try{
+           debugger;
+           await createSystem(system);
+           console.log(system);
+            }catch{
+                console.log("failed to create system");
+            }
         }
 
   return (
-    <form className='auth-inner' onSubmit={create}
-    //   component="form"
-    //   sx={{
-    //     '& > :not(style)': { m: 1, width: '25ch' },
-    //   }}
-    //   noValidate
-    //   autoComplete="off"
-    >
+    <form className='auth-inner' onSubmit={create}>
       <h3>create new system</h3>
-      {/* <TextField id="outlined-basic" label="topic" variant="outlined"  className="mb-3"/>
-      <TextField id="outlined-basic" label="objectName" variant="outlined" className="mb-3" /> */}
-      {/* <TextField id="filled-basic" label="Filled" variant="filled" />
-      <TextField id="standard-basic" label="Standard" variant="standard" /> */}
          <div className="mb-3">
           <label>topic</label>
                 <input
@@ -73,6 +64,15 @@ export default function CreateSystem() {
             className="form-control"
                     placeholder="Enter description"
                     onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+            <div className="mb-3">
+          <label>urlName</label>
+          <input
+            type="string"
+            className="form-control"
+                    placeholder="Enter urlName"
+                    onChange={(e) => setUrlName(e.target.value)}
           />
         </div>
           <div className="mb-3">

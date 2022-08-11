@@ -8,6 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CreateSystem from './components/createSystem';
 import Users from './components/users';
 import Systems from './components/systems';
+import SingleSystem from './components/system';
 
 export interface IApplicationProps { }
 
@@ -15,14 +16,14 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<AuthRoute><HomePage /></AuthRoute>}/>
-                <Route path="/HomePage:managerEmail" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/CreateSystem" element={<CreateSystem />} />
+                <Route path="/" element={<LoginPage/>}/>
+                <Route path="/Login" element={<LoginPage />} />
+                <Route path="/HomePage/:uid" element={<HomePage />} />
+                <Route path="/SignUp" element={<SignUpPage />} />
+                <Route path="/CreateSystem/:userId" element={<CreateSystem />} />
                 <Route path="/Users" element={<Users />} />
-                 <Route path="/Systems" element={<Systems />} />
-                {/* <Route path=":systemId" element={<System />} /> */}
+                 <Route path="/Systems/:userId" element={<Systems />} />
+                <Route path="/MySystem/:systemUrl" element={<SingleSystem />} />
             </Routes>
         </BrowserRouter>
     );

@@ -3,15 +3,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase";
 
-export interface ISignUpPageProps { }
+import {Role} from '../models/user.model';
+import { createUser} from '../api/user';
   
-const SignUpPage: React.FunctionComponent<ISignUpPageProps> = (props) => {
+ export default function SignUpPage() {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [role, setRole] = useState(null);
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, loading, error] = useAuthState(auth);
 
@@ -20,19 +20,44 @@ const SignUpPage: React.FunctionComponent<ISignUpPageProps> = (props) => {
       return;
     }
       if (user) {
-        navigate("/")
+          createInMongo();
+         navigate(`/HomePage/${user.uid}`);   
       };
     }, [user, loading]);
   
-    const signUpWithPassword = async () => {
-        registerWithEmailAndPassword(firstName+lastName,email, password);
+  //   const signUpWithPassword = async () => {
+  //     debugger;
+  //     //יצירה עם פיירבייס
+  //     await registerWithEmailAndPassword(firstName+' '+lastName,email, password);
+  //    debugger;
+  //    console.log("create");
+  //    console.log(user);
+  //     //יצירה עם מונגו
+  //     createInMongo();
+  // }
+
+  const createInMongo=async()=>{
+      const newUser = {
+        uid: String(user?.uid),
+        role: Role.admin,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email
+            }
+            try{
+      await createUser(newUser);
+            }catch{
+console.log("create failed");
+            }
   }
       const signInGoogle = () => {
         signInWithGoogle();
   };
   
     return (
-       <form  className='auth-inner' onSubmit={signUpWithPassword}>
+       <form  className='auth-inner' 
+       onSubmit={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)}>
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
@@ -45,10 +70,22 @@ const SignUpPage: React.FunctionComponent<ISignUpPageProps> = (props) => {
         </div>
         <div className="mb-3">
           <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" onChange={(e) => setLastName(e.target.value)}/>
+          <input type="text"
+           className="form-control" 
+           placeholder="Last name" 
+           onChange={(e) => setLastName(e.target.value)}/>
+        </div>
+           <div className="mb-3">
+          <label>Phone</label>
+          <input
+            type="string"
+            className="form-control"
+            placeholder="Enter phone"
+            onChange={(e) => setPhone(e.target.value)}
+          />
         </div>
         <div className="mb-3">
-          <label>Email address</label>
+          <label>Email </label>
           <input
             type="email"
             className="form-control"
@@ -84,4 +121,3 @@ const SignUpPage: React.FunctionComponent<ISignUpPageProps> = (props) => {
     )
 }
 
-export default SignUpPage;

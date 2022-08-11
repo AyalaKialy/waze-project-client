@@ -4,8 +4,8 @@ import { System } from '../models/system.model';
 //getAllSystems
 export const getAllSystems = async () => {
     try {
-        const systems = await axios.get(`http://localhost:3333/system`);
-        return systems.data;
+        const {data} = await axios.get(`http://localhost:3333/system`);
+        return data;
     }
     catch (error) {
         console.log('error in getAllSystems', error);
@@ -13,8 +13,10 @@ export const getAllSystems = async () => {
 }
 //getSystemByManagerId
 export const getSystemByManagerId = async (managerId: string) => {
+    console.log("getSystemByManagerId");
     try {
         const { data } = await axios.get(`http://localhost:3333/system/${managerId}`);
+        console.log(data);
         return data;
     }
     catch (error) {
@@ -22,10 +24,25 @@ export const getSystemByManagerId = async (managerId: string) => {
     }
 }
 
+//getSystemByurlName
+export const getSystemByUrlName = async (urlName: string) => {
+    console.log("getSystemByurlName");
+    try {
+        const { data } = await axios.get(`http://localhost:3333/system/getSystemByurlName/${urlName}`);
+        console.log(data);
+        return data;
+    }
+    catch (error) {
+        console.log('error-getSystemByurlName',error);
+    }
+}
 //post 
 export const createSystem = async (system:System) => {
+    debugger;
     try {
-         await axios.post('http://localhost:3333/system/', system);
+        const res = await axios.post('http://localhost:3333/system/', system);
+         console.log(res);
+         debugger;
     }
     catch (error) {
         console.log('error-createSystem',error);

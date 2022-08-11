@@ -9,17 +9,38 @@ import {
   signOut,
 } from "firebase/auth";
 
+import {
+  getFirestore,
+  query,
+  getDocs,
+  collection,
+  where,
+  addDoc,
+} from "firebase/firestore";
+
 import { config } from './config/config';
 
-            
 const app = initializeApp(config.firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
 const signInWithGoogle = async () => {
   try {
       const res = await signInWithPopup(auth, googleProvider);
-      console.error(res.user.uid);      
+      console.log(res.user.uid); 
+
+      const user=res.user; 
+      const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+      });
+    }
   } catch (err:any) {
     console.error(err);
     alert(err.message);
@@ -28,16 +49,27 @@ const signInWithGoogle = async () => {
 const logInWithEmailAndPassword = async (email:string, password:string) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
-      console.log(res);
+      console.log(res.user);
   } catch (err:any) {
     console.error(err);
     alert(err.message);
   }
 };
-const registerWithEmailAndPassword = async (name:string, email:string, password:string) => {
+const registerWithEmailAndPassword = async (name:string,email:string, password:string) => {
+    debugger;
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(res.user.uid);
+      debugger;
+    const res = await createUserWithEmailAndPassword(auth, email, password);//נפילה
+    console.log(res.user);
+    debugger;
+    
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name: user.displayName,
+      authProvider: "local",
+      email: user.email,
+    });
   } catch (err:any) {
     console.error(err);
     alert(err.message);

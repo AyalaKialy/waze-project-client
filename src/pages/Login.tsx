@@ -4,30 +4,26 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
 
-
-export interface ILoginPageProps { }
-const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
+ export default function LoginPage(){
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, loading, error] = useAuthState(auth);
 
    useEffect(() => {
+      console.log('useEffect');
     if (loading) {
       return;
     }
-    if (user) navigate("/");
+    if (user)  {
+      console.log('if user');
+      console.log(user);
+      navigate(`/HomePage/${user.uid}`);   
+    }
    }, [user, loading]);
   
-    const signInGoogle = async () => {
-      signInWithGoogle();
-    };
-    const signInWithPassword = async () => {
-       logInWithEmailAndPassword(email, password);
-    }
-
     return (
-        <form className='auth-inner' onSubmit = {signInWithPassword}>
+        <div className='auth-inner' >
         <h3>Sign In</h3>
         <div className="mb-3">
           <label>Email address</label>
@@ -48,14 +44,16 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
           />
         </div>           
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+          <button type="button" className="btn btn-primary"
+            onClick={() => logInWithEmailAndPassword(email, password)}>
             Submit
           </button>
         </div>
          <div className="mb-3">
               <div className="d-grid">
-                <button type="button" className="login-with-google-btn" onClick={() => signInGoogle()}>
-                 Sign in with Google
+              <button type="button" className="login-with-google-btn"
+              onClick={signInWithGoogle} >
+                Sign in with Google
              </button>
           </div>
           </div>
@@ -65,8 +63,6 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
         <p className="forgot-password text-right">
           Already registered <a href="/signUp">Sign Up</a>
         </p>
-      </form>
+      </div>
     );
 };
-
-export default LoginPage;

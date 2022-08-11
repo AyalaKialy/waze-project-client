@@ -1,6 +1,6 @@
 
 export type System = {
-    _id: string,
+    _id?: string,
     topic:string,
     objectName:string,
     managerId:string,

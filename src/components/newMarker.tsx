@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../css/marker.css';
 import Autocomplete from './autocomplete';
 import {IMarker} from './markers.store';
-import GoogleMapReact from 'google-map-react';
 import { Marker } from 'google-maps-react';
 import axios from 'axios';
 
@@ -16,7 +15,7 @@ const NewMarker = (props: any) => {
 
     const create = async () => {
       debugger;
-        <Marker position={{ lat: lat, lng: lng }} />
+        // <Marker position={{ lat: lat, lng: lng }} />
         //key={i}
         const IMarker = {
           name:name,

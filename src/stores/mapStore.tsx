@@ -7,7 +7,7 @@ export interface IMap {
 
 export class MapStore {
 
-currentMap: IMap = {
+ @observable currentMap: IMap = {
     zoom:7,
     center:{lat:31.0461,lng:34.8516}
 };
@@ -16,11 +16,15 @@ currentMap: IMap = {
         makeAutoObservable(this);
     }
 
-    // @action
+    @action
     setZoom=(zoom:number)=> {
+        this.currentMap.zoom = zoom;
     }
-
-     setCenter=(center:{})=> {
+    
+    @action
+     setCenter=(lat:number,lng:number)=> {
+        this.currentMap.center.lat=lat;
+        this.currentMap.center.lng=lng;
     }
     
   };

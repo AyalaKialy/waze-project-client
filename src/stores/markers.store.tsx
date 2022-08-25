@@ -9,7 +9,7 @@ export interface IMarker {
 }
 
 export class MarkersStore {
-public markers: IMarker[] = [];
+@observable markers: IMarker[] = [];
 // currentMarker: any = null;
 
     constructor() {
@@ -57,3 +57,5 @@ public markers: IMarker[] = [];
   };
 
 }
+  const markersStore = new MarkersStore();
+export default markersStore;

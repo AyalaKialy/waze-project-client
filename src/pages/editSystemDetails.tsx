@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { createSystem } from '../api/system';
-import {System} from '../models/system.model';
-import {  useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { System } from '../models/system.model';
+import{ getSystemByManagerId } from '../api/system';
+import { useParams } from 'react-router-dom';
+import { getSystemByUrlName ,updateSystem} from '../api/system';
 
-export default function CreateSystem() {
-
+export default function EditSystemDetails() {
+    const {systemUrl} = useParams();
+    const [system, setSystem] = useState<System>();
     const {userId} = useParams();
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
@@ -15,8 +15,19 @@ export default function CreateSystem() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
-    const create = async () => {
-      debugger;
+    useEffect(() => {
+        getSystem();
+    },[]);
+
+    const getSystem = async() => {
+        try {
+            const system = await getSystemByUrlName(String(systemUrl));
+            setSystem(system);
+        }catch{
+            console.log("getSystem failed");
+    }
+    }
+       const create = async () => {
         const system = {
           topic: topic,
           objectName: objectName,
@@ -27,7 +38,8 @@ export default function CreateSystem() {
           phone:phone
             }
             try{
-              await createSystem(system);
+              await updateSystem(String(userId), system);
+              debugger
             }catch{
                 console.log("failed to create system");
             }
@@ -39,54 +51,54 @@ export default function CreateSystem() {
          <div className="mb-3">
           <label>topic</label>
                 <input
-                    type="string"
+                    type="text"
                     className="form-control"
-                    placeholder="Enter topic"
+                    // value = {system?.topic}
                     onChange={(e) => setTopic(e.target.value)}
           />
         </div>
         <div className="mb-3">
           <label>objectName</label>
           <input
-            type="string"
+            type="text"
             className="form-control"
-                    placeholder="Enter objectName"
+                    //  value = {system?.objectName}
                     onChange={(e) => setObjectName(e.target.value)}
           />
         </div>
            <div className="mb-3">
           <label>description</label>
           <input
-            type="string"
+            type="text"
             className="form-control"
-                    placeholder="Enter description"
+                    // value = {system?.description}
                     onChange={(e) => setDescription(e.target.value)}
           />
         </div>
             <div className="mb-3">
           <label>urlName</label>
           <input
-            type="string"
+            type="text"
             className="form-control"
-                    placeholder="Enter urlName"
+                    // value = {system?.urlName}
                     onChange={(e) => setUrlName(e.target.value)}
           />
         </div>
           <div className="mb-3">
           <label>email</label>
           <input
-            type="string"
+            type="text"
             className="form-control"
-                    placeholder="Enter email"
+                    // value = {system?.email}
                     onChange={(e) => setEmail(e.target.value)}
           />
         </div>
           <div className="mb-3">
           <label>phone</label>
           <input
-            type="string"
+            type="text"
             className="form-control"
-                    placeholder="Enter phone"
+                //   value={system?.phone}
                     onChange={(e) => setPhone(e.target.value)}
           />
         </div>

@@ -9,12 +9,11 @@ import CreateSystem from './components/createSystem';
 import Users from './components/users';
 import Systems from './components/systems';
 import SingleSystem from './components/system';
-
 import { Wrapper } from '@googlemaps/react-wrapper';
 import Marker from './components/marker';
 import MapContainer from './components/map';
 import NewMarker from './components/newMarker';
-
+import EditSystemDetails from './pages/editSystemDetails';
 export interface IApplicationProps { }
 
 const App: React.FC<IApplicationProps> = (props) => {
@@ -32,8 +31,10 @@ const App: React.FC<IApplicationProps> = (props) => {
                 <Route path="/MySystem/:systemUrl" element={<SingleSystem />} />
                 <Route path="/MapContainer" element={<MapContainer />} />
                   <Route path="/NewMarker" element={<NewMarker />} />
+                <Route path="/EditSystemDetails/:systemUrl" element={<EditSystemDetails />} />
             </Routes>
         </BrowserRouter>
+        
     );
 };
 

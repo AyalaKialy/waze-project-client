@@ -32,9 +32,9 @@ export default function SingleSystem() {
         getSystem();
     },[]);
 
-    const getSystem=async()=>{
+    const getSystem = async()=>{
         try {
-            const SYSTEM=await getSystemByUrlName(String(systemUrl));
+            const SYSTEM = await getSystemByUrlName(String(systemUrl));
             setSystem(SYSTEM);
         }catch{
             console.log("getSystem failed");

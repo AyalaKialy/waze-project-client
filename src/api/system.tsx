@@ -24,7 +24,7 @@ export const getSystemByManagerId = async (managerId: string) => {
     }
 }
 
-//getSystemByurlName
+//getSystemByUrlName
 export const getSystemByUrlName = async (urlName: string) => {
     console.log("getSystemByurlName");
     try {
@@ -38,11 +38,9 @@ export const getSystemByUrlName = async (urlName: string) => {
 }
 //post 
 export const createSystem = async (system:System) => {
-    debugger;
     try {
         const res = await axios.post('http://localhost:3333/system/', system);
-         console.log(res);
-         debugger;
+        console.log(res.status);
     }
     catch (error) {
         console.log('error-createSystem',error);
@@ -60,12 +58,9 @@ export const updateSystem = async (systemId:string, updates:System) => {
 }
 
 //delete
-export const deleteSystem= async (systemId:string) => {
+export const deleteSystem = async (systemId:string) => {
     try {
         await axios.delete(`http://localhost:3333/system/${systemId}`);
-        // const { data } = await getAllSystems();
-        // console.log(data);
-        // return data;
     }
     catch (error) {
         console.log('error - deleteSystem', error);

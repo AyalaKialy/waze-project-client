@@ -15,9 +15,8 @@ const NewMarker = (props: any) => {
     const [lng,setLng]= useState(0);
 
     const create = async () => {
-      debugger;
         // <Marker position={{ lat: lat, lng: lng }} />
-        // //key={i}
+        //key={i}
         const IMarker = {
           name:name,
           description: description,

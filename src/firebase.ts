@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 
 import { config } from './config/config';
+import { Role } from "./models/user.model";
 
 const app = initializeApp(config.firebaseConfig);
 const auth = getAuth(app);
@@ -29,7 +30,6 @@ const signInWithGoogle = async () => {
   try {
       const res = await signInWithPopup(auth, googleProvider);
       console.log(res.user.uid); 
-
       const user=res.user; 
       const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
@@ -59,16 +59,15 @@ const registerWithEmailAndPassword = async (name:string,email:string, password:s
     debugger;
   try {
       debugger;
-    const res = await createUserWithEmailAndPassword(auth, email, password);//נפילה
+    const res = await createUserWithEmailAndPassword(auth, email, password);
     console.log(res.user);
-    debugger;
-    
     const user = res.user;
-    await addDoc(collection(db, "users"), {
+     await addDoc(collection(db, "users"), {
       uid: user.uid,
-      name: user.displayName,
+      name,
       authProvider: "local",
-      email: user.email,
+      email,
+      role: Role[0],
     });
   } catch (err:any) {
     console.error(err);

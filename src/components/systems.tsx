@@ -24,7 +24,6 @@ export default function Systems() {
         }
     };
 
-    //map מה קורה אם יש רק אוביקט אחד במערך-לא בטוח שמצליח לעבור עם 
     return (
         <div>
             {systems.length>0 && systems.map(system =>

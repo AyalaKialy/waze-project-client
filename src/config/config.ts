@@ -2,6 +2,7 @@ export const config = {
     firebaseConfig: {
         apiKey: 'AIzaSyBk-gdTc1sB3rJuXTDIBFdpLc3k1KwSTpc',
         authDomain: 'waze-project-b846f.firebaseapp.com',
+        //יש מצב שחסר כאן:databaseURL
         projectId: 'waze-project-b846f',
         storageBucket: 'waze-project-b846f.appspot.com',
         messagingSenderId: '767933284652',

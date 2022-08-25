@@ -18,6 +18,11 @@ import '../css/login.css'
     if (user)  {
       console.log('if user');
       console.log(user);
+      user.getIdToken().then((value=>{
+      const token=value;
+      console.log(token);
+    }));
+    
       navigate(`/HomePage/${user.uid}`);   
     }
    }, [user, loading]);

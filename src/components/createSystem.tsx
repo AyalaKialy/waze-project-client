@@ -18,6 +18,7 @@ export default function CreateSystem() {
     const [phone, setPhone] = useState('');
 
     const create = async () => {
+      debugger;
         const system = {
           topic: topic,
           objectName: objectName,
@@ -29,8 +30,9 @@ export default function CreateSystem() {
             }
             try{
            debugger;
-           await createSystem(system);
+          const res= await createSystem(system);
            console.log(system);
+              console.log(res);
             }catch{
                 console.log("failed to create system");
             }

@@ -24,17 +24,6 @@ import { createUser} from '../api/user';
          navigate(`/HomePage/${user.uid}`);   
       };
     }, [user, loading]);
-  
-  //   const signUpWithPassword = async () => {
-  //     debugger;
-  //     //יצירה עם פיירבייס
-  //     await registerWithEmailAndPassword(firstName+' '+lastName,email, password);
-  //    debugger;
-  //    console.log("create");
-  //    console.log(user);
-  //     //יצירה עם מונגו
-  //     createInMongo();
-  // }
 
   const createInMongo=async()=>{
       const newUser = {
@@ -56,8 +45,7 @@ console.log("create failed");
   };
   
     return (
-       <form  className='auth-inner' 
-       onSubmit={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)}>
+       <form  className='auth-inner'       >
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
@@ -103,7 +91,8 @@ console.log("create failed");
           />
         </div>
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+          <button type="button" className="btn btn-primary" 
+          onClick={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)}>
             Sign Up
           </button>
         </div>

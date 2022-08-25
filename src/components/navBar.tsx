@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import logo from'../img/logo.png';
 import { Link } from 'react-router-dom';
+import { logout } from '../firebase';
 
 export interface InavbarProps { }
 const MyNavbar: React.FunctionComponent<InavbarProps> = (props) => { 
@@ -15,10 +16,9 @@ const MyNavbar: React.FunctionComponent<InavbarProps> = (props) => {
         <Link className="navbar-brand" to='/'>WAZE PROJECT</Link>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-            <Link to="/login" className="nav-item nav-link">Home</Link>
-            <Link to="/signup" className="nav-item nav-link">Sign up</Link>  
-            <Link to="/CreateSystem" className="nav-item nav-link">CreateSystem</Link>
-            <Link to="/home" className="nav-item nav-link">Home</Link>
+            <Link to="/login" className="nav-item nav-link">login</Link>
+             <Link to="/signup" className="nav-item nav-link">Sign up</Link>  
+            <button onClick={logout}>Sign out</button>
           </div>
           </div>
       </nav>     

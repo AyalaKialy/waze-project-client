@@ -1,40 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {System} from '../models/system.model';
-import{ getSystemByManagerId } from '../api/system';
-import { Link, useParams ,useNavigate} from 'react-router-dom';
+import{ getSystemByManagerId, deleteSystem } from '../api/system';
+import { useParams ,useNavigate} from 'react-router-dom';
 
 export default function Systems() {
     const navigate = useNavigate();
     const [systems, setSystems] = useState<System[]>([]);
-    const {userId}=useParams();
+    const {userId} = useParams();
 
     useEffect(() => {
-        console.log(userId);
         getAll();
     }, [])
-     
-
     const getAll = async () => {
         try {
             const res = await getSystemByManagerId(String(userId));
             setSystems(res);
-            console.log(res);
         } catch (err) {
             console.log(err)
         }
     };
+    const deleteASystem = async(systemId: any) => {
+        const choice = window.confirm('Are you sure you want to delete this system?');
+        if (!choice) return;
+        await deleteSystem(systemId);
+        window.location.reload();
 
-    //map מה קורה אם יש רק אוביקט אחד במערך-לא בטוח שמצליח לעבור עם 
+    }
+
     return (
         <div>
-            {systems.length>0 && systems.map(system =>
-                <div key={system.urlName}>
-                <button type="button" 
-                onClick={()=>navigate(`/MySystem/${system.urlName}`)}>
-                {system.urlName}</button>
+            <h1 className='pink'>my activity systems</h1>
+            <div className='card-group'>
+            {systems.length > 0 && systems.map(system =>
+                <div key={system._id} className='card'>
+                    <div className='card-body'>
+                        <h5 className='card-title'>{ system.topic}</h5>
+                        <p className='card-text'>{system.description}</p>
+                        <a onClick={() => navigate(`/MySystem/${system.urlName}`)} className='btn btn-primary'>for details</a>
+                        <br />
+                        <a onClick={() => deleteASystem(system._id)} className='btn btn-primary'>delete system</a>
+                        <a onClick={() => navigate(`/EditSystemDetails/${system.urlName}`)} className='btn btn-primary'>edit details</a>
+                    </div>
                 </div>
-            )}
-           
-        </div> 
-    )
+                )}
+                </div>
+</div>
+            )
+                
 }

@@ -11,3 +11,9 @@
 .navbar-brand{
     color:darkorange;
 }
+button{
+  color:darkorange;
+  border: none;
+  background-color: white;
+  font-size:larger;
+}

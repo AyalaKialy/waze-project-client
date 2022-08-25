@@ -1,24 +1,30 @@
 
 import React, { useEffect, useState } from 'react';
-import { auth ,logout} from '../firebase';
+import { auth } from '../firebase';
+import userStore from '../stores/userStore';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { getUserByUid } from '../api/user';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
 import  NavBar  from '../components/navBar';
 
   export default function HomePage() {
     const navigate = useNavigate();
-    const [userId,setUserId]=useState('');
-    const {uid}=useParams();
-      const [user, loading, error] = useAuthState(auth);
+    const [userId,setUserId] = useState('');
+    const {uid} = useParams();
+    const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
+      const h = async () => {
+            await userStore.loudUser(String(uid));
+            console.log(userStore.user.email);
+      };
+      h();
       getUserByUidFromServer();
+
     },[]);
     
-    const getUserByUidFromServer= async () => {
-      const user=await getUserByUid(String(uid));
+    const getUserByUidFromServer = async () => {
+      const user = await getUserByUid(String(uid));
         setUserId(user._id);
     }
 
@@ -33,12 +39,11 @@ import  NavBar  from '../components/navBar';
    }, [user, loading]);
 
     return (
-        <div>
-            <NavBar/>
+      <div>
+        <NavBar/>
             <p>Home Page (Protected by Firebase!)</p>
-            <button type="button" onClick={e=> navigate(`/CreateSystem/${userId}`)}>Create System</button>
-            <button type="button" onClick={e=> navigate(`/Systems/${userId}`)}>Systems</button>
-            <button onClick={logout}>Sign out of Firebase</button>
+            <button type="button" onClick={e => navigate(`/CreateSystem/${userId}`)}>Create System</button>
+            <button type="button" onClick={e => navigate(`/Systems/${userId}`)}>Systems</button>
         </div>
     );
 };

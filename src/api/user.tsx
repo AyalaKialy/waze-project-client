@@ -23,8 +23,8 @@ export const getUserByEmail = async (email: string)=> {
     }
 }
 
-//getUserByEmail
-export const getUserByUid = async (uid: string)=> {
+//getUserByUid
+export const getUserByUid = async (uid: string) => {
     try {
         const user = await axios.get(`http://localhost:3333/user/${uid}`);
         return user.data;
@@ -35,7 +35,7 @@ export const getUserByUid = async (uid: string)=> {
 }
 
 //post 
-export const createUser= async (newUser:User) => {
+export const createUser = async (newUser:User) => {
     debugger;
     try {
         const user= await axios.post('http://localhost:3333/user/', newUser);

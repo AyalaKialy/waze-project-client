@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './marker';
-// import { mapStore } from './map.store';
+import  mapStore from '../stores/mapStore';
 
 const MapContainer = (props: any) => {
-    const [center, setCenter] = useState({lat: 31.0461, lng: 34.8516 });
-    const [zoom, setZoom] = useState(7);
+    // const [center, setCenter] = useState({lat: 31.0461, lng: 34.8516 });
+    // const [zoom, setZoom] = useState(7);
 
     return (
         <div style={{ height: '100vh', width: '100%' }}>
- {/* <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-          center={{ lat: MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng }}
-          zoom={MapStore.currentMap.zoom}
+        {/* <GoogleMapReact
           options={getMapOptions}
         ></GoogleMapReact> */}
 
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCbqPxgu_xAJ_hfku1xxaQpyejnGHKBmp4' }}
-          center={center}
-          zoom={zoom}
+          center={{ lat: mapStore.currentMap.center.lat, lng: mapStore.currentMap.center.lng }}
+          zoom={mapStore.currentMap.zoom}
         >
           <Marker
             lat={31.0461}

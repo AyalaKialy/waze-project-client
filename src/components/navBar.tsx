@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/navBar.css";
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
+// import Container from 'react-bootstrap/Container';
 import logo from'../img/logo.png';
 import { Link } from 'react-router-dom';
 import { logout } from '../firebase';

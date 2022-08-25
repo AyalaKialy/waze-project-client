@@ -14,7 +14,8 @@ import {
 import "@reach/combobox/styles.css";
 import "../css/autocomplete.css";
 import axios from 'axios';
-import { MarkersStore } from './markers.store';
+import markersStore from '../stores/markers.store';
+import mapStore from '../stores/mapStore';
 
 export default function Autocomplete() {
 
@@ -25,10 +26,13 @@ export default function Autocomplete() {
     setValue
   } = usePlacesAutocomplete();
 
+  const marker={lat:0,lng:0};
+
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
     console.log("handleInput");
     setValue(e.target.value);
     convertfromAdressToLocation();
+    mapStore.setCenter(marker.lat, marker.lng);
   };
 
   const handleSelect = (val: string): void => {
@@ -49,7 +53,6 @@ export default function Autocomplete() {
       </>
     );
   };
-const marker={lat:0,lng:0};
 
 //?city=Israel&   -איך מגבילים לחיפוש בישראל
       const convertfromAdressToLocation=()=>{

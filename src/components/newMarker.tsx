@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../css/marker.css';
 import Autocomplete from './autocomplete';
-import {IMarker} from './markers.store';
+import {IMarker} from '../stores/markers.store';
+import GoogleMapReact from 'google-map-react';
 import { Marker } from 'google-maps-react';
 import axios from 'axios';
 
@@ -14,7 +15,6 @@ const NewMarker = (props: any) => {
     const [lng,setLng]= useState(0);
 
     const create = async () => {
-      debugger;
         // <Marker position={{ lat: lat, lng: lng }} />
         //key={i}
         const IMarker = {
@@ -46,11 +46,11 @@ const NewMarker = (props: any) => {
 //       zoom: 11
 //     };
 // const map = new google.maps.Map(mapConfig);
-    // document.getElementById("map") as HTMLElement,
-    // {
-    //   zoom: 4,
-    //   center: myLatLng,
-    // }
+//     document.getElementById("map") as HTMLElement,
+//     {
+//       zoom: 4,
+//       center: myLatLng,
+//     }
 
 //    new google.maps.Marker({
 //     position: myLatLng,

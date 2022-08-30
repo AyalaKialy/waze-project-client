@@ -3,10 +3,13 @@ import Autocomplete from './autocomplete';
 import markersStore from '../stores/markers.store';
 import { useNavigate, useParams } from "react-router-dom";
 
-const NewMarker = () => {
-    const marker = markersStore.chooseMarker;
-    const navigate = useNavigate();
-    const {systemUrl} = useParams();
+export default function NewMarker() {
+
+    const [name,setName] =useState('');
+    const [description,setDescription] =useState('');
+    const [phone, setPhone] = useState('');
+    const [lat,setLat]= useState(0);
+    const [lng,setLng]= useState(0);
 
     const create = async () => {
       try {
@@ -64,5 +67,3 @@ const NewMarker = () => {
     </form>
     );
   };
-
-  export default NewMarker;

@@ -1,7 +1,8 @@
 import GoogleMapReact from 'google-map-react';
 import Marker from './marker';
 import  mapStore from '../stores/mapStore';
-import markersStore from '../stores/markers.store';
+import markersStore from '../stores/markersStore';
+import { color } from '@mui/system';
 
 const MapContainer = () => {
    
@@ -25,4 +26,3 @@ const MapContainer = () => {
       </div>
     );
 }
-export default MapContainer;

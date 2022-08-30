@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/navBar.css";
 import Navbar from 'react-bootstrap/Navbar';
@@ -5,9 +6,8 @@ import logo from'../img/logo.png';
 import { Link } from 'react-router-dom';
 import { logout } from '../firebase';
 
-export interface InavbarProps { }
-const MyNavbar: React.FunctionComponent<InavbarProps> = (props) => { 
-    
+export default function MyNavbar() {
+
   return (
     <nav className="navbar navbar-expand-lg p-3 navbar-dark transparent-nav nav-js">
         <Navbar.Brand href="#home">
@@ -23,6 +23,3 @@ const MyNavbar: React.FunctionComponent<InavbarProps> = (props) => {
       </nav>     
   );
 }
-
-export default MyNavbar;
-

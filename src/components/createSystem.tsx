@@ -28,6 +28,7 @@ export default function CreateSystem() {
             }
             try{
               await createSystem(system);
+              //אז כאן גם הכנסת היוזר לטבלת מנגר כאדמין
             }catch{
                 console.log("failed to create system");
             }

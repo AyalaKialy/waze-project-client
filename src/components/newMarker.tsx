@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import '../css/marker.css';
 import Autocomplete from './autocomplete';
-import {IMarker} from '../stores/markers.store';
+// import {IMarker} from '../stores/markersStore';
 import GoogleMapReact from 'google-map-react';
 import { Marker } from 'google-maps-react';
 import axios from 'axios';
 
-const NewMarker = (props: any) => {
+export default function NewMarker() {
 
     const [name,setName] =useState('');
     const [description,setDescription] =useState('');
@@ -15,8 +15,6 @@ const NewMarker = (props: any) => {
     const [lng,setLng]= useState(0);
 
     const create = async () => {
-        // <Marker position={{ lat: lat, lng: lng }} />
-        //key={i}
         const IMarker = {
           name:name,
           description: description,
@@ -25,40 +23,12 @@ const NewMarker = (props: any) => {
           lng:lng,
         }
         try{
-        debugger;
-        //יצירה עם פונקצית יצירה ממרקר סטור
-        //   const res= await addMarker(system);
-        //    console.log(system);
-        //       console.log(res);
+     
         }catch{
                 console.log("failed in create marker");
             }
         }
-
-// const myLatLng = { lat: 31.0461, lng: 34.8516 };
-//     const mapConfig: google.maps.MapOptions = {
-//       center: {
-//         lat,
-//         lng
-//       },
-//       disableDefaultUI: true,
-//       minZoom: 8,
-//       zoom: 11
-//     };
-// const map = new google.maps.Map(mapConfig);
-//     document.getElementById("map") as HTMLElement,
-//     {
-//       zoom: 4,
-//       center: myLatLng,
-//     }
-
-//    new google.maps.Marker({
-//     position: myLatLng,
-//     map,
-//     title: "Hello World!",
-//   });
-
-// const { color, name, id } = props;
+        
     return (
       <form className='auth-inner' onSubmit={create}>
       <h3>create new marker</h3>
@@ -101,5 +71,3 @@ const NewMarker = (props: any) => {
     </form>
     );
   };
-
-  export default NewMarker;

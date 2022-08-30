@@ -1,29 +1,25 @@
 import {autorun, observable, computed,action, makeAutoObservable } from 'mobx';
-import { getUser } from '../firebase'
+import { getUserByUid } from '../api/user';
+import { User } from '../models/user.model';
 
-export interface IUser {
-    _id: string,
-    uid: String,
-    role: String,
-    firstName: String,
-    lastName: String,
-    phone: String,
-    email: String
-}
 
 export class UserStore {
-    @observable user:any;
+    @observable user:any; //איך מגדירים שיוזר יהיה מסוג User
+    @observable token:any; //בctor ככה שומרים עוד נתון במוביקס? צריך להוסיף משהו ?
+    @observable role:any; 
+    @observable numSystems:any;
 
     constructor() { 
         makeAutoObservable(this);    
     }
     @action
     loudUser = async(uid:string) => {
-        const user = await getUser(uid);
+        const user=await getUserByUid(uid);
         this.user = user;
     }
-}
 
+
+}
 
 const userStore = new UserStore();
 export default userStore;

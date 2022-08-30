@@ -49,8 +49,9 @@ return res;
 
 //put
 export const updateSystem = async (systemId:string, updates:System) => {
+    console.log("updateSystem");
     try {
-         await axios.put(`http://localhost:3333/system/${systemId}`, updates);
+ await axios.put(`http://localhost:3333/system/${systemId}`, updates);
     }
     catch (error) {
         console.log('error - updateSystem',error);

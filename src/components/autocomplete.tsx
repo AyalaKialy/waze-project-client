@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import useOnclickOutside from "react-cool-onclickoutside";
 
 import { ChangeEvent } from "react";
-import usePlacesAutocomplete,{ getGeocode,getLatLng,}from "use-places-autocomplete";
+import usePlacesAutocomplete,{ getGeocode,getLatLng}from "use-places-autocomplete";
 import {
   Combobox,
   ComboboxInput,
@@ -14,7 +14,7 @@ import {
 import "@reach/combobox/styles.css";
 import "../css/autocomplete.css";
 import axios from 'axios';
-import markersStore from '../stores/markers.store';
+// import markersStore from '../stores/markersStore';
 import mapStore from '../stores/mapStore';
 
 export default function Autocomplete() {
@@ -31,13 +31,17 @@ export default function Autocomplete() {
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
     console.log("handleInput");
     setValue(e.target.value);
-    convertfromAdressToLocation();
-    mapStore.setCenter(marker.lat, marker.lng);
   };
 
   const handleSelect = (val: string): void => {
      console.log("handleSelect");
     setValue(val, false);
+    console.log(val);
+    console.log(value);
+    convertfromAdressToLocation();
+    // console.log(marker);
+    // mapStore.setCenter(marker.lat, marker.lng);
+    // mapStore.setZoom(10);
   };
 
   const renderSuggestions = (): JSX.Element => {
@@ -62,6 +66,7 @@ export default function Autocomplete() {
           console.log("Coordinates: ", { lat, lng });
         marker.lat=lat;
         marker.lng=lng;
+      console.log(marker);
         })
         .catch((error) => {
           console.log("Error: ", error);

@@ -5,15 +5,15 @@ import { Link, useNavigate ,useParams} from "react-router-dom";
 import { async } from '@firebase/util';
 import { getSystemByUrlName ,updateSystem,deleteSystem} from '../api/system';
 import MapContainer from './map';
-import Autocomplete from './autocomplete';
+import AutoComplete from './autocomplete';
 import Marker from './marker';
 import '../css/map&.css';
 import NewMarker from './newMarker';
-// import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Autocomplete from './autocomplete';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

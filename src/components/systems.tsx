@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {System} from '../models/system.model';
 import{ getSystemByManagerId, deleteSystem } from '../api/system';
 import { useParams ,useNavigate} from 'react-router-dom';
+import systemsStore from '../stores/systemsStore';
 
 export default function Systems() {
     const navigate = useNavigate();
@@ -11,10 +12,11 @@ export default function Systems() {
     useEffect(() => {
         getAll();
     }, [])
+
     const getAll = async () => {
         try {
-            const res = await getSystemByManagerId(String(userId));
-            setSystems(res);
+           await systemsStore.loudsystems(String(userId));
+            setSystems(systemsStore.systems);
         } catch (err) {
             console.log(err)
         }
@@ -24,7 +26,6 @@ export default function Systems() {
         if (!choice) return;
         await deleteSystem(systemId);
         window.location.reload();
-
     }
 
     return (

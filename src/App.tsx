@@ -14,9 +14,8 @@ import Marker from './components/marker';
 import MapContainer from './components/map';
 import NewMarker from './components/newMarker';
 import EditSystemDetails from './pages/editSystemDetails';
-export interface IApplicationProps { }
 
-const App: React.FC<IApplicationProps> = (props) => {
+ export default function App() {
 
     return (
         <BrowserRouter>
@@ -37,5 +36,3 @@ const App: React.FC<IApplicationProps> = (props) => {
         
     );
 };
-
-export default App;

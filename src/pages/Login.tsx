@@ -3,6 +3,7 @@ import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
+import userStore from '../stores/userStore';
 
  export default function LoginPage(){
     const navigate = useNavigate();
@@ -18,9 +19,13 @@ import '../css/login.css'
     if (user)  {
       console.log('if user');
       console.log(user);
+      //get-set Token
       user.getIdToken().then((value=>{
       const token=value;
       console.log(token);
+      userStore.token=token;
+      //set User
+      
     }));
     
       navigate(`/HomePage/${user.uid}`);   

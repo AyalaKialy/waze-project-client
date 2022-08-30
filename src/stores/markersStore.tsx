@@ -14,20 +14,19 @@ export class MarkersStore {
 
     constructor() {
         makeAutoObservable(this);
-
         this.markers.push({
             name: "levi",
             description:"EE",
             phone:"089798989",
-            lat: 31.0461,
-            lng: 34.8516,
+            lat:32.085504,
+            lng: 34.886463,
         })
         this.markers.push({
-            name: "COHEN",
+            name: "cohen",
             description:"YY",
             phone:"089292929",
             lat: 31.0461,
-            lng: 36.8516,
+            lng: 35.8516,
         })
     }
 
@@ -38,24 +37,12 @@ export class MarkersStore {
 
   public updateMarker = (updateMarker: IMarker) => {
   console.log("updateMarker");
-    // const updateMarkers = this.markers.map(todo => {
-    //   if (todo.id === updatedTodo.id) {
-    //     return { ...updatedTodo };
-    //   }
-    //   return todo;
-    // });
-    // this.markers = updateMarkers;
   };
 
   public deleteMarker = (id: number) => {
     console.log("deleteMarker");
-    // const updatedTodos = this.todos.filter(todo => todo.id !== id);
-    // this.todos = updatedTodos;
-    // toast.info("Todo deleted", {
-    //   position: toast.POSITION.BOTTOM_CENTER
-    // });
   };
 
 }
-  const markersStore = new MarkersStore();
+const markersStore = new MarkersStore();
 export default markersStore;

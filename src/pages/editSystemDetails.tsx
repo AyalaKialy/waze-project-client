@@ -3,57 +3,71 @@ import { System } from '../models/system.model';
 import{ getSystemByManagerId } from '../api/system';
 import { useParams } from 'react-router-dom';
 import { getSystemByUrlName ,updateSystem} from '../api/system';
+import userStore from '../stores/userStore';
+import { async } from '@firebase/util';
 
 export default function EditSystemDetails() {
     const {systemUrl} = useParams();
     const [system, setSystem] = useState<System>();
-    const {userId} = useParams();
+
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
-    const [urlName, setUrlName] = useState('');
+    // const [urlName, setUrlName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
+    // console.log(systemUrl);
+
     useEffect(() => {
-        getSystem();
+       getSystem();
+            setTopic(String(system?.topic));
+            setObjectName(String(system?.objectName));
+            setDescription(String(system?.description));
+            setEmail(String(system?.email));
+            setPhone(String(system?.phone));
+            console.log(phone);
     },[]);
 
     const getSystem = async() => {
         try {
-            const system = await getSystemByUrlName(String(systemUrl));
-            setSystem(system);
+            const data = await getSystemByUrlName(String(systemUrl));
+            setSystem(data);
+            return system;
         }catch{
             console.log("getSystem failed");
     }
     }
-       const create = async () => {
-        const system = {
+       const update = async () => {
+        const updatedSystem = {
           topic: topic,
           objectName: objectName,
-          managerId:String(userId),
+          managerId:String(userStore.user.id),
+          urlName:String(systemUrl),
           description: description,
-          urlName:urlName,
           email:email,
           phone:phone
             }
             try{
-              await updateSystem(String(userId), system);
-              debugger
+            debugger;
+             await updateSystem(String(system?._id), updatedSystem);
+             debugger;
+            // getSystem();
+            // debugger;
             }catch{
                 console.log("failed to create system");
             }
         }
 
   return (
-    <form className='auth-inner' onSubmit={create}>
-      <h3>create new system</h3>
+    <form className='auth-inner' onSubmit={update}>
+      <h3>update system</h3>
          <div className="mb-3">
           <label>topic</label>
                 <input
                     type="text"
                     className="form-control"
-                    // value = {system?.topic}
+                    defaultValue = {system?.topic}
                     onChange={(e) => setTopic(e.target.value)}
           />
         </div>
@@ -62,7 +76,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    //  value = {system?.objectName}
+                     defaultValue = {system?.objectName}
                     onChange={(e) => setObjectName(e.target.value)}
           />
         </div>
@@ -71,7 +85,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    // value = {system?.description}
+                    defaultValue = {system?.description}
                     onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -80,8 +94,8 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    // value = {system?.urlName}
-                    onChange={(e) => setUrlName(e.target.value)}
+                    value = {system?.urlName}
+                    // onChange={(e) => setUrlName(e.target.value)}
           />
         </div>
           <div className="mb-3">
@@ -89,7 +103,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    // value = {system?.email}
+                    defaultValue = {system?.email}
                     onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -98,7 +112,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                //   value={system?.phone}
+                  defaultValue={system?.phone}
                     onChange={(e) => setPhone(e.target.value)}
           />
         </div>

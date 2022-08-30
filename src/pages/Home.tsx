@@ -14,6 +14,8 @@ import  NavBar  from '../components/navBar';
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
+      //אולי בלוגין לטעון בעצם תיוזר שנכנס?
+      //אולי כאן אין צורך בכל זה בכלל
       const h = async () => {
             await userStore.loudUser(String(uid));
             console.log(userStore.user.email);
@@ -27,6 +29,7 @@ import  NavBar  from '../components/navBar';
       const user = await getUserByUid(String(uid));
         setUserId(user._id);
     }
+    ////////
 
      useEffect(() => {
     if (loading) {

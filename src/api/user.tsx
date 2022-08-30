@@ -43,6 +43,26 @@ export const createUser = async (newUser:User) => {
          debugger;
     }
     catch (error) {
-        console.log('error-createUser',error);
+        console.log('error in createUser',error);
+    }
+}
+
+//delete
+export const deleteUser = async (Id:string) => {
+    try {
+        await axios.delete(`http://localhost:3333/user/${Id}`);
+    }
+    catch (error) {
+        console.log('error in deleteUser', error);
+    }
+}
+
+//put
+export const updateUser= async (Id:string, updates:User) => {
+    try {
+         await axios.put(`http://localhost:3333/user/${Id}`, updates);
+    }
+    catch (error) {
+        console.log('error in updateUser',error);
     }
 }

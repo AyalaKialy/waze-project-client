@@ -2,8 +2,6 @@ import React, { useState,useEffect } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase";
-
-import {Role} from '../models/user.model';
 import { createUser} from '../api/user';
   
  export default function SignUpPage() {
@@ -28,16 +26,15 @@ import { createUser} from '../api/user';
   const createInMongo=async()=>{
       const newUser = {
         uid: String(user?.uid),
-        role: Role.admin,
         firstName: firstName,
         lastName: lastName,
         phone: phone,
         email: email
             }
             try{
-      await createUser(newUser);
+                await createUser(newUser);
             }catch{
-console.log("create failed");
+                   console.log("create failed");
             }
   }
       const signInGoogle = () => {

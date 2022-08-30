@@ -10,7 +10,7 @@ import {
 
 import '@reach/combobox/styles.css';
 import '../css/autocomplete.css';
-import markersStore from '../stores/markers.store';
+import markersStore from '../stores/markersStore'
 import mapStore from '../stores/mapStore';
 
 export default function Autocomplete() {

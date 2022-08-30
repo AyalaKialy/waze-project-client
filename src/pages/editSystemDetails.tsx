@@ -94,8 +94,8 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    defaultValue = {system?.urlName}
-                    onChange={(e) => setUrlName(e.target.value)}
+                    value = {system?.urlName}
+                   
           />
         </div>
           <div className="mb-3">

@@ -4,7 +4,7 @@ import  mapStore from '../stores/mapStore';
 import markersStore from '../stores/markersStore';
 import { color } from '@mui/system';
 
-const MapContainer = () => {
+export default function MapContainer() {
    
     return (
         <div style = {{ height: '100vh', width: '100%' }}>
@@ -26,3 +26,4 @@ const MapContainer = () => {
       </div>
     );
 }
+

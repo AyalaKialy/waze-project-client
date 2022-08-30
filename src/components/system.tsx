@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { System } from '../models/system.model';
 import { useNavigate, useParams} from "react-router-dom";
 import { getSystemByUrlName} from '../api/system';
-import MapContainer from './map';
+import MapContainer from './map'
 import AutoComplete from './autocomplete';
 import Marker from './marker';
 import '../css/map&.css';

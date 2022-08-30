@@ -1,7 +1,7 @@
 import '../css/map&.css';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import markersStore from '../stores/markers.store';
+import markersStore from '../stores/markersStore';
 import mapStore from '../stores/mapStore';
 export default function SystemLocations() {
 

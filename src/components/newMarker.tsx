@@ -1,17 +1,16 @@
 import '../css/marker.css';
 import Autocomplete from './autocomplete';
-import markersStore from '../stores/markers.store';
+import markersStore from '../stores/markersStore'
 import { useNavigate, useParams } from "react-router-dom";
+
 
 export default function NewMarker() {
 
-    const [name,setName] =useState('');
-    const [description,setDescription] =useState('');
-    const [phone, setPhone] = useState('');
-    const [lat,setLat]= useState(0);
-    const [lng,setLng]= useState(0);
-
-    const create = async () => {
+  const marker = markersStore.chooseMarker;
+  const navigate = useNavigate();
+  const { systemUrl } = useParams();
+  
+  const create = async () => {
       try {
          await markersStore.addMarker(marker);
         markersStore.markers.map(marker => { 

@@ -72,6 +72,9 @@ body, html, .App, #root, .auth-wrapper {
 .pink{
     color: rgb(255, 169, 234);
 }
+.white{
+    color:#ffffff;
+}
 a{
   margin: 7px;
 }

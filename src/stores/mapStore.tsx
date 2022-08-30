@@ -8,7 +8,7 @@ export interface IMap {
 export class MapStore {
 
  @observable currentMap: IMap = {
-    zoom:7,
+    zoom:10,
     center:{lat:31.0461,lng:34.8516}
 };
 
@@ -17,14 +17,14 @@ export class MapStore {
     }
 
     @action
-    setZoom=(zoom:number)=> {
+    setZoom = (zoom:number) => {
         this.currentMap.zoom = zoom;
     }
     
     @action
-     setCenter=(lat:number,lng:number)=> {
-        this.currentMap.center.lat=lat;
-        this.currentMap.center.lng=lng;
+     setCenter = (lat:number,lng:number) => {
+        this.currentMap.center.lat = lat;
+        this.currentMap.center.lng = lng;
     }
     
   };

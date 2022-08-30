@@ -1,4 +1,4 @@
-import {  observable, computed ,makeAutoObservable} from "mobx";
+import {  observable, makeAutoObservable} from "mobx";
 
 export interface IMarker {
     name:string,
@@ -9,8 +9,8 @@ export interface IMarker {
 }
 
 export class MarkersStore {
-@observable markers: IMarker[] = [];
-// currentMarker: any = null;
+ @observable markers: IMarker[] = [];
+ @observable chooseMarker: IMarker = { name:'',description:'',phone:'',lat:0,lng:0};
 
     constructor() {
         makeAutoObservable(this);
@@ -19,8 +19,8 @@ export class MarkersStore {
             name: "levi",
             description:"EE",
             phone:"089798989",
-            lat: 31.0461,
-            lng: 34.8516,
+            lat: 31.7682378,
+            lng: 35.1827471,
         })
         this.markers.push({
             name: "COHEN",

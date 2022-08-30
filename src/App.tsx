@@ -30,7 +30,7 @@ const App: React.FC<IApplicationProps> = (props) => {
                 <Route path="/Systems/:userId" element={<Systems />} />
                 <Route path="/MySystem/:systemUrl" element={<SingleSystem />} />
                 <Route path="/MapContainer" element={<MapContainer />} />
-                  <Route path="/NewMarker" element={<NewMarker />} />
+                  <Route path="/NewMarker/:systemUrl" element={<NewMarker />} />
                 <Route path="/EditSystemDetails/:systemUrl" element={<EditSystemDetails />} />
             </Routes>
         </BrowserRouter>

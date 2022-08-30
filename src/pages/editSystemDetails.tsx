@@ -53,7 +53,7 @@ export default function EditSystemDetails() {
                 <input
                     type="text"
                     className="form-control"
-                    // value = {system?.topic}
+                     defaultValue = {system?.topic}
                     onChange={(e) => setTopic(e.target.value)}
           />
         </div>
@@ -62,7 +62,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    //  value = {system?.objectName}
+                     defaultValue = {system?.objectName}
                     onChange={(e) => setObjectName(e.target.value)}
           />
         </div>
@@ -71,7 +71,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    // value = {system?.description}
+                    defaultValue = {system?.description}
                     onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -80,7 +80,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    // value = {system?.urlName}
+                    defaultValue = {system?.urlName}
                     onChange={(e) => setUrlName(e.target.value)}
           />
         </div>
@@ -89,7 +89,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                    // value = {system?.email}
+                    defaultValue = {system?.email}
                     onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -98,7 +98,7 @@ export default function EditSystemDetails() {
           <input
             type="text"
             className="form-control"
-                //   value={system?.phone}
+                  defaultValue = {system?.phone}
                     onChange={(e) => setPhone(e.target.value)}
           />
         </div>

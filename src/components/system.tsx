@@ -3,10 +3,8 @@ import { System } from '../models/system.model';
 import { useNavigate, useParams} from "react-router-dom";
 import { getSystemByUrlName} from '../api/system';
 import MapContainer from './map'
-import AutoComplete from './autocomplete';
-import Marker from './marker';
+import systemsStore from '../stores/systemsStore';
 import '../css/map&.css';
-import NewMarker from './newMarker';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -25,42 +23,29 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SingleSystem() {
-    const navigate = useNavigate();
-    const {systemUrl} = useParams();
-    const [system,setSystem] = useState<System>();
+  const navigate = useNavigate();
+  const { systemUrl } = useParams();
+  const system = systemsStore.system;
 
-    useEffect(() => {
-        getSystem();
-    },[]);
-
-    const getSystem = async() =>{
-        try {
-            const SYSTEM = await getSystemByUrlName(String(systemUrl));
-            setSystem(SYSTEM);
-        }catch{
-            console.log("getSystem failed");
-    }
-}
-
-const createNewMarker = () =>{
- navigate(`/newMarker/${systemUrl}`);
-}
+  const createNewMarker = () => {
+    navigate(`/newMarker/${systemUrl}`);
+  }
   return (
+    
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid item xs = {12}>
+        <Grid item xs={12}>
           <h1 className='pink'>{system?.topic}</h1>
         </Grid>
-        <Grid item xs = {5}>
+        <Grid item xs={5}>
           <Item className="item"><MapContainer></MapContainer></Item>
         </Grid>
-        <Grid item xs = {4}>
-          <SystemLocations/>
+        <Grid item xs={4}>
+          <SystemLocations systemUrl={systemUrl} />
         </Grid>
-        <Grid item xs = {3}>
-          <Item className = "item"><Autocomplete></Autocomplete>
-          <button onClick = {createNewMarker}>Create New Marker</button>
-          
+        <Grid item xs={3}>
+          <Item className="item"><Autocomplete></Autocomplete>
+            <button onClick={createNewMarker}>Create New Marker</button>
           </Item>
         </Grid>
       </Grid>

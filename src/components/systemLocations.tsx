@@ -1,11 +1,15 @@
+
 import React from 'react';
+import { useEffect, useState } from 'react';
 import '../css/map&.css';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import markersStore from '../stores/markersStore';
 import mapStore from '../stores/mapStore';
-export default function SystemLocations() {
+import systemsStore from '../stores/systemsStore';
+import { getSystemByUrlName } from '../api/system';
 
+export default function SystemLocations(props: any) {
   const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'rgb(172, 172, 172)',
   ...theme.typography.body2,
@@ -15,10 +19,23 @@ export default function SystemLocations() {
       color: theme.palette.text.secondary,
   }));
     
-    const changeCenter = (lat: number, lng: number) => {
+  useEffect(() => {
+    callSystem();        
+  }, [])
+  
+  const callSystem = async () => {
+    await markersStore.resetArray();
+    const SYSTEM = await getSystemByUrlName(String(props.systemUrl));
+    await systemsStore.setSystem(SYSTEM);
+    console.log(systemsStore.system._id);
+    markersStore.loudLocations(String(systemsStore.system._id));
+    markersStore.markers.map(marker => { console.log(marker.name)})
+    }
+
+  const changeCenter = (lat: number, lng: number) => {
+    markersStore.markers.map(marker => { console.log(marker.name)});
       mapStore.currentMap.center = { lat: lat, lng: lng };
     } 
-
 // const from = new google.maps.LatLng(46.5610058, 26.9098054);
 // const fromName = 'Bacau';
 // const dest = new google.maps.LatLng(44.391403, 26.1157184);
@@ -29,7 +46,7 @@ export default function SystemLocations() {
 //   {
 //     origins: [from, fromName],
 //     destinations: [dest, destName],
-//     travelMode: 'DRIVING'
+//     travelMode: google.maps.TravelMode.DRIVING
 //   }, callback);
 
 // function callback(response:any, status:any) {
@@ -51,8 +68,8 @@ export default function SystemLocations() {
 //     }
 // }
     return (<>
-        {markersStore.markers.map(m => (
-          <Item onClick={() => { changeCenter(m.lat, m.lng) }} className="item">
+        {markersStore.markers && markersStore.markers.map(m => (
+          <Item key={m._id} onClick={() => { changeCenter(m.lat, m.lng) }} className="item">
                 <h2 className='white'>{m.name}</h2>
                 <h4 className='white'>{m.description }</h4>
           </Item>

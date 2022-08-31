@@ -3,7 +3,7 @@ import { System } from '../models/system.model';
 import{ getSystemByManagerId } from '../api/system';
 import { useParams } from 'react-router-dom';
 import { getSystemByUrlName ,updateSystem} from '../api/system';
-import userStore from '../stores/userStore';
+import  userStore  from '../stores/userStore';
 import { async } from '@firebase/util';
 import Systems from '../components/systems';
 import systemsStore, { SystemsStore } from '../stores/systemsStore';
@@ -36,7 +36,7 @@ export default function EditSystemDetails() {
         }
     };
        const update = async () => {
-        const updatedSystem = {
+         const updatedSystem = {
           topic: topic,
           objectName: objectName,
           managerId:String(userStore.user._id),

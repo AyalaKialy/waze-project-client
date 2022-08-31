@@ -5,6 +5,10 @@ import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import systemsStore from '../stores/systemsStore';
+import userStore from '../stores/userStore';
+import { createManager } from '../api/manager';
+import { Role } from "../models/manager.model";
 
  const CreateSystem = () => {
 
@@ -31,7 +35,7 @@ import { observer } from 'mobx-react';
               // await createSystem(system);
               systemsStore.addSystem(system);
               
-                const manager={
+                const manager = {
                 userId:String(userStore.user._id),
                 systemId:String(systemsStore.currentSystem._id),
                 active: true,

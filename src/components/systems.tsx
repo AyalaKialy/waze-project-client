@@ -3,8 +3,9 @@ import {System} from '../models/system.model';
 import{ getSystemByManagerId, deleteSystem } from '../api/system';
 import { useParams ,useNavigate} from 'react-router-dom';
 import systemsStore from '../stores/systemsStore';
+import { observer } from 'mobx-react';
 
-export default function Systems() {
+const Systems = () => {
     const navigate = useNavigate();
     const [systems, setSystems] = useState<System[]>([]);
     const {userId} = useParams();
@@ -40,7 +41,7 @@ export default function Systems() {
                         <a onClick={() => navigate(`/MySystem/${system.urlName}`)} className='btn btn-primary'>for details</a>
                         <br />
                         <a onClick={() => deleteASystem(system._id)} className='btn btn-primary'>delete system</a>
-                        <a onClick={() => navigate(`/EditSystemDetails/${system.urlName}`)} className='btn btn-primary'>edit details</a>
+                       <a onClick={() => navigate(`/EditSystemDetails/${system.urlName}`)} className='btn btn-primary'>edit details</a>
                     </div>
                 </div>
                 )}
@@ -49,3 +50,5 @@ export default function Systems() {
             )
                 
 }
+
+export default observer(Systems);

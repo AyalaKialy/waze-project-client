@@ -15,14 +15,19 @@ export class MarkersStore {
   loudLocations = async (systemId: string) => {
         const locations = await getLocationsBySystemId(systemId);
         this.markers = locations;
+        console.log('setArray ' + this.markers.length);
+
   }
   @action
-  resetArray = () => { 
+  resetArray = () => {      
     this.markers = [];
+    console.log('resetArray');
   }
 
-  public addMarker = async(marker: Location) => {
-    // this.markers.push(marker);
+
+  public addMarker = async (marker: Location) => {    
+    this.markers.push(marker);
+
     await createLocation(marker);
     
   };

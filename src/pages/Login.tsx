@@ -4,8 +4,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
 import userStore from '../stores/userStore';
+import { observer } from 'mobx-react';
 
- export default function LoginPage(){
+ const LoginPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -75,3 +76,5 @@ import userStore from '../stores/userStore';
       </div>
     );
 };
+
+export default observer(LoginPage);

@@ -11,6 +11,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import SystemLocations from './systemLocations';
 import Autocomplete from './autocomplete';
+import { observer } from 'mobx-react';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -22,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function SingleSystem() {
+const SingleSystem = () => {
   const navigate = useNavigate();
   const { systemUrl } = useParams();
   const system = systemsStore.system;
@@ -57,3 +59,5 @@ export default function SingleSystem() {
     </Box>
   );
 }
+
+export default observer(SingleSystem);

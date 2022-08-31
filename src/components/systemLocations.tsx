@@ -8,8 +8,11 @@ import markersStore from '../stores/markersStore';
 import mapStore from '../stores/mapStore';
 import systemsStore from '../stores/systemsStore';
 import { getSystemByUrlName } from '../api/system';
+import { observer } from 'mobx-react';
 
-export default function SystemLocations(props: any) {
+
+const SystemLocations = (props: any) => {
+  
   const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'rgb(172, 172, 172)',
   ...theme.typography.body2,
@@ -18,7 +21,7 @@ export default function SystemLocations(props: any) {
       textAlign: 'center',
       color: theme.palette.text.secondary,
   }));
-    
+  let markers:any = [];
   useEffect(() => {
     callSystem();        
   }, [])
@@ -28,7 +31,8 @@ export default function SystemLocations(props: any) {
     const SYSTEM = await getSystemByUrlName(String(props.systemUrl));
     await systemsStore.setSystem(SYSTEM);
     console.log(systemsStore.system._id);
-    markersStore.loudLocations(String(systemsStore.system._id));
+    await markersStore.loudLocations(String(systemsStore.system._id));
+    markers = markersStore.markers;
     markersStore.markers.map(marker => { console.log(marker.name)})
     }
 
@@ -69,7 +73,7 @@ export default function SystemLocations(props: any) {
 //     }
 // }
     return (<>
-        {markersStore.markers && markersStore.markers.map(m => (
+        {markers && markersStore.markers.map(m => (
           <Item key={m._id} onClick={() => { changeCenter(m.lat, m.lng) }} className="item">
                 <h2 className='white'>{m.name}</h2>
                 <h4 className='white'>{m.description }</h4>
@@ -79,3 +83,4 @@ export default function SystemLocations(props: any) {
    
   );
 }
+export default observer (SystemLocations);

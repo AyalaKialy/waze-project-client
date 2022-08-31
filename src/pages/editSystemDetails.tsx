@@ -4,11 +4,10 @@ import{ getSystemByManagerId } from '../api/system';
 import { useParams } from 'react-router-dom';
 import { getSystemByUrlName ,updateSystem} from '../api/system';
 import  userStore  from '../stores/userStore';
-import { async } from '@firebase/util';
-import Systems from '../components/systems';
-import systemsStore, { SystemsStore } from '../stores/systemsStore';
+import { observer } from 'mobx-react';
+import systemsStore from '../stores/systemsStore';
 
-export default function EditSystemDetails() {
+const EditSystemDetails = () => {
     const {systemUrl} = useParams();
     const [system, setSystem] = useState<System>();
 
@@ -45,8 +44,10 @@ export default function EditSystemDetails() {
           email:email,
           phone:phone
             }
-            try{
-             await updateSystem(String(system?._id), updatedSystem);
+            try{              
+             await updateSystem(String(system?._id), updatedSystem);          
+            // getSystem();
+            //   
             }catch{
                 console.log("failed to create system");
             }
@@ -116,3 +117,5 @@ export default function EditSystemDetails() {
     </form>
   );
 }
+
+export default observer(EditSystemDetails);

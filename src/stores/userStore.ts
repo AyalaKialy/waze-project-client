@@ -1,5 +1,8 @@
+import { Console } from 'console';
 import {autorun, observable, computed,action, makeAutoObservable } from 'mobx';
+import { getRoleByUserIdAndBySystemId } from '../api/manager';
 import { getUserByUid } from '../api/user';
+import { Role } from '../models/manager.model';
 import { User } from '../models/user.model';
 
 
@@ -17,6 +20,12 @@ export class UserStore {
         const user=await getUserByUid(uid);
         this.user = user;
         console.log(user);
+    }
+     @action
+    setRole = async(userId:string,systemId:string) => {
+      const ROLE=await getRoleByUserIdAndBySystemId(userId,systemId);
+      this.role=ROLE;
+      console.log(this.role);
     }
 
 

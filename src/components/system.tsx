@@ -32,6 +32,10 @@ const SingleSystem = () => {
   const createNewMarker = () => {
     navigate(`/newMarker/${systemUrl}`);
   }
+ const showLocations = () => {
+    navigate(`/Locations/${systemUrl}`);
+  }
+
   return (
     
     <Box sx={{ flexGrow: 1 }}>
@@ -48,8 +52,9 @@ const SingleSystem = () => {
         <Grid item xs={3}>
           <Item className="item"><Autocomplete></Autocomplete>
             <button onClick={createNewMarker}>Create New Marker</button>
+          <button onClick={showLocations}>all locations</button>
           </Item>
-        </Grid>
+          </Grid>
       </Grid>
     </Box>
   );

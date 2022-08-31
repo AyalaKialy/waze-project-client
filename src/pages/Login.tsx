@@ -20,15 +20,14 @@ import { observer } from 'mobx-react';
     if (user)  {
       console.log('if user');
       console.log(user);
+      ////
       //get-set Token
       user.getIdToken().then((value=>{
       const token=value;
       console.log(token);
       userStore.token=token;
-      //set User
-      
     }));
-    
+    ////
       navigate(`/HomePage/${user.uid}`);   
     }
    }, [user, loading]);

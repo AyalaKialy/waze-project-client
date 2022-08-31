@@ -40,6 +40,7 @@ const SystemLocations = (props: any) => {
     markersStore.markers.map(marker => { console.log(marker.name)});
       mapStore.currentMap.center = { lat: lat, lng: lng };
     } 
+    
 // const from = new google.maps.LatLng(46.5610058, 26.9098054);
 // const fromName = 'Bacau';
 // const dest = new google.maps.LatLng(44.391403, 26.1157184);

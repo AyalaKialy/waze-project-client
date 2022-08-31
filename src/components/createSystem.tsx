@@ -4,7 +4,12 @@ import TextField from '@mui/material/TextField';
 import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
+
+import { createManager } from '../api/manager';
+import userStore, { UserStore } from '../stores/userStore';
+
 import { observer } from 'mobx-react';
+
 import systemsStore from '../stores/systemsStore';
 import userStore from '../stores/userStore';
 import { createManager } from '../api/manager';
@@ -12,7 +17,6 @@ import { Role } from "../models/manager.model";
 
  const CreateSystem = () => {
 
-    // const {              } = useParams();
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
@@ -34,8 +38,13 @@ import { Role } from "../models/manager.model";
             try{
               // await createSystem(system);
               systemsStore.addSystem(system);
+
+              debugger;
+                const manager={
+
               
                 const manager = {
+
                 userId:String(userStore.user._id),
                 systemId:String(systemsStore.currentSystem._id),
                 active: true,
@@ -44,6 +53,9 @@ import { Role } from "../models/manager.model";
             }
               //אז כאן גם הכנסת היוזר לטבלת מנגר כאדמין
               await createManager(manager);
+              //וכאן שינוי רול לאדמין
+              userStore.setRole(String(userStore.user._id),String(systemsStore.currentSystem._id));
+              console.log(userStore.role);
             }catch{
                 console.log("failed to create system");
             }

@@ -24,9 +24,12 @@ export class MarkersStore {
     console.log('resetArray');
   }
 
+
   public addMarker = async (marker: Location) => {    
     this.markers.push(marker);
+
     await createLocation(marker);
+    
   };
 
   // public updateMarker = (updateMarker: IMarker) => {

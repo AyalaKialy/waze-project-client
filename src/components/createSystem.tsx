@@ -4,8 +4,9 @@ import TextField from '@mui/material/TextField';
 import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
+import { observer } from 'mobx-react';
 
-export default function CreateSystem() {
+ const CreateSystem = () => {
 
     const {userId} = useParams();
     const [topic,setTopic] =useState('');
@@ -16,7 +17,7 @@ export default function CreateSystem() {
     const [phone, setPhone] = useState('');
 
     const create = async () => {
-      debugger;
+        
         const system = {
           topic: topic,
           objectName: objectName,
@@ -99,3 +100,5 @@ export default function CreateSystem() {
     </form>
   );
 }
+
+export default observer(CreateSystem);

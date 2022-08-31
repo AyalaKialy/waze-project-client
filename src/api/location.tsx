@@ -25,7 +25,7 @@ export const getLocationsBySystemId = async (systemId: string) => {
 
 //post 
 export const createLocation = async (newLocation :Location) => {
-    debugger;
+      
     try {
         const {data} = await axios.post('http://localhost:3333/location/', newLocation);
         console.log(data);

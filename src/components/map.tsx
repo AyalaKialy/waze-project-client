@@ -2,10 +2,9 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './marker';
 import  mapStore from '../stores/mapStore';
 import markersStore from '../stores/markersStore';
-import { color } from '@mui/system';
+import { observer } from 'mobx-react';
 
-export default function MapContainer() {
-   
+ const MapContainer = () => {
     return (
         <div style = {{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
@@ -27,3 +26,4 @@ export default function MapContainer() {
     );
 }
 
+export default observer(MapContainer);

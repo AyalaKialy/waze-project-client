@@ -3,8 +3,9 @@ import Autocomplete from './autocomplete';
 import markersStore from '../stores/markersStore'
 import systemsStore from '../stores/systemsStore';
 import { useNavigate, useParams } from "react-router-dom";
+import { observer } from 'mobx-react';
 
-export default function NewMarker() {
+const NewMarker = () => {
   const marker = markersStore.marker;
   const navigate = useNavigate();
   const { systemUrl } = useParams();
@@ -72,4 +73,6 @@ export default function NewMarker() {
             </div>
     </form>
     );
-  };
+};
+  
+export default observer(NewMarker);

@@ -1,8 +1,10 @@
 
 import React from 'react';
 import '../css/marker.css';
+import { observer } from 'mobx-react';
 
-export default function Marker(props:any) {
+
+const Marker = (props:any) => {
     const { color, name, id ,description, phone} = props;
     return (
       <div>
@@ -14,4 +16,6 @@ export default function Marker(props:any) {
         <div className="pulse" />
       </div>
     );
-  };
+};
+  
+export default observer(Marker);

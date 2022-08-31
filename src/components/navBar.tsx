@@ -5,8 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from'../img/logo.png';
 import { Link } from 'react-router-dom';
 import { logout } from '../firebase';
+import { observer } from 'mobx-react';
 
-export default function MyNavbar() {
+const MyNavbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg p-3 navbar-dark transparent-nav nav-js">
@@ -23,3 +24,5 @@ export default function MyNavbar() {
       </nav>     
   );
 }
+
+export default observer(MyNavbar);

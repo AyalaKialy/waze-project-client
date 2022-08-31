@@ -6,8 +6,9 @@ import {  useNavigate, useParams } from 'react-router-dom';
 import { getUserByUid } from '../api/user';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import  NavBar  from '../components/navBar';
+import { observer } from 'mobx-react';
 
-  export default function HomePage() {
+  const HomePage = () => {
     const navigate = useNavigate();
     const [userId,setUserId] = useState('');
     const {uid} = useParams();
@@ -50,3 +51,5 @@ import  NavBar  from '../components/navBar';
         </div>
     );
 };
+
+export default observer(HomePage);

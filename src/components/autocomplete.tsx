@@ -1,19 +1,13 @@
 import { ChangeEvent } from 'react';
 import usePlacesAutocomplete,{ getGeocode,getLatLng,} from 'use-places-autocomplete';
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption
-} from '@reach/combobox';
-
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css';
 import '../css/autocomplete.css';
 import markersStore from '../stores/markersStore'
 import mapStore from '../stores/mapStore';
+import { observer } from 'mobx-react';
 
-export default function Autocomplete() {
+ const Autocomplete = () => {
   const {
     ready,
     value,
@@ -83,3 +77,5 @@ export default function Autocomplete() {
     </div>
   );
 }
+
+export default observer(Autocomplete);

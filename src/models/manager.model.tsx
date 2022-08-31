@@ -11,5 +11,4 @@ export type Manager = {
 export enum Role{
     admin,
     manager,
-    // customer,
 }

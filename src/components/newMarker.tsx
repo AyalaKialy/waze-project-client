@@ -1,21 +1,28 @@
 import '../css/marker.css';
 import Autocomplete from './autocomplete';
 import markersStore from '../stores/markersStore'
+import systemsStore from '../stores/systemsStore';
 import { useNavigate, useParams } from "react-router-dom";
 
-
 export default function NewMarker() {
-
-  const marker = markersStore.chooseMarker;
+  const marker = markersStore.marker;
   const navigate = useNavigate();
   const { systemUrl } = useParams();
   
   const create = async () => {
-      try {
-         await markersStore.addMarker(marker);
-        markersStore.markers.map(marker => { 
-        console.log(marker.name + ' ' + marker.lat + ' ' + marker.lng);
-        })
+    try {
+         const newMarker = {
+           managerId: systemsStore.system.managerId,
+           systemId: String(systemsStore.system._id),
+           lat: marker.lat,
+           lng: marker.lng,
+           description: marker.description,
+           name: marker.name,
+           notes: marker.notes,
+           email: 'rgr@gmail.com',
+           phone: marker.phone
+            }
+         await markersStore.addMarker(newMarker);
         alert('the marker was added to the store ');
         navigate(`/MySystem/${systemUrl}`);
 

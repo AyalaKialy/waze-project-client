@@ -21,7 +21,7 @@ export default function Autocomplete() {
     setValue
   } = usePlacesAutocomplete();
 
-  const marker = markersStore.chooseMarker;
+  const marker = markersStore.marker;
   const map = mapStore.currentMap;
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -52,7 +52,7 @@ export default function Autocomplete() {
   };
 
 //?city=Israel&   -איך מגבילים לחיפוש בישראל
-      const convertfromAdressToLocation=()=>{
+      const convertfromAdressToLocation = ()=>{
        getGeocode({ address: value })
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {

@@ -1,10 +1,10 @@
-import {  observable, computed ,makeAutoObservable,action} from "mobx";
+import {  observable, makeAutoObservable, action } from "mobx";
 import { getSystemByManagerId } from "../api/system";
 import { System } from "../models/system.model";
 
 export class SystemsStore {
 @observable systems: System[] = [];
-// @observable system: System = {};
+@observable system: System = { _id:'',  topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:''};
 
     constructor() {
         makeAutoObservable(this);
@@ -12,10 +12,14 @@ export class SystemsStore {
 
     @action
     loudsystems = async(managerId:string) => {
-        const systems=await getSystemByManagerId(managerId);
+        const systems = await getSystemByManagerId(managerId);
         this.systems = systems;
     }
 
+     @action
+     setSystem = async (newSystem: System) => {
+         this.system = newSystem;
+    }
 //   public addMarker = (marker: IMarker) => {
 //     console.log("addMarker");
 //     this.markers.push(marker);

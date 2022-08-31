@@ -14,6 +14,7 @@ export const getAllManagers = async () => {
 
 //getRoleByUserIdAndBySystemId
 export const getRoleByUserIdAndBySystemId = async (userId: string,systemId:string) => {
+    debugger
     try {
         const {data} = await axios.get(`http://localhost:3333/manager/${userId}/${systemId}`);
         return data;

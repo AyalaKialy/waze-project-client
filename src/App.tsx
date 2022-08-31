@@ -14,6 +14,8 @@ import MapContainer from './components/map';
 import NewMarker from './components/newMarker';
 import EditSystemDetails from './pages/editSystemDetails';
 import { useObserver } from 'mobx-react-lite';
+import Locations from './components/locations';
+import EditLocationDetails from './components/editLocationDetails';
 
  export default function App() {
 
@@ -28,8 +30,10 @@ import { useObserver } from 'mobx-react-lite';
                 <Route path="/Systems/:userId" element={<Systems />} />
                 <Route path="/MySystem/:systemUrl" element={<SingleSystem />} />
                 <Route path="/MapContainer" element={<MapContainer />} />
-                  <Route path="/NewMarker/:systemUrl" element={<NewMarker />} />
+                <Route path="/NewMarker/:systemUrl" element={<NewMarker />} />
                 <Route path="/EditSystemDetails/:systemUrl" element={<EditSystemDetails />} />
+                <Route path="/Locations/:systemUrl" element={<Locations />} />
+                <Route path="/EditLocationDetails/:locationId" element={<EditLocationDetails />} />
             </Routes>
         </BrowserRouter>
     )

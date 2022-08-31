@@ -19,15 +19,14 @@ import userStore from '../stores/userStore';
     if (user)  {
       console.log('if user');
       console.log(user);
+      ////
       //get-set Token
       user.getIdToken().then((value=>{
       const token=value;
       console.log(token);
       userStore.token=token;
-      //set User
-      
     }));
-    
+    ////
       navigate(`/HomePage/${user.uid}`);   
     }
    }, [user, loading]);

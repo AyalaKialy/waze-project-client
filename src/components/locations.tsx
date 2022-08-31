@@ -1,46 +1,60 @@
 import React, { useEffect, useState } from 'react';
+import {Location} from '../models/location.model';
 import {System} from '../models/system.model';
 import{ getSystemByManagerId, deleteSystem } from '../api/system';
 import { useParams ,useNavigate} from 'react-router-dom';
 import systemsStore from '../stores/systemsStore';
+import markersStore from '../stores/markersStore';
+import { deleteLocation } from '../api/location';
 
 export default function Locations() {
     const navigate = useNavigate();
-    const [systems, setSystems] = useState<System[]>([]);
-    const {userId} = useParams();
+    const [locations, setLocations] = useState<Location[]>([]);
+    const [system, setSystem] = useState<System>();
+    const {systemUrl} = useParams();
 
     useEffect(() => {
+        getSystem();
         getAll();
     }, [])
 
+    const getSystem= async () => {
+         try {
+           await systemsStore.loudSystem(String(systemUrl));
+            setSystem(systemsStore.currentSystem);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const getAll = async () => {
         try {
-           await systemsStore.loudsystems(String(userId));
-            setSystems(systemsStore.systems);
+           await markersStore.loudLocations(String(system?._id));
+            setLocations(markersStore.markers);
         } catch (err) {
             console.log(err)
         }
     };
-    const deleteASystem = async(systemId: any) => {
-        const choice = window.confirm('Are you sure you want to delete this system?');
+
+    const dellLocation = async(locationId: any) => {
+        const choice = window.confirm('Are you sure you want to delete this location?');
         if (!choice) return;
-        await deleteSystem(systemId);
+        await deleteLocation(locationId);
+        console.log('deleteLocation');
         window.location.reload();
     }
 
     return (
         <div>
-            <h1 className='pink'>my activity systems</h1>
+            <h1 className='pink'>Locations</h1>
             <div className='card-group'>
-            {systems.length > 0 && systems.map(system =>
-                <div key={system._id} className='card'>
+            {locations.length > 0 && locations.map(location =>
+                <div key={location._id} className='card'>
                     <div className='card-body'>
-                        <h5 className='card-title'>{ system.topic}</h5>
-                        <p className='card-text'>{system.description}</p>
-                        <a onClick={() => navigate(`/MySystem/${system.urlName}`)} className='btn btn-primary'>for details</a>
-                        <br />
-                        <a onClick={() => deleteASystem(system._id)} className='btn btn-primary'>delete system</a>
-                        <a onClick={() => navigate(`/EditSystemDetails/${system.urlName}`)} className='btn btn-primary'>edit details</a>
+                        <h5 className='card-title'>{ location.name}</h5>
+                        <p className='card-text'>{location.description}</p>
+                         <a onClick={() => dellLocation(String(location._id))} className='btn btn-primary'>delete location</a>
+                        <a onClick={() => navigate(`/EditLocationDetails/${location._id}`)} className='btn btn-primary'>edit details</a>
                     </div>
                 </div>
                 )}

@@ -26,6 +26,7 @@ import {
 
 import { config } from './config/config';
 import { Role } from "./models/manager.model";
+import userStore from './stores/userStore';
 
 const app = initializeApp(config.firebaseConfig);
 const auth = getAuth(app);
@@ -36,6 +37,8 @@ const signInWithGoogle = async () => {
   try {
       const res = await signInWithPopup(auth, googleProvider);
       console.log(res.user.uid); 
+      const user=res.user;
+ 
   } catch (err:any) {
     console.error(err);
     alert(err.message);

@@ -5,13 +5,12 @@ import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { createManager } from '../api/manager';
-import userStore from '../stores/userStore';
+import userStore, { UserStore } from '../stores/userStore';
 import systemsStore from '../stores/systemsStore';
 import { Role } from '../models/manager.model';
 
 export default function CreateSystem() {
 
-    // const {              } = useParams();
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
@@ -34,7 +33,7 @@ export default function CreateSystem() {
             try{
               // await createSystem(system);
               systemsStore.addSystem(system);
-              
+              debugger;
                 const manager={
                 userId:String(userStore.user._id),
                 systemId:String(systemsStore.currentSystem._id),
@@ -44,6 +43,9 @@ export default function CreateSystem() {
             }
               //אז כאן גם הכנסת היוזר לטבלת מנגר כאדמין
               await createManager(manager);
+              //וכאן שינוי רול לאדמין
+              userStore.setRole(String(userStore.user._id),String(systemsStore.currentSystem._id));
+              console.log(userStore.role);
             }catch{
                 console.log("failed to create system");
             }

@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function NewMarker() {
   const marker = markersStore.marker;
+     console.log(marker);
   const navigate = useNavigate();
   const { systemUrl } = useParams();
   
@@ -23,6 +24,7 @@ export default function NewMarker() {
            email: 'rgr@gmail.com',
            phone: marker.phone
             }
+            console.log(marker);
          await markersStore.addMarker(newMarker);
         alert('the marker was added to the store ');
         navigate(`/MySystem/${systemUrl}`);

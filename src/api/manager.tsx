@@ -25,7 +25,7 @@ export const getRoleByUserIdAndBySystemId = async (userId: string,systemId:strin
 
 //post 
 export const createManager = async (newManager :Manager) => {
-    debugger;
+      
     try {
         const {data}= await axios.post('http://localhost:3333/manager/', newManager);
         console.log(data);

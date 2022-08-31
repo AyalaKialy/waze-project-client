@@ -4,12 +4,9 @@ import TextField from '@mui/material/TextField';
 import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
-import { createManager } from '../api/manager';
-import userStore from '../stores/userStore';
-import systemsStore from '../stores/systemsStore';
-import { Role } from '../models/manager.model';
+import { observer } from 'mobx-react';
 
-export default function CreateSystem() {
+ const CreateSystem = () => {
 
     // const {              } = useParams();
     const [topic,setTopic] =useState('');
@@ -21,7 +18,6 @@ export default function CreateSystem() {
 
     const create = async () => {
       //בדיקה אם כמות הסיסטמס שיצר חרגה ממה שהגדרנו שיכול
-      debugger;
         const system = {
           topic: topic,
           objectName: objectName,
@@ -114,3 +110,5 @@ export default function CreateSystem() {
     </form>
   );
 }
+
+export default observer(CreateSystem);

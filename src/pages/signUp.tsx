@@ -3,8 +3,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase";
 import { createUser} from '../api/user';
-  
- export default function SignUpPage() {
+import { observer } from 'mobx-react';
+
+ const SignUpPage = () => {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -107,3 +108,4 @@ import { createUser} from '../api/user';
     )
 }
 
+export default observer(SignUpPage);

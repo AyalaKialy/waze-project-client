@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { getSystemByUrlName ,updateSystem} from '../api/system';
 import  userStore  from '../stores/userStore';
 import { async } from '@firebase/util';
+import Systems from '../components/systems';
+import systemsStore, { SystemsStore } from '../stores/systemsStore';
 
 export default function EditSystemDetails() {
     const {systemUrl} = useParams();
@@ -13,47 +15,38 @@ export default function EditSystemDetails() {
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
-    // const [urlName, setUrlName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
-    // console.log(systemUrl);
+   useEffect(() => {
+        getSystem();
+    }, [])
 
-    useEffect(() => {
-       getSystem();
-            setTopic(String(system?.topic));
-            setObjectName(String(system?.objectName));
-            setDescription(String(system?.description));
-            setEmail(String(system?.email));
-            setPhone(String(system?.phone));
-            console.log(phone);
-    },[]);
-
-    const getSystem = async() => {
+    const getSystem = async () => {
         try {
-            const data = await getSystemByUrlName(String(systemUrl));
-            setSystem(data);
-            return system;
-        }catch{
-            console.log("getSystem failed");
-    }
-    }
+           await systemsStore.loudSystem(String(systemUrl));
+            setSystem(systemsStore.currentSystem);
+             setTopic(systemsStore.currentSystem.topic);
+              setObjectName(systemsStore.currentSystem.objectName);
+               setDescription(systemsStore.currentSystem.description);
+                setEmail(systemsStore.currentSystem.email);
+                 setPhone(systemsStore.currentSystem.phone);
+        } catch (err) {
+            console.log(err)
+        }
+    };
        const update = async () => {
          const updatedSystem = {
           topic: topic,
           objectName: objectName,
-          managerId:String(userStore.user.id),
+          managerId:String(userStore.user._id),
           urlName:String(systemUrl),
           description: description,
           email:email,
           phone:phone
             }
             try{
-            debugger;
              await updateSystem(String(system?._id), updatedSystem);
-             debugger;
-            // getSystem();
-            // debugger;
             }catch{
                 console.log("failed to create system");
             }
@@ -95,7 +88,6 @@ export default function EditSystemDetails() {
             type="text"
             className="form-control"
                     value = {system?.urlName}
-                   
           />
         </div>
           <div className="mb-3">

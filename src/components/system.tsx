@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { System } from '../models/system.model';
 import { useNavigate, useParams} from "react-router-dom";
 import { getSystemByUrlName} from '../api/system';

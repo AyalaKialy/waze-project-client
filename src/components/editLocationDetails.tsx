@@ -3,10 +3,12 @@ import { System } from '../models/system.model';
 import{ getSystemByManagerId } from '../api/system';
 import { useParams } from 'react-router-dom';
 import { getSystemByUrlName ,updateSystem} from '../api/system';
-import  userStore  from '../stores/userStore';
-import { observer } from 'mobx-react';
+import userStore from '../stores/userStore';
+import { async } from '@firebase/util';
+import Systems from '../components/systems';
+import systemsStore, { SystemsStore } from '../stores/systemsStore';
 
-const EditSystemDetails = () => {
+export default function EditLocationDetails() {
     const {systemUrl} = useParams();
     const [system, setSystem] = useState<System>();
 
@@ -34,7 +36,7 @@ const EditSystemDetails = () => {
         }
     };
        const update = async () => {
-         const updatedSystem = {
+        const updatedSystem = {
           topic: topic,
           objectName: objectName,
           managerId:String(userStore.user._id),
@@ -43,10 +45,8 @@ const EditSystemDetails = () => {
           email:email,
           phone:phone
             }
-            try{              
-             await updateSystem(String(system?._id), updatedSystem);          
-            // getSystem();
-            //   
+            try{
+             await updateSystem(String(system?._id), updatedSystem);
             }catch{
                 console.log("failed to create system");
             }
@@ -116,5 +116,3 @@ const EditSystemDetails = () => {
     </form>
   );
 }
-
-export default observer(EditSystemDetails);

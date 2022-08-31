@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 
  const CreateSystem = () => {
 
-    const {userId} = useParams();
+    // const {              } = useParams();
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
@@ -17,19 +17,29 @@ import { observer } from 'mobx-react';
     const [phone, setPhone] = useState('');
 
     const create = async () => {
-        
+      //בדיקה אם כמות הסיסטמס שיצר חרגה ממה שהגדרנו שיכול
         const system = {
           topic: topic,
           objectName: objectName,
-          managerId:String(userId),
+          managerId:String(userStore.user._id),
           description: description,
           urlName:urlName,
           email:email,
           phone:phone
             }
             try{
-              await createSystem(system);
+              // await createSystem(system);
+              systemsStore.addSystem(system);
+              
+                const manager={
+                userId:String(userStore.user._id),
+                systemId:String(systemsStore.currentSystem._id),
+                active: true,
+                display_name:String(systemsStore.currentSystem.topic),
+                role: Role.admin
+            }
               //אז כאן גם הכנסת היוזר לטבלת מנגר כאדמין
+              await createManager(manager);
             }catch{
                 console.log("failed to create system");
             }

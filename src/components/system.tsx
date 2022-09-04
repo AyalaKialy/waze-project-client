@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import SystemLocations from './systemLocations';
 import Autocomplete from './autocomplete';
 import { observer } from 'mobx-react';
+import userStore from '../stores/userStore';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,17 +26,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const SingleSystem = () => {
+
   const navigate = useNavigate();
   const { systemUrl } = useParams();
   const system = systemsStore.system;
 
-  const createNewMarker = () => {
-    navigate(`/newMarker/${systemUrl}`);
-  }
  const showLocations = () => {
     navigate(`/Locations/${systemUrl}`);
   }
-
+  
   return (
     
     <Box sx={{ flexGrow: 1 }}>
@@ -51,8 +50,10 @@ const SingleSystem = () => {
         </Grid>
         <Grid item xs={3}>
           <Item className="item"><Autocomplete></Autocomplete>
-            <button onClick={createNewMarker}>Create New Marker</button>
+          {(userStore.manager && userStore.manager.role ==='0') &&
+          <>
           <button onClick={showLocations}>all locations</button>
+          </>}
           </Item>
           </Grid>
       </Grid>

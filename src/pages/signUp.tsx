@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase";
 import { createUser} from '../api/user';
 import { observer } from 'mobx-react';
+import userStore from '../stores/userStore';
 
  const SignUpPage = () => {
     const navigate = useNavigate();
@@ -20,6 +21,11 @@ import { observer } from 'mobx-react';
     }
       if (user) {
           createInMongo();
+      //get-Token
+      user.getIdToken().then((value=>{
+      const token=value;
+      userStore.setToken(token);
+    }));
          navigate(`/HomePage/${user.uid}`);   
       };
     }, [user, loading]);
@@ -33,6 +39,7 @@ import { observer } from 'mobx-react';
         email: email
             }
             try{
+              //create user
                 await createUser(newUser);
             }catch{
                    console.log("create failed");

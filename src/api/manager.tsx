@@ -12,8 +12,8 @@ export const getAllManagers = async () => {
     }
 }
 
-//getRoleByUserIdAndBySystemId
-export const getRoleByUserIdAndBySystemId = async (userId: string,systemId:string) => {
+//getManagerByUserIdAndBySystemId
+export const getManagerByUserIdAndBySystemId = async (userId: string,systemId:string) => {
     debugger
     try {
         const {data} = await axios.get(`http://localhost:3333/manager/${userId}/${systemId}`);
@@ -21,6 +21,18 @@ export const getRoleByUserIdAndBySystemId = async (userId: string,systemId:strin
     }
     catch (error) {
         console.log('error in getRoleByUserIdAndBySystemId', error);
+    }
+}
+
+//getManagerByUserId
+export const getManagerByUserId = async (userId: string) => {
+    debugger
+    try {
+        const {data} = await axios.get(`http://localhost:3333/manager/getManagerByUserId/${userId}`);
+        return data;
+    }
+    catch (error) {
+        console.log('error in getManagerByUserId', error);
     }
 }
 

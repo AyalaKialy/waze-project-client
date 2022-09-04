@@ -23,13 +23,13 @@ const EditSystemDetails = () => {
 
     const getSystem = async () => {
         try {
-           await systemsStore.loudSystem(String(systemUrl));
-            setSystem(systemsStore.currentSystem);
-             setTopic(systemsStore.currentSystem.topic);
-              setObjectName(systemsStore.currentSystem.objectName);
-               setDescription(systemsStore.currentSystem.description);
-                setEmail(systemsStore.currentSystem.email);
-                 setPhone(systemsStore.currentSystem.phone);
+         const data= await getSystemByUrlName(String(systemUrl));
+            setSystem(data);
+             setTopic(data.topic);
+              setObjectName(data.objectName);
+               setDescription(data.description);
+                setEmail(data.email);
+                 setPhone(data.phone);
         } catch (err) {
             console.log(err)
         }

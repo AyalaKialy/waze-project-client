@@ -9,9 +9,31 @@ import mapStore from '../stores/mapStore';
 import systemsStore from '../stores/systemsStore';
 import { getSystemByUrlName } from '../api/system';
 import { observer } from 'mobx-react';
+import userStore from '../stores/userStore';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 
 const SystemLocations = (props: any) => {
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   
   const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'rgb(172, 172, 172)',
@@ -23,7 +45,7 @@ const SystemLocations = (props: any) => {
   }));
   let markers:any = [];
   useEffect(() => {
-    callSystem();        
+    callSystem();     
   }, [])
   
   const callSystem = async () => {
@@ -31,53 +53,43 @@ const SystemLocations = (props: any) => {
     const SYSTEM = await getSystemByUrlName(String(props.systemUrl));
     await systemsStore.setSystem(SYSTEM);
     console.log(systemsStore.system._id);
+    await userStore.setManager(String(userStore.user._id),String(systemsStore.system._id));
+    console.log(userStore.manager.role);
     await markersStore.loudLocations(String(systemsStore.system._id));
     markers = markersStore.markers;
     markersStore.markers.map(marker => { console.log(marker.name)})
     }
 
-  const changeCenter = (lat: number, lng: number) => {
+  const change = (lat: number, lng: number) => {
     markersStore.markers.map(marker => { console.log(marker.name)});
       mapStore.currentMap.center = { lat: lat, lng: lng };
+      handleOpen();
     } 
     
-// const from = new google.maps.LatLng(46.5610058, 26.9098054);
-// const fromName = 'Bacau';
-// const dest = new google.maps.LatLng(44.391403, 26.1157184);
-// const destName = 'Bucuresti';
-
-// const service = new google.maps.DistanceMatrixService();
-// service.getDistanceMatrix(
-//   {
-//     origins: [from, fromName],
-//     destinations: [dest, destName],
-//     travelMode: google.maps.TravelMode.DRIVING
-//   }, callback);
-
-// function callback(response:any, status:any) {
-//     if (status == 'OK') {
-//         const origins = response.originAddresses;
-//         const destinations = response.destinationAddresses;
-
-//         for (var i = 0; i < origins.length; i++) {
-//             var results = response.rows[i].elements;
-//             console.log(results);
-//             for (var j = 0; j < results.length; j++) {
-//                 var element = results[j];
-//                 var distance = element.distance.text;
-//                 var duration = element.duration.text;
-//                 var from = origins[i];
-//                 var to = destinations[j];
-//             }
-//         }
-//     }
-// }
     return (<>
         {markers && markersStore.markers.map(m => (
-          <Item key={m._id} onClick={() => { changeCenter(m.lat, m.lng) }} className="item">
-                <h2 className='white'>{m.name}</h2>
-                <h4 className='white'>{m.description }</h4>
+          <>
+          <Item key={m._id} onClick={() => { change(m.lat, m.lng); } } className="item">
+            <h2 className='white'>{m.name}</h2>
+            <h4 className='white'>{m.description}</h4>
           </Item>
+            <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {m.name}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+           {m.email+' '}
+           {m.phone}
+          </Typography>
+        </Box>
+      </Modal>
+          </>
           ))}
     </>
    

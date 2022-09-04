@@ -22,7 +22,7 @@ const NewMarker = () => {
            description: marker.description,
            name: marker.name,
            notes: marker.notes,
-           email: 'rgr@gmail.com',
+           email: marker.email,
            phone: marker.phone
             }
             console.log(marker);
@@ -54,6 +54,24 @@ const NewMarker = () => {
             className="form-control"
                     placeholder="Enter description"
                     onChange={(e) => marker.description = e.target.value}
+          />
+        </div>
+          <div className="mb-3">
+          <label>notes</label>
+          <input
+            type="string"
+            className="form-control"
+                    placeholder="Enter notes"
+                    onChange={(e) => marker.notes = e.target.value}
+          />
+        </div>
+           <div className="mb-3">
+          <label>email</label>
+          <input
+            type="email"
+            className="form-control"
+                    placeholder="Enter email"
+                    onChange={(e) => marker.email = e.target.value}
           />
         </div>
           <div className="mb-3">

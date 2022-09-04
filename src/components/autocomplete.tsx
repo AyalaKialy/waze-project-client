@@ -45,7 +45,6 @@ import { observer } from 'mobx-react';
     );
   };
 
-//?city=Israel&   -איך מגבילים לחיפוש בישראל
       const convertfromAdressToLocation = ()=>{
        getGeocode({ address: value })
         .then((results) => getLatLng(results[0]))

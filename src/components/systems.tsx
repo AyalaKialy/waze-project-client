@@ -16,6 +16,7 @@ const Systems = () => {
 
     const getAll = async () => {
         try {
+            //home אולי את זה כבר לעשות בדף 
            await systemsStore.loudsystems(String(userId));
             setSystems(systemsStore.systems);
         } catch (err) {
@@ -33,7 +34,7 @@ const Systems = () => {
         <div>
             <h1 className='pink'>my activity systems</h1>
             <div className='card-group'>
-            {systems.length > 0 && systems.map(system =>
+            {systems&& systems.map(system =>
                 <div key={system._id} className='card'>
                     <div className='card-body'>
                         <h5 className='card-title'>{ system.topic}</h5>

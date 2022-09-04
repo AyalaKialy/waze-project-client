@@ -20,17 +20,30 @@ import { observer } from 'mobx-react';
     if (user)  {
       console.log('if user');
       console.log(user);
-      ////
-      //get-set Token
+  //     //set User
+  //     const loudUser=async() => {
+  //      await userStore.setUser(String(user?.uid));
+  //     console.log(userStore.user.email);
+  // }
+  //     loudUser();
+      //get set-Token
       user.getIdToken().then((value=>{
       const token=value;
-      console.log(token);
-      userStore.token=token;
+      userStore.setToken(token);
     }));
-    ////
-      navigate(`/HomePage/${user.uid}`);   
+
+  //   //navigate
+  //   const navigateUser=async() => {
+  //     console.log("navigate");
+  //  await
+    navigate(`/HomePage/${user.uid}`);  
+  //  }
+  //   navigateUser();
+      
     }
    }, [user, loading]);
+
+   
   
     return (
         <div className='auth-inner' >

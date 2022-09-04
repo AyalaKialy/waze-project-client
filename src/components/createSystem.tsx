@@ -5,14 +5,12 @@ import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
 
-import { createManager } from '../api/manager';
 import userStore, { UserStore } from '../stores/userStore';
 
 import { observer } from 'mobx-react';
 
 import systemsStore from '../stores/systemsStore';
-import userStore from '../stores/userStore';
-import { createManager } from '../api/manager';
+import { createManager, getManagerByUserIdAndBySystemId } from '../api/manager';
 import { Role } from "../models/manager.model";
 
  const CreateSystem = () => {
@@ -25,7 +23,6 @@ import { Role } from "../models/manager.model";
     const [phone, setPhone] = useState('');
 
     const create = async () => {
-      //בדיקה אם כמות הסיסטמס שיצר חרגה ממה שהגדרנו שיכול
         const system = {
           topic: topic,
           objectName: objectName,
@@ -36,26 +33,17 @@ import { Role } from "../models/manager.model";
           phone:phone
             }
             try{
-              // await createSystem(system);
-              systemsStore.addSystem(system);
-
-              debugger;
-                const manager={
-
-              
+              //create system
+             const data1=await systemsStore.addSystem(system);
+             //create manager
                 const manager = {
-
                 userId:String(userStore.user._id),
-                systemId:String(systemsStore.currentSystem._id),
+                systemId:String(data1?.data._id),
                 active: true,
-                display_name:String(systemsStore.currentSystem.topic),
+                display_name:String(userStore.user.lastName),
                 role: Role.admin
             }
-              //אז כאן גם הכנסת היוזר לטבלת מנגר כאדמין
               await createManager(manager);
-              //וכאן שינוי רול לאדמין
-              userStore.setRole(String(userStore.user._id),String(systemsStore.currentSystem._id));
-              console.log(userStore.role);
             }catch{
                 console.log("failed to create system");
             }

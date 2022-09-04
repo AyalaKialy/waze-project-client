@@ -7,18 +7,7 @@ import { System } from "../models/system.model";
 export class SystemsStore {
 @observable systems: System[] = [];
 
- @observable currentSystem: any;
-//  = {  
-//     topic:'',
-//     objectName:'',
-//     managerId:'',
-//     urlName:'',
-//     description:'',
-//     email:'',
-//     phone:''
-// };
-
-@observable system: System = { _id:'',  topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:''};
+@observable system: System = {   topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:''};
 
 
     constructor() {
@@ -31,18 +20,20 @@ export class SystemsStore {
         this.systems = systems;
     }
 
-   @action
-    loudSystem = async(url:string) => {
-        const system=await getSystemByUrlName(url);
-        console.log(system);
-        this.currentSystem = system;
-        console.log(this.currentSystem);
-    }
+//    @action
+//     loudSystem = async(url:string) => {
+//         const system=await getSystemByUrlName(url);
+//         console.log(system);
+//         this.currentSystem = system;
+//         console.log(this.currentSystem);
+//     }
+
  @action
     addSystem = async(system:System) => {
         const data=await createSystem(system);
-        this.currentSystem = data;
-        console.log(this.currentSystem);
+        return data;
+        // this.system = data;
+        // console.log(this.system);
     }
 
 

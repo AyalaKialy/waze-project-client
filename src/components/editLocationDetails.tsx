@@ -7,87 +7,96 @@ import userStore from '../stores/userStore';
 import { async } from '@firebase/util';
 import Systems from '../components/systems';
 import systemsStore, { SystemsStore } from '../stores/systemsStore';
+import { observer } from 'mobx-react';
+import { getLocationsByLocationId, getLocationsBySystemId, updateLocation } from '../api/location';
+import markersStore from '../stores/markersStore';
 
-export default function EditLocationDetails() {
-    const {systemUrl} = useParams();
-    const [system, setSystem] = useState<System>();
+const EditLocationDetails=()=> {
 
-    const [topic,setTopic] =useState('');
-    const [objectName,setObjectName] =useState('');
+    const {locationId} = useParams();
+
+    const [managerId, setManagerId] = useState('');
+    const [systemId, setSystemId] = useState('');
     const [description,setDescription] =useState('');
+    const [name,setName] =useState('');
+    const [notes,setNotes] =useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [lat,setLat]=useState<number>();
+     const [lng,setLng]=useState<number>();
 
    useEffect(() => {
-        getSystem();
+        getLocation();
     }, [])
 
-    const getSystem = async () => {
+    const getLocation = async () => {
         try {
-           await systemsStore.loudSystem(String(systemUrl));
-            setSystem(systemsStore.currentSystem);
-             setTopic(systemsStore.currentSystem.topic);
-              setObjectName(systemsStore.currentSystem.objectName);
-               setDescription(systemsStore.currentSystem.description);
-                setEmail(systemsStore.currentSystem.email);
-                 setPhone(systemsStore.currentSystem.phone);
+          const data= await getLocationsByLocationId(String(locationId));
+          setManagerId(data.managerId);
+           setSystemId(data.systemId);
+           setLat(data.lat);
+           setLng(data.lng);
+              setDescription(data.description);
+               setName(data.name);
+                setNotes(data.notes);
+                setEmail(data.email);
+                 setPhone(data.phone);
+                console.log(lat,lng,name,phone);
         } catch (err) {
             console.log(err)
         }
     };
-       const update = async () => {
-        const updatedSystem = {
-          topic: topic,
-          objectName: objectName,
-          managerId:String(userStore.user._id),
-          urlName:String(systemUrl),
+       const put = async () => {
+        debugger
+        const updatedLocation = {
+         managerId:managerId,
+         systemId:systemId,
+          lat:Number(lat), 
+          lng:Number(lng),
           description: description,
+          name:name,
+          notes:notes,
           email:email,
           phone:phone
             }
             try{
-             await updateSystem(String(system?._id), updatedSystem);
+                debugger
+             await updateLocation(String(locationId), updatedLocation);
             }catch{
-                console.log("failed to create system");
+                console.log("failed to update location");
             }
         }
 
   return (
-    <form className='auth-inner' onSubmit={update}>
-      <h3>update system</h3>
+    <form className='auth-inner' onSubmit={put}>
+      <h3>update location</h3>
          <div className="mb-3">
-          <label>topic</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    defaultValue = {system?.topic}
-                    onChange={(e) => setTopic(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label>objectName</label>
-          <input
-            type="text"
-            className="form-control"
-                     defaultValue = {system?.objectName}
-                    onChange={(e) => setObjectName(e.target.value)}
-          />
         </div>
            <div className="mb-3">
           <label>description</label>
           <input
             type="text"
             className="form-control"
-                    defaultValue = {system?.description}
+                    defaultValue = {description}
                     onChange={(e) => setDescription(e.target.value)}
           />
         </div>
             <div className="mb-3">
-          <label>urlName</label>
+          <label>name</label>
           <input
             type="text"
             className="form-control"
-                    value = {system?.urlName}
+                   defaultValue = {name}
+                    onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+           <div className="mb-3">
+          <label>notes</label>
+          <input
+            type="text"
+            className="form-control"
+                   defaultValue = {notes}
+                    onChange={(e) => setNotes(e.target.value)}
           />
         </div>
           <div className="mb-3">
@@ -95,7 +104,7 @@ export default function EditLocationDetails() {
           <input
             type="text"
             className="form-control"
-                    defaultValue = {system?.email}
+                    defaultValue = {email}
                     onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -104,7 +113,7 @@ export default function EditLocationDetails() {
           <input
             type="text"
             className="form-control"
-                  defaultValue = {system?.phone}
+                  defaultValue = {phone}
                     onChange={(e) => setPhone(e.target.value)}
           />
         </div>
@@ -116,3 +125,4 @@ export default function EditLocationDetails() {
     </form>
   );
 }
+export default observer(EditLocationDetails);

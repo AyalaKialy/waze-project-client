@@ -18,17 +18,19 @@ import { observer } from 'mobx-react';
       //אולי בלוגין לטעון בעצם תיוזר שנכנס?
       //אולי כאן אין צורך בכל זה בכלל
       const h = async () => {
-            await userStore.loudUser(String(uid));
+            await userStore.setUser(String(uid));
             console.log(userStore.user.email);
       };
       h();
       getUserByUidFromServer();
+  
 
     },[]);
     
     const getUserByUidFromServer = async () => {
       const user = await getUserByUid(String(uid));
         setUserId(user._id);
+        userStore.setNumSystems(user._id);
     }
     ////////
 
@@ -46,7 +48,12 @@ import { observer } from 'mobx-react';
       <div>
         <NavBar/>
             <p>Home Page (Protected by Firebase!)</p>
+          {(Number(userStore.numSystems)<3) ?
+          <>
             <button type="button" onClick={e => navigate(`/CreateSystem/${userId}`)}>Create System</button>
+           </> 
+          : <div> alert('you created the max num of systems you can...')</div>
+          }
             <button type="button" onClick={e => navigate(`/Systems/${userId}`)}>Systems</button>
         </div>
     );

@@ -10,7 +10,6 @@ import systemsStore from '../stores/systemsStore';
 const EditSystemDetails = () => {
     const {systemUrl} = useParams();
     const [system, setSystem] = useState<System>();
-
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
@@ -23,7 +22,7 @@ const EditSystemDetails = () => {
 
     const getSystem = async () => {
         try {
-         const data= await getSystemByUrlName(String(systemUrl));
+         const data = await getSystemByUrlName(String(systemUrl));
             setSystem(data);
              setTopic(data.topic);
               setObjectName(data.objectName);

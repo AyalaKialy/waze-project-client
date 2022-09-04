@@ -1,7 +1,6 @@
 import React,{ useEffect, useState } from 'react';
 import { System } from '../models/system.model';
 import { useNavigate, useParams} from "react-router-dom";
-import { getSystemByUrlName} from '../api/system';
 import MapContainer from './map'
 import systemsStore from '../stores/systemsStore';
 import '../css/map&.css';
@@ -12,6 +11,8 @@ import Grid from '@mui/material/Grid';
 import SystemLocations from './systemLocations';
 import Autocomplete from './autocomplete';
 import { observer } from 'mobx-react';
+import markersStore from '../stores/markersStore';
+import { Location } from '../models/location.model';
 import userStore from '../stores/userStore';
 
 
@@ -26,7 +27,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const SingleSystem = () => {
-
   const navigate = useNavigate();
   const { systemUrl } = useParams();
   const system = systemsStore.system;
@@ -34,25 +34,78 @@ const SingleSystem = () => {
  const showLocations = () => {
     navigate(`/Locations/${systemUrl}`);
   }
-  
-  return (
-    
+  const findClosestPlaces = () => {
+    const from = new google.maps.LatLng(markersStore.marker.lat, markersStore.marker.lng);
+   const service = new google.maps.DistanceMatrixService();
+   service.getDistanceMatrix(
+   {
+    origins: [from],
+    destinations: markersStore.markers.map(marker => new google.maps.LatLng(marker.lat, marker.lng)) ,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, callback);
+
+    function callback(response: any, status: any) {
+  if (status == 'OK') {
+    const origins = response.originAddresses;
+        let smallestDest1: number = Infinity;
+        let smallest1: number;
+        let smallestDest2: number = Infinity;
+        let smallest2: number;
+        let smallestDest3: number = Infinity;
+        let smallest3: number;
+
+    origins.map((origin: any, i: number) => { 
+          let results = response.rows[i].elements;
+      results.map((element: any, j: number) => { 
+        if (element.duration.value < smallestDest1) {
+            smallestDest3 = smallestDest2;
+            smallest3 = smallest2;
+            smallestDest2 = smallestDest1;
+            smallest2 = smallest1;
+            smallestDest1 = element.duration.value;
+            smallest1 = j;
+          } 
+        else if (element.duration.value < smallestDest2) {
+            smallestDest3 = smallestDest2;
+            smallest3 = smallest2;
+            smallestDest2 = element.duration.value;
+            smallest2 = j;
+          } 
+        else if (element.duration.value < smallestDest3) {
+            smallestDest3 = element.duration.value;
+            smallest3 = j;
+            } 
+        });
+      const newArray: Location[] = [markersStore.markers[smallest1], markersStore.markers[smallest2], markersStore.markers[smallest3]];
+      markersStore.markers = newArray;
+      markersStore.indexMarker = smallest1;
+
+      });
+    }
+}
+  }
+  const canselSorting = () => {
+    markersStore.loudLocations(String(system._id));
+  }
+  return (   
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <h1 className='pink'>{system?.topic}</h1>
         </Grid>
         <Grid item xs={5}>
-          <Item className="item"><MapContainer></MapContainer></Item>
+          <Item className="item"><MapContainer/></Item>
         </Grid>
         <Grid item xs={4}>
           <SystemLocations systemUrl={systemUrl} />
         </Grid>
         <Grid item xs={3}>
-          <Item className="item"><Autocomplete></Autocomplete>
+          <Item className="item"><Autocomplete />
+            <button className='btn' onClick={findClosestPlaces}>Find Closest Locations</button>
+             <button className='btn' onClick={canselSorting}>Cancel Sorting</button>
           {(userStore.manager && userStore.manager.role ==='0') &&
           <>
-          <button onClick={showLocations}>all locations</button>
+          <button className='btn' onClick={showLocations}>all locations</button>
           </>}
           </Item>
           </Grid>

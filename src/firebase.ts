@@ -1,29 +1,8 @@
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { initializeApp } from 'firebase/app';
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-} from 'firebase/auth';
-
-import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-  doc,
-  setDoc,
-  getDoc
-} from 'firebase/firestore';
-
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword,
+createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import { config } from './config/config';
 import { Role } from "./models/manager.model";
 import userStore from './stores/userStore';
@@ -31,7 +10,6 @@ import userStore from './stores/userStore';
 const app = initializeApp(config.firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-const db = getFirestore(app);
 
 const signInWithGoogle = async () => {
   try {

@@ -25,15 +25,11 @@ import { observer } from 'mobx-react';
   };
 
   const handleSelect = (val: string): void => {
-     console.log('handleSelect');
      setValue(val, false);
      convertfromAdressToLocation();
-
   };
 
   const renderSuggestions = (): JSX.Element => {
-      console.log('renderSuggestions');
-      console.log(data);
     const suggestions = data.map(({ place_id, description }: any) => (
       <ComboboxOption key={place_id} value={description} />
     ));
@@ -45,8 +41,7 @@ import { observer } from 'mobx-react';
     );
   };
 
-//?city=Israel&   -איך מגבילים לחיפוש בישראל
-      const convertfromAdressToLocation = ()=>{
+      const convertfromAdressToLocation = () => {
        getGeocode({ address: value })
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {

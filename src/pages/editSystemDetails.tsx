@@ -10,7 +10,6 @@ import systemsStore from '../stores/systemsStore';
 const EditSystemDetails = () => {
     const {systemUrl} = useParams();
     const [system, setSystem] = useState<System>();
-
     const [topic,setTopic] =useState('');
     const [objectName,setObjectName] =useState('');
     const [description,setDescription] =useState('');
@@ -25,11 +24,11 @@ const EditSystemDetails = () => {
         try {
            await systemsStore.loudSystem(String(systemUrl));
             setSystem(systemsStore.currentSystem);
-             setTopic(systemsStore.currentSystem.topic);
-              setObjectName(systemsStore.currentSystem.objectName);
-               setDescription(systemsStore.currentSystem.description);
-                setEmail(systemsStore.currentSystem.email);
-                 setPhone(systemsStore.currentSystem.phone);
+            setTopic(systemsStore.currentSystem.topic);
+            setObjectName(systemsStore.currentSystem.objectName);
+            setDescription(systemsStore.currentSystem.description);
+            setEmail(systemsStore.currentSystem.email);
+            setPhone(systemsStore.currentSystem.phone);
         } catch (err) {
             console.log(err)
         }

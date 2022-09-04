@@ -4,8 +4,9 @@ import { Location } from '../models/location.model';
 
 
 export class MarkersStore {
- @observable markers: Location[] = [];
- @observable marker: Location = { managerId:'', systemId: '', lat: 0, lng: 0,description: '', name: '', notes: '', email: '', phone:''};
+  @observable markers: Location[] = [];
+  @observable marker: Location = { managerId:'', systemId: '', lat: 0, lng: 0,description: '', name: '', notes: '', email: '', phone:''};
+  @observable indexMarker: any = null;
 
     constructor() {
         makeAutoObservable(this);
@@ -13,15 +14,11 @@ export class MarkersStore {
   
   @action
   loudLocations = async (systemId: string) => {
+        this.markers = [];
         const locations = await getLocationsBySystemId(systemId);
         this.markers = locations;
         console.log('setArray ' + this.markers.length);
 
-  }
-  @action
-  resetArray = () => {      
-    this.markers = [];
-    console.log('resetArray');
   }
 
   public addMarker = async (marker: Location) => {    

@@ -31,6 +31,9 @@ import { observer } from 'mobx-react';
       const token=value;
       userStore.setToken(token);
     }));
+  const path='https://files.slack.com/files-pri/T03KMPWTK0A-F0421S4H872/images.png'
+   userStore.setPotoUrl(String(user.photoURL|| path));
+
 
   //   //navigate
   //   const navigateUser=async() => {

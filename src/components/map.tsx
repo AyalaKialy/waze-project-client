@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './marker';
 import  mapStore from '../stores/mapStore';
@@ -8,6 +8,7 @@ import { observer } from 'mobx-react';
 const MapContainer = () => {
   const [map, setMap] = useState(null);
   const indexOfMarker = markersStore.indexMarker;
+  console.log(indexOfMarker);
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   
@@ -15,8 +16,11 @@ const MapContainer = () => {
     setMap(map);
       navigator?.geolocation.getCurrentPosition(
         ({ coords: { latitude: lat, longitude: lng } }) => {
-          mapStore.setCenter(lat,lng);
-          mapStore.setZoom(12);
+          console.log(lat,lng);
+           mapStore.currentMap.center = { lat, lng }
+           mapStore.currentMap.zoom = 13;
+          // mapStore.setCenter(lat,lng);
+          // mapStore.setZoom(14);
         }
     );
    };
@@ -38,7 +42,7 @@ const MapContainer = () => {
         directionsRenderer.setDirections(response);
       }
     })
-      .catch(() => alert('Directions request failed'));
+      // .catch(() => alert('Directions request failed'));
   }
   calculateAndDisplayRoute(directionsService, directionsRenderer);
 

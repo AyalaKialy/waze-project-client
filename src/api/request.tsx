@@ -13,9 +13,9 @@ export const getAllRequests = async () => {
 }
 
 //getRequestById
-export const getRequestById = async (id: string) => {
+export const getRequestsBySystemId= async (systemId: string) => {
     try {
-        const {data} = await axios.get(`http://localhost:3333/request/${id}`);
+        const {data} = await axios.get(`http://localhost:3333/request/${systemId}`);
         return  data;
     }
     catch (error) {
@@ -28,6 +28,7 @@ export const createRequest = async (newRequest :Request) => {
     try {
         const {data}= await axios.post('http://localhost:3333/request/', newRequest);
         console.log(data);
+        return data;
     }
     catch (error) {
         console.log('error in createRequest', error);
@@ -53,3 +54,14 @@ export const updateRequest= async (Id:string, updates:Request) => {
         console.log('error in updateRequest',error);
     }
 }
+
+// export const Mail = async (word:string) => {
+//     try {
+//         await axios.post('https://api.sendgrid.com/v3/mail/send',
+//          {headers: {Authorization: 'Bearer ' + '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'}}
+//         );
+//     }
+//     catch (error) {
+//         console.log('error in Mail', error);
+//     }
+// }

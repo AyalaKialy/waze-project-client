@@ -7,6 +7,7 @@ export type System = {
     urlName:string,
     description:string,
     email:string,
-    phone:string
+    phone:string,
+    systemUrl:string,
 }
 

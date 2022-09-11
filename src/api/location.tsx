@@ -44,6 +44,7 @@ export const createLocation = async (newLocation :Location) => {
     try {
         const {data} = await axios.post('http://localhost:3333/location/', newLocation);
         console.log(data);
+        return data;
     }
     catch (error) {
         console.log('error in createLocation: ', error);

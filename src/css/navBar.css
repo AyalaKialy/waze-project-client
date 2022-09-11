@@ -1,6 +1,10 @@
 .navbar{
   z-index: 99999;
-  background-color:white}
+  /* background-color:white; */
+  background: #1C8EF9;
+  height: 90px;
+  display: flex;
+}
 
 .nav-item{
   margin:0px 10px;
@@ -14,6 +18,9 @@
 button{
   color:darkorange;
   border: none;
-  background-color: white;
+  /* background-color: white; */
   font-size:larger;
 }
+/* .logout{
+  background-color: none;
+} */

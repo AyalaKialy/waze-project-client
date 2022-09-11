@@ -1,6 +1,7 @@
 import { Console } from 'console';
 import {autorun, observable, computed,action, makeAutoObservable } from 'mobx';
 import { getManagerByUserId, getManagerByUserIdAndBySystemId } from '../api/manager';
+import { getSystemByManagerId } from '../api/system';
 import { getUserByUid } from '../api/user';
 import { Role } from '../models/manager.model';
 import { User } from '../models/user.model';
@@ -11,6 +12,7 @@ export class UserStore {
     @observable token:any; 
     @observable manager:any;  
     @observable numSystems:number | undefined; //נתון לשמירה גלובלית כמה סיסטמס למשתמש זה
+    @observable potoUrl:string | undefined;
 
     constructor() { 
         makeAutoObservable(this);    
@@ -30,7 +32,7 @@ export class UserStore {
 
      @action
     setNumSystems = async(userId:string) => {
-      const data=await getManagerByUserId(userId);
+      const data=await getSystemByManagerId(userId);
       console.log(data);
       this.numSystems=data.length;
       console.log(this.numSystems);
@@ -41,6 +43,13 @@ export class UserStore {
       this.token=token;
       console.log(this.token);
     }
+
+     @action
+    setPotoUrl = (poto:string) => {
+      this.potoUrl=poto;
+      console.log(this.potoUrl);
+    }
+
 
 
 }

@@ -49,26 +49,40 @@ const SystemLocations = (props: any) => {
     const SYSTEM = await getSystemByUrlName(String(props.systemUrl));
     await systemsStore.setSystem(SYSTEM);
     console.log(systemsStore.system._id);
+    await markersStore.loudLocations(String(systemsStore.system._id));
+    if(userStore.user){
     await userStore.setManager(String(userStore.user._id),String(systemsStore.system._id));
     console.log(userStore.manager.role);
-    await markersStore.loudLocations(String(systemsStore.system._id));
     }
- const change = (lat: number, lng: number,index: number) => {
-    markersStore.markers.map(marker => { console.log(marker.name)});
-    mapStore.currentMap.center = { lat: lat, lng: lng };
-    mapStore.currentMap.zoom = 12;
-    markersStore.indexMarker = index;
-    handleOpen();
+    }
+    const [name,setName]= useState('');
+    const [phone,setPhone]= useState('');
+    const [email,setEmail]= useState('');
+ const change = (lat: number, lng: number,name: string,phone: string,email: string,index: number) => {
+      markersStore.markers.map(marker => { console.log(marker.name)});
+      mapStore.currentMap.center = {  lat, lng };
+      mapStore.currentMap.zoom = 13;
+      markersStore.indexMarker = index;
+      setName(name);
+      setPhone(phone);
+      setEmail(email);
+      handleOpen();
+      // handleClick();
     } 
- 
+  // const handleClick = (lat: number, lng: number,index: number) => {
+  //   mapStore.currentMap.center = { lat: lat, lng: lng };
+  //   mapStore.currentMap.zoom = 12;
+  //   markersStore.indexMarker = index;
+  // } 
 
     return (<>
-      {markers && markersStore.markers.map((m, index) => (
+        {markersStore.markers && markersStore.markers.map((m,index) => (
           <>
-          <Item key={m._id} onClick={() => { change(m.lat, m.lng,index); } } className="item">
+          <Item key={m._id} onClick={() => change(m.lat, m.lng,m.name,m.phone,m.email,index)} className="item">
             <h2 className='white'>{m.name}</h2>
             <h4 className='white'>{m.description}</h4>
           </Item>
+          {/* המיקום הולך טוב רק תמיד מציג תשם האחרון */}
             <Modal
         open={open}
         onClose={handleClose}
@@ -77,14 +91,15 @@ const SystemLocations = (props: any) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {m.name}
+            {name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-           {m.email+' '}
-           {m.phone}
+           {email+' '}
+           {phone}
           </Typography>
         </Box>
       </Modal>
+      {/*  */}
           </>
           ))}
     </>

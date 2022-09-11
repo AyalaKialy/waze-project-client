@@ -16,13 +16,19 @@ import EditSystemDetails from './pages/editSystemDetails';
 import { useObserver } from 'mobx-react-lite';
 import Locations from './components/locations';
 import EditLocationDetails from './components/editLocationDetails';
+import Request from './components/request';
+import Requests from './components/requests';
+import Begin from './components/begin';
+import NavBar from './components/navBar';
 
  export default function App() {
 
     return useObserver(() =>(
         <BrowserRouter>
+        <NavBar></NavBar>
             <Routes>
-                <Route path="/" element={<LoginPage/>}/>
+                {/* <Route path="/" element={<LoginPage/>}/> */}
+                <Route path="/" element={<Begin/>}/>
                 <Route path="/Login" element={<LoginPage />} />
                 <Route path="/HomePage/:uid" element={<HomePage />} />
                 <Route path="/SignUp" element={<SignUpPage />} />
@@ -34,6 +40,8 @@ import EditLocationDetails from './components/editLocationDetails';
                 <Route path="/EditSystemDetails/:systemUrl" element={<EditSystemDetails />} />
                 <Route path="/Locations/:systemUrl" element={<Locations />} />
                 <Route path="/EditLocationDetails/:locationId" element={<EditLocationDetails />} />
+                <Route path="/Request" element={<Request />} />
+                <Route path="/Requests/:systemId" element={<Requests />} />
             </Routes>
         </BrowserRouter>
     )

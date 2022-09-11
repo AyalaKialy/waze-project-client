@@ -7,7 +7,9 @@ export type Request = {
     systemId:string,
     display_name: string,
     status:Status,
-    notes:string
+    notes:string,
+    lat: number,
+    lng: number
 }
 
 export enum Status{

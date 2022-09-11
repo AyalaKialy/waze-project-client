@@ -1,5 +1,5 @@
 import {  observable, action, makeAutoObservable} from "mobx";
-import { getLocationsBySystemId, createLocation, deleteLocation, updateLocation } from "../api/location";
+import { getLocationsBySystemId, createLocation } from "../api/location";
 import { Location } from '../models/location.model';
 
 
@@ -14,9 +14,7 @@ export class MarkersStore {
   
   @action
   loudLocations = async (systemId: string) => {
-        this.markers = [];
-        const locations = await getLocationsBySystemId(systemId);
-        this.markers = locations;
+        this.markers = await getLocationsBySystemId(systemId);
         console.log('setArray ' + this.markers.length);
 
   }

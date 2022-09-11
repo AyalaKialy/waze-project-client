@@ -32,7 +32,6 @@ export const getSystemByManagerId = async (managerId: string) => {
 
 //getSystemByUrlName
 export const getSystemByUrlName = async (urlName: string) => {
-    debugger;
     console.log("getSystemByurlName");
     try {
         const { data } = await axios.get(`http://localhost:3333/system/getSystemByurlName/${urlName}`);
@@ -45,7 +44,6 @@ export const getSystemByUrlName = async (urlName: string) => {
 }
 //post 
 export const createSystem = async (system:System) => {
-    debugger;
 try {
 const res =  await axios.post('http://localhost:3333/system/', system );
 console.log(res);
@@ -56,7 +54,6 @@ return res;
 
 //put
 export const updateSystem = async (systemId:string, updates:System) => {
-    debugger;
     console.log("updateSystem");
     try {
  await axios.put(`http://localhost:3333/system/${systemId}`, updates

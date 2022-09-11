@@ -76,15 +76,24 @@ const SingleSystem = () => {
             smallest3 = j;
             } 
         });
-      const newArray: Location[] = [markersStore.markers[smallest1], markersStore.markers[smallest2], markersStore.markers[smallest3]];
+      let newArray: any[] = [];
+      if(smallest1 != null) {
+        newArray.push(markersStore.markers[smallest1]);
+      }
+      if(smallest2 != null){
+         newArray.push(markersStore.markers[smallest2]);
+      }
+       if(smallest3 != null){
+         newArray.push(markersStore.markers[smallest3]);
+      }
       markersStore.markers = newArray;
-      markersStore.indexMarker = smallest1;
-
+      markersStore.indexMarker = 0;
       });
     }
 }
   }
   const canselSorting = () => {
+    markersStore.indexMarker = null; 
     markersStore.loudLocations(String(system._id));
   }
   return (   

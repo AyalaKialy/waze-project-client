@@ -53,21 +53,19 @@ const SystemLocations = (props: any) => {
     console.log(userStore.manager.role);
     await markersStore.loudLocations(String(systemsStore.system._id));
     }
- const change = (lat: number, lng: number) => {
+ const change = (lat: number, lng: number,index: number) => {
     markersStore.markers.map(marker => { console.log(marker.name)});
-      mapStore.currentMap.center = { lat: lat, lng: lng };
-      handleOpen();
-    } 
-  const handleClick = (lat: number, lng: number,index: number) => {
     mapStore.currentMap.center = { lat: lat, lng: lng };
     mapStore.currentMap.zoom = 12;
     markersStore.indexMarker = index;
-  } 
+    handleOpen();
+    } 
+ 
 
     return (<>
-        {markers && markersStore.markers.map(m => (
+      {markers && markersStore.markers.map((m, index) => (
           <>
-          <Item key={m._id} onClick={() => { change(m.lat, m.lng); } } className="item">
+          <Item key={m._id} onClick={() => { change(m.lat, m.lng,index); } } className="item">
             <h2 className='white'>{m.name}</h2>
             <h4 className='white'>{m.description}</h4>
           </Item>

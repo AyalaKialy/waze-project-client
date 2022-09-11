@@ -11,7 +11,7 @@ const MapContainer = () => {
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   
-  const apiIsLoaded = (map: any) => {
+  const apiIsLoaded = (map: any, maps:any) => {
     setMap(map);
       navigator?.geolocation.getCurrentPosition(
         ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -21,13 +21,12 @@ const MapContainer = () => {
     );
    };
     
-  function calculateAndDisplayRoute(
+  const calculateAndDisplayRoute = (
   directionsService: google.maps.DirectionsService,
   directionsRenderer: google.maps.DirectionsRenderer,
-  ) {
+  ) => {
     if (markersStore.indexMarker === null || markersStore.marker.lat === 0)
       return;
-  directionsRenderer.setMap(null);
   directionsRenderer.setMap(map);
   directionsService
     .route({
@@ -50,7 +49,7 @@ const MapContainer = () => {
           center = { mapStore.currentMap.center}
           zoom = { mapStore.currentMap.zoom }
            yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={( map ) => apiIsLoaded(map)}
+          onGoogleApiLoaded = {({ map, maps }) => apiIsLoaded(map,maps)}
         >  
           {markersStore.markers.map(m => (
             <Marker

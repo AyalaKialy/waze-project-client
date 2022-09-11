@@ -7,6 +7,7 @@ import { getUserByUid } from '../api/user';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import  NavBar  from '../components/navBar';
 import { observer } from 'mobx-react';
+import Systems from '../components/systems';
 
   const HomePage = () => {
     const navigate = useNavigate();
@@ -23,8 +24,6 @@ import { observer } from 'mobx-react';
       };
       h();
       getUserByUidFromServer();
-  
-
     },[]);
     
     const getUserByUidFromServer = async () => {
@@ -46,14 +45,18 @@ import { observer } from 'mobx-react';
 
     return (
       <div>
-        <NavBar/>
-            <p>Home Page (Protected by Firebase!)</p>
+        {/* <NavBar/> */}
+
+            <p> </p>
+            {/* Home Page (Protected by Firebase!) */}
+            {/* <Systems></Systems> */}
           {(Number(userStore.numSystems)<3) ?
           <>
             <button type="button" onClick={e => navigate(`/CreateSystem/${userId}`)}>Create System</button>
            </> 
           : <div> alert('you created the max num of systems you can...')</div>
           }
+          <p> </p>
             <button type="button" onClick={e => navigate(`/Systems/${userId}`)}>Systems</button>
         </div>
     );

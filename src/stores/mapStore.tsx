@@ -11,6 +11,7 @@ export class MapStore {
     zoom:8,
      center: { lat: 31.0461, lng: 34.8516 },
 };
+// 31.9338572 35.0466771
 
     constructor() {
         makeAutoObservable(this);
@@ -25,6 +26,7 @@ export class MapStore {
      setCenter = (lat:number,lng:number) => {
         this.currentMap.center.lat = lat;
         this.currentMap.center.lng = lng;
+        console.log(lat,lng);
     }
     
   };

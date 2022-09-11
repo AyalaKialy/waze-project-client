@@ -14,7 +14,7 @@ export class MarkersStore {
   
   @action
   loudLocations = async (systemId: string) => {
-        this.markers = [];
+        // this.markers = [];
         const locations = await getLocationsBySystemId(systemId);
         this.markers = locations;
         console.log('setArray ' + this.markers.length);

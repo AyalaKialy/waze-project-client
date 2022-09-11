@@ -21,6 +21,7 @@ import { Role } from "../models/manager.model";
     const [urlName, setUrlName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [systemUrl, setSystemUrl] = useState('');
 
     const create = async () => {
         const system = {
@@ -30,7 +31,8 @@ import { Role } from "../models/manager.model";
           description: description,
           urlName:urlName,
           email:email,
-          phone:phone
+          phone:phone,
+          systemUrl:systemUrl,
             }
             try{
               //create system
@@ -104,6 +106,15 @@ import { Role } from "../models/manager.model";
             className="form-control"
                     placeholder="Enter phone"
                     onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+          <div className="mb-3">
+          <label>picture</label>
+          <input
+            type="string"
+            className="form-control"
+                    placeholder="Enter picture"
+                    onChange={(e) => setSystemUrl(e.target.value)}
           />
         </div>
           <div className="d-grid">

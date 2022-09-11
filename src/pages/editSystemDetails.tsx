@@ -15,6 +15,7 @@ const EditSystemDetails = () => {
     const [description,setDescription] =useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [systemURL, setSystemURL] = useState('');
 
    useEffect(() => {
         getSystem();
@@ -29,6 +30,8 @@ const EditSystemDetails = () => {
                setDescription(data.description);
                 setEmail(data.email);
                  setPhone(data.phone);
+                 setSystemURL(data.systemUrl);
+
         } catch (err) {
             console.log(err)
         }
@@ -41,7 +44,8 @@ const EditSystemDetails = () => {
           urlName:String(systemUrl),
           description: description,
           email:email,
-          phone:phone
+          phone:phone,
+          systemUrl:systemURL,
             }
             try{              
              await updateSystem(String(system?._id), updatedSystem);          

@@ -1,17 +1,26 @@
 
 import {  observable, computed ,makeAutoObservable,action} from "mobx";
-import { createSystem, getSystemByManagerId, getSystemByUrlName } from "../api/system";
+import { createSystem, getAllSystems, getSystemByManagerId, getSystemByUrlName } from "../api/system";
 
 import { System } from "../models/system.model";
 
 export class SystemsStore {
 @observable systems: System[] = [];
 
-@observable system: System = {   topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:''};
+@observable system: System = {   topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:'',systemUrl:''};
+
+@observable AllSystems: System[] = [];
 
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    
+    @action
+    setAllSystems = async() => {
+        const data = await getAllSystems();
+        this.AllSystems = data;
     }
 
     @action

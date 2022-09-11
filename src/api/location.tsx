@@ -16,7 +16,6 @@ export const getAlllocations = async () => {
 
 //getLocationsByManagerId
 export const getLocationsBySystemId = async (systemId: string) => {
-    debugger
     try {
         const {data} = await axios.get(`http://localhost:3333/location/${systemId}`);
         return data;
@@ -28,7 +27,6 @@ export const getLocationsBySystemId = async (systemId: string) => {
 
 //getLocationsByLocationId
 export const getLocationsByLocationId = async (locationId: string) => {
-    debugger
     try {
         const {data} = await axios.get(`http://localhost:3333/location/getByLocationId/${locationId}`);
         debugger
@@ -47,6 +45,7 @@ export const createLocation = async (newLocation :Location) => {
     try {
         const {data} = await axios.post('http://localhost:3333/location/', newLocation);
         console.log(data);
+        return data;
     }
     catch (error) {
         console.log('error in createLocation: ', error);

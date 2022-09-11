@@ -34,9 +34,13 @@ const SingleSystem = () => {
  const showLocations = () => {
     navigate(`/Locations/${systemUrl}`);
   }
+
+  const showRequests=()=>{
+     navigate(`/Requests/${system._id}`);
+  }
   const findClosestPlaces = () => {
     const from = new google.maps.LatLng(markersStore.marker.lat, markersStore.marker.lng);
-   const service = new google.maps.DistanceMatrixService();
+    const service = new google.maps.DistanceMatrixService();
    service.getDistanceMatrix(
    {
     origins: [from],
@@ -76,37 +80,54 @@ const SingleSystem = () => {
             smallest3 = j;
             } 
         });
-      const newArray: Location[] = [markersStore.markers[smallest1], markersStore.markers[smallest2], markersStore.markers[smallest3]];
-      markersStore.markers = newArray;
-      markersStore.indexMarker = smallest1;
 
+      let newArray: any[] = [];
+      if(smallest1 != null){
+        newArray.push(markersStore.markers[smallest1]);
+      }
+      if(smallest2 != null){
+         newArray.push(markersStore.markers[smallest2]);
+      }
+       if(smallest3 != null){
+         newArray.push(markersStore.markers[smallest3]);
+      }
+      markersStore.markers = newArray;
+      console.log(smallest1);
+      markersStore.indexMarker = 0;
       });
     }
 }
   }
   const canselSorting = () => {
+    markersStore.indexMarker=null;
     markersStore.loudLocations(String(system._id));
+  }
+
+  const createReq=() => {
+    //השאלה כאן ביצירת בקשה לאיזה לוגין מועבר קודם ומה ישמר גלובלי
+      navigate('/Request')
   }
   return (   
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <h1 className='pink'>{system?.topic}</h1>
-        </Grid>
-        <Grid item xs={5}>
+        </Grid> */}
+        <Grid item xs={6}>
           <Item className="item"><MapContainer/></Item>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <SystemLocations systemUrl={systemUrl} />
         </Grid>
         <Grid item xs={3}>
           <Item className="item"><Autocomplete />
             <button className='btn' onClick={findClosestPlaces}>Find Closest Locations</button>
-             <button className='btn' onClick={canselSorting}>Cancel Sorting</button>
-          {(userStore.manager && userStore.manager.role ==='0') &&
+            <button className='btn' onClick={canselSorting}>Cancel Sorting</button>
+          {(userStore.manager && userStore.manager.role ==='0') ?
           <>
           <button className='btn' onClick={showLocations}>all locations</button>
-          </>}
+          <button className='btn' onClick={showRequests}>all requests</button>
+          </>: <button className='btn' onClick={createReq}>Request</button>}
           </Item>
           </Grid>
       </Grid>

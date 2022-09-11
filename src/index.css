@@ -3,7 +3,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #1C8EF9;
+  /* background: #1C8EF9; */
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -70,7 +70,8 @@ body, html, .App, #root, .auth-wrapper {
   border: none;
 }
 .pink{
-    color: rgb(255, 169, 234);
+    /* color: rgb(255, 169, 234); */
+    /* color:#0d6efd; */
 }
 .white{
     color:#ffffff;

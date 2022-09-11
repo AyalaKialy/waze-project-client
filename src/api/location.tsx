@@ -29,7 +29,6 @@ export const getLocationsBySystemId = async (systemId: string) => {
 export const getLocationsByLocationId = async (locationId: string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/location/getByLocationId/${locationId}`);
-        debugger
         console.log(data);
         return data;
     }
@@ -65,7 +64,6 @@ export const deleteLocation = async (locationId:string) => {
 //put
 export const updateLocation = async (locationId:string, updates:Location) => {
     console.log(updates);
-    debugger
     try {
          await axios.put(`http://localhost:3333/location/${locationId}`, updates);
          

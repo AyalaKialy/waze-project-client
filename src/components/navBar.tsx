@@ -1,33 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/navBar.css";
-import Navbar from 'react-bootstrap/Navbar';
-import logo from'../img/logo.png';
-import { Link } from 'react-router-dom';
-import { logout } from '../firebase';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import { observer } from 'mobx-react';
+import { logout } from '../firebase'
 import userStore from '../stores/userStore';
-import ImageAvatars from './profil';
 
-const MyNavbar = () => {
-
+const ResponsiveAppBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg p-3 navbar-dark transparent-nav nav-js">
-        {/* <img width={100} height={100} src={userStore.potoUrl}/> */}
-        <ImageAvatars></ImageAvatars>
-        <Navbar.Brand href="#home">
-        <img alt="" src={logo} width="50" height="50" className="d-inline-block align-top"/>{' '}
-       </Navbar.Brand>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-            <Link to='/' className="nav-item nav-link">All Systems</Link>
-            <Link to="/login" className="nav-item nav-link">login</Link>
-            <Link to="/SignUp" className="nav-item nav-link">Sign up</Link>  
-            <button  onClick={logout}>Sign out</button>
-          </div>
-          </div>
-      </nav>     
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            PROJECT
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          </Box>
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              href='/'>
+              All Systems
+            </Button>
+            <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              href='/login'>
+              login
+            </Button>
+              <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              href='/signup'>
+              signup
+            </Button>
+              <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              onClick={logout}>
+              Sign out
+            </Button>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+              <IconButton sx={{ p: 0 }}>
+              <Avatar src= {userStore.potoUrl} />
+              </IconButton>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
-}
-
-export default observer(MyNavbar);
+};
+export default observer(ResponsiveAppBar) ;       

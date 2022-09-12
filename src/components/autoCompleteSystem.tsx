@@ -4,7 +4,7 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import systemsStore from "../stores/systemsStore";
 import { System } from "../models/system.model";
 import { useNavigate } from 'react-router-dom';
-
+import systemStore from '../stores/systemsStore'
 
 const AutoCompleteSystem= () => {
     const [open, setOpen] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const AutoCompleteSystem= () => {
         else {
             setSelect(false);
             const nameSystem = inputNameSystem.current?.value;
-            // await systemStore.SearchSystem(nameSystem);
+            await systemStore.SearchSystem(String(nameSystem));
             // navigate(`/Map/${systemStore.currentSystem.urlName}/${systemStore.currentSystem._id}`)
         }
     }
@@ -66,18 +66,18 @@ const AutoCompleteSystem= () => {
             onClose={() => {
                 setOpen(false);
             }}
-            isOptionEqualToValue={(option, value) => option.objectName === value.objectName}
-            getOptionLabel={(option) => option.objectName}
-            onSelect={handleSelect}
-            options={options}
-            loading={loading}
+            isOptionEqualToValue = {(option, value) => option.objectName === value.objectName}
+            getOptionLabel = {(option) => option.topic}
+            onSelect = {handleSelect}
+            options = {options}
+            loading = {loading}
 
-            renderInput={(params) => (
+            renderInput = {(params) => (
                 <TextField
                     {...params}
                     label="to search system"
-                    inputRef={inputNameSystem}
-                    InputProps={{
+                    inputRef = {inputNameSystem}
+                    InputProps = {{
                         ...params.InputProps,
                         endAdornment: (
                             <React.Fragment>

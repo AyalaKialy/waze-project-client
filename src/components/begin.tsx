@@ -56,7 +56,7 @@ const Begin=() => {
                                     component="img"
                                     alt="system"
                                     height="140"
-                                    image={system.systemUrl}
+                                    image = {system.systemUrl}
                                 />
                                 <CardContent >
                                     <Typography gutterBottom variant="h5" component="div">

@@ -1,6 +1,6 @@
 
 import {  observable, computed ,makeAutoObservable,action} from "mobx";
-import { createSystem, getAllSystems, getSystemByManagerId, getSystemByUrlName } from "../api/system";
+import { createSystem, getAllSystems, getSystemByManagerId, getSystemByUrlName, getSystemsBySearchWord } from "../api/system";
 
 import { System } from "../models/system.model";
 
@@ -16,7 +16,7 @@ export class SystemsStore {
     constructor() {
         makeAutoObservable(this);
     }
-
+    
     @action
     setAllSystems = async() => {
         const data = await getAllSystems();
@@ -24,9 +24,17 @@ export class SystemsStore {
     }
 
     @action
-    loudsystems = async(managerId:string) => {
+    loudsystems = async (managerId: string) => {
         const systems = await getSystemByManagerId(managerId);
         this.systems = systems;
+    }
+
+    @action
+    SearchSystem = async (searchWord: String) => {
+        console.log(searchWord);
+        const data = await getSystemsBySearchWord(searchWord);
+        if(data.length)
+            this.AllSystems = data;  
     }
 
 //    @action
@@ -37,9 +45,9 @@ export class SystemsStore {
 //         console.log(this.currentSystem);
 //     }
 
- @action
+    @action
     addSystem = async(system:System) => {
-        const data=await createSystem(system);
+        const data = await createSystem(system);
         return data;
         // this.system = data;
         // console.log(this.system);

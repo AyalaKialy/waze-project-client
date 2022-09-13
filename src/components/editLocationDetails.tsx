@@ -47,7 +47,6 @@ const EditLocationDetails=()=> {
         }
     };
        const put = async () => {
-        debugger
         const updatedLocation = {
          managerId:managerId,
          systemId:systemId,
@@ -60,7 +59,6 @@ const EditLocationDetails=()=> {
           phone:phone
             }
             try{
-                debugger
              await updateLocation(String(locationId), updatedLocation);
             }catch{
                 console.log("failed to update location");

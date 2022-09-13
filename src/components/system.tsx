@@ -79,9 +79,8 @@ const SingleSystem = () => {
             smallest3 = j;
             } 
         });
-
       let newArray: any[] = [];
-      if(smallest1 != null){
+      if(smallest1 != null) {
         newArray.push(markersStore.markers[smallest1]);
       }
       if(smallest2 != null){
@@ -91,14 +90,13 @@ const SingleSystem = () => {
          newArray.push(markersStore.markers[smallest3]);
       }
       markersStore.markers = newArray;
-      console.log(smallest1);
       markersStore.indexMarker = 0;
       });
     }
 }
   }
   const canselSorting = () => {
-    markersStore.indexMarker=null;
+    markersStore.indexMarker = null; 
     markersStore.loudLocations(String(system._id));
   }
 

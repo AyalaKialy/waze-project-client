@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { System } from '../models/system.model';
-import systemsStore from '../stores/systemsStore';
 import userStore from '../stores/userStore';
 
 
@@ -29,7 +28,16 @@ export const getSystemByManagerId = async (managerId: string) => {
         console.log('error-getSystemByManagerId',error);
     }
 }
-
+// getSystemBySearchWord
+export const getSystemsBySearchWord = async (searchWord: String) => {
+    try {
+        const { data } = await axios.get(`http://localhost:3333/system/getSystemBySearchWord/${searchWord}`);
+        return data;
+    }
+    catch (error) {
+        console.log('error in getSystemsBySearchWord', error); 
+    }
+}
 //getSystemByUrlName
 export const getSystemByUrlName = async (urlName: string) => {
     console.log("getSystemByurlName");

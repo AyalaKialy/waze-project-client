@@ -15,8 +15,6 @@ const signInWithGoogle = async () => {
   try {
       const res = await signInWithPopup(auth, googleProvider);
       console.log(res.user.uid); 
-      const user=res.user;
- 
   } catch (err:any) {
     console.error(err);
     alert(err.message);

@@ -31,6 +31,7 @@ const Begin=() => {
     }, [])
 
     const addSystem = () => {
+         userStore.setSystemOrLocation(true);
         if (!userStore.user) {
             console.log('if not');
             navigate('/login')
@@ -45,7 +46,6 @@ const Begin=() => {
     return (
         <div id="allBusiness" >
             <Typography sx={{ textAlign: 'center' }} variant="h4" gutterBottom>
-                {/* search for system do you want */}
             </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={9}>

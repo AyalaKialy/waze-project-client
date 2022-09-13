@@ -15,7 +15,6 @@ import markersStore from '../stores/markersStore';
 import { Location } from '../models/location.model';
 import userStore from '../stores/userStore';
 
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
   ...theme.typography.body2,
@@ -104,8 +103,9 @@ const SingleSystem = () => {
   }
 
   const createReq=() => {
-    //השאלה כאן ביצירת בקשה לאיזה לוגין מועבר קודם ומה ישמר גלובלי
-      navigate('/Request')
+      // navigate('/Request')
+      userStore.setSystemOrLocation(false);
+       navigate(`/Login/${system._id}`);
   }
   return (   
     <Box sx={{ flexGrow: 1 }}>

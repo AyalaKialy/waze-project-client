@@ -1,16 +1,19 @@
 import React, { useState,useEffect } from 'react';
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../css/login.css'
 import userStore from '../stores/userStore';
 import { observer } from 'mobx-react';
+import { getUserByUid } from '../api/user';
 
  const LoginPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, loading, error] = useAuthState(auth);
+    const {systemId}=useParams();
+    const [userId, setUserId] = useState('');
 
    useEffect(() => {
       console.log('useEffect');
@@ -20,32 +23,35 @@ import { observer } from 'mobx-react';
     if (user)  {
       console.log('if user');
       console.log(user);
-  //     //set User
-  //     const loudUser=async() => {
-  //      await userStore.setUser(String(user?.uid));
-  //     console.log(userStore.user.email);
-  // }
-  //     loudUser();
-      //get set-Token
+      //get token
       user.getIdToken().then((value=>{
       const token=value;
       userStore.setToken(token);
     }));
   const path='https://files.slack.com/files-pri/T03KMPWTK0A-F0421S4H872/images.png'
    userStore.setPotoUrl(String(user.photoURL|| path));
-
-
-  //   //navigate
-  //   const navigateUser=async() => {
-  //     console.log("navigate");
-  //  await
-    navigate(`/HomePage/${user.uid}`);  
-  //  }
-  //   navigateUser();
-      
+      //
+      const getUserByUidFromServer = async () => {
+      const data = await getUserByUid(String(user.uid));
+      setUserId(data._id);
+      console.log(userId);
+      userStore.setUser(data);
+    if(systemId){
+    console.log(userId);
+    //request
+    navigate(`/Request/${data._id}`); 
+   }else{
+    //admin
+      navigate(`/HomePage`);  
+   }
+    }
+    getUserByUidFromServer();
     }
    }, [user, loading]);
 
+   const navigateTo= () => {
+     navigate(`/signUp`); 
+   }
    
   
     return (
@@ -87,7 +93,9 @@ import { observer } from 'mobx-react';
           Forgot <a href="#">password?</a>
         </p>
         <p className="forgot-password text-right">
-          Already registered <a href="/signUp">Sign Up</a>
+          Already registered 
+          {/* <a href="/signUp">Sign Up</a> */}
+        <span onClick={navigateTo}>Sign Up</span>
         </p>
       </div>
     );

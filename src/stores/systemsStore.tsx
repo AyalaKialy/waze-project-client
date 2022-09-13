@@ -7,7 +7,8 @@ import { System } from "../models/system.model";
 export class SystemsStore {
 @observable systems: System[] = [];
 
-@observable system: System = {   topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:'',systemUrl:''};
+// @observable system: System = {_id:'',   topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:'',systemUrl:''};
+@observable system:any;
 
 @observable AllSystems: System[] = [];
 
@@ -16,7 +17,6 @@ export class SystemsStore {
         makeAutoObservable(this);
     }
 
-    
     @action
     setAllSystems = async() => {
         const data = await getAllSystems();
@@ -47,7 +47,7 @@ export class SystemsStore {
 
 
      @action
-     setSystem = async (newSystem: System) => {
+     setSystem = (newSystem: System) => {
          this.system = newSystem;
     }
 //   public addMarker = (marker: IMarker) => {

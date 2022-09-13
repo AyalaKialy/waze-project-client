@@ -1,5 +1,6 @@
 export type Request = {
     _id?: string,
+    userId: string,
     firstName:string,
     lastName:string,
     email:string,
@@ -8,6 +9,8 @@ export type Request = {
     display_name: string,
     status:Status,
     notes:string,
+    name:string,
+    description:string,
     lat: number,
     lng: number
 }

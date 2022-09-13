@@ -62,7 +62,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 .card{
    width: 18rem;
-   margin: 25px;
+   /* margin: 25px; */
 }
 
 .btn-primary{

@@ -47,7 +47,7 @@ const SystemLocations = (props: any) => {
 
   const callSystem = async () => {
     const SYSTEM = await getSystemByUrlName(String(props.systemUrl));
-    await systemsStore.setSystem(SYSTEM);
+    systemsStore.setSystem(SYSTEM);
     console.log(systemsStore.system._id);
     await markersStore.loudLocations(String(systemsStore.system._id));
     if(userStore.user){
@@ -82,7 +82,6 @@ const SystemLocations = (props: any) => {
             <h2 className='white'>{m.name}</h2>
             <h4 className='white'>{m.description}</h4>
           </Item>
-          {/* המיקום הולך טוב רק תמיד מציג תשם האחרון */}
             <Modal
         open={open}
         onClose={handleClose}

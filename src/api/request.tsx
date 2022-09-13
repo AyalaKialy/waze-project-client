@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Request } from '../models/request.model';
+import { Request, Status } from '../models/request.model';
 
 //getAll
 export const getAllRequests = async () => {
@@ -13,6 +13,16 @@ export const getAllRequests = async () => {
 }
 
 //getRequestById
+export const getRequestById = async (id: string) => {
+    try {
+        const {data} = await axios.get(`http://localhost:3333/request/${id}`);
+        return  data;
+    }
+    catch (error) {
+        console.log('error in getRequestById', error);
+    }
+}
+
 export const getRequestsBySystemId= async (systemId: string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/request/${systemId}`);
@@ -24,11 +34,12 @@ export const getRequestsBySystemId= async (systemId: string) => {
 }
 
 //post 
-export const createRequest = async (newRequest :Request) => {
+export const createRequest = async (newRequest:Request) => {
+    debugger
     try {
-        const {data}= await axios.post('http://localhost:3333/request/', newRequest);
-        console.log(data);
-        return data;
+        const data = await axios.post('http://localhost:3333/request/', newRequest);
+        console.log(data.data);
+        return data.data;
     }
     catch (error) {
         console.log('error in createRequest', error);
@@ -54,14 +65,12 @@ export const updateRequest= async (Id:string, updates:Request) => {
         console.log('error in updateRequest',error);
     }
 }
-
-// export const Mail = async (word:string) => {
-//     try {
-//         await axios.post('https://api.sendgrid.com/v3/mail/send',
-//          {headers: {Authorization: 'Bearer ' + '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'}}
-//         );
-//     }
-//     catch (error) {
-//         console.log('error in Mail', error);
-//     }
-// }
+//patch
+export const updateStatus= async (Id:string) => {
+    try {
+         await axios.patch(`http://localhost:3333/request/${Id}`);
+    }
+    catch (error) {
+        console.log('error in updateRequest',error);
+    }
+}

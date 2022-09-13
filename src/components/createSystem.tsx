@@ -4,11 +4,8 @@ import TextField from '@mui/material/TextField';
 import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
-
 import userStore, { UserStore } from '../stores/userStore';
-
 import { observer } from 'mobx-react';
-
 import systemsStore from '../stores/systemsStore';
 import { createManager, getManagerByUserIdAndBySystemId } from '../api/manager';
 import { Role } from "../models/manager.model";
@@ -46,8 +43,8 @@ import { Role } from "../models/manager.model";
                 role: Role.admin
             }
               await createManager(manager);
-            }catch{
-                console.log("failed to create system");
+            }catch(err){
+                console.log(err);
             }
         }
 

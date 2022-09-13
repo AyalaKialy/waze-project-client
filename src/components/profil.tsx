@@ -5,7 +5,7 @@ import userStore from '../stores/userStore';
 import { observer } from 'mobx-react';
 
 const ImageAvatars=()=> {
-    
+
     const url=userStore.potoUrl;
   return (
     <Stack direction="row" spacing={2}>

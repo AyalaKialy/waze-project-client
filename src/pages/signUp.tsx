@@ -1,12 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase";
 import { createUser} from '../api/user';
 import { observer } from 'mobx-react';
 import userStore from '../stores/userStore';
+import systemsStore from '../stores/systemsStore';
 
  const SignUpPage = () => {
+    const {userId}=useParams();
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -20,17 +22,17 @@ import userStore from '../stores/userStore';
       return;
     }
       if (user) {
-          createInMongo();
       //get-Token
       user.getIdToken().then((value=>{
       const token=value;
       userStore.setToken(token);
     }));
-         navigate(`/HomePage/${user.uid}`);   
+        createInMongo();
       };
     }, [user, loading]);
 
   const createInMongo=async()=>{
+    debugger;
       const newUser = {
         uid: String(user?.uid),
         firstName: firstName,
@@ -40,7 +42,21 @@ import userStore from '../stores/userStore';
             }
             try{
               //create user
-                await createUser(newUser);
+              const data = await createUser(newUser);
+              //save user global
+                userStore.setUser(data);
+              //navigate
+              console.log(userStore.systemOrlocation);
+              console.log(systemsStore.system?._id);
+              if(!userStore.systemOrlocation){
+                debugger;
+                console.log("--reqqq--");
+                console.log(data._id);
+                 navigate(`/Request/${data._id}`); 
+              }
+              else{
+                navigate(`/HomePage`);  
+              }
             }catch{
                    console.log("create failed");
             }

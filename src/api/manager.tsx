@@ -36,10 +36,10 @@ export const getManagerByUserId = async (userId: string) => {
 
 //post 
 export const createManager = async (newManager :Manager) => {
-      
     try {
-        const {data}= await axios.post('http://localhost:3333/manager/', newManager);
-        console.log(data);
+        const data= await axios.post('http://localhost:3333/manager/', newManager);
+        console.log(data.data);
+        return data.data;
     }
     catch (error) {
         console.log('error in createManager', error);

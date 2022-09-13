@@ -36,11 +36,10 @@ export const getUserByUid = async (uid: string) => {
 
 //post 
 export const createUser = async (newUser:User) => {
-      
     try {
         const user= await axios.post('http://localhost:3333/user/', newUser);
         console.log(user.data);
-           
+           return user.data;
     }
     catch (error) {
         console.log('error in createUser',error);

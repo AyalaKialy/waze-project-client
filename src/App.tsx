@@ -30,7 +30,8 @@ import NavBar from './components/navBar';
                 {/* <Route path="/" element={<LoginPage/>}/> */}
                 <Route path="/" element={<Begin/>}/>
                 <Route path="/Login" element={<LoginPage />} />
-                <Route path="/HomePage/:uid" element={<HomePage />} />
+                <Route path="/Login/:systemId" element={<LoginPage />} />
+                <Route path="/HomePage" element={<HomePage />} />
                 <Route path="/SignUp" element={<SignUpPage />} />
                 <Route path="/CreateSystem/:userId" element={<CreateSystem />} />
                 <Route path="/Systems/:userId" element={<Systems />} />
@@ -40,7 +41,7 @@ import NavBar from './components/navBar';
                 <Route path="/EditSystemDetails/:systemUrl" element={<EditSystemDetails />} />
                 <Route path="/Locations/:systemUrl" element={<Locations />} />
                 <Route path="/EditLocationDetails/:locationId" element={<EditLocationDetails />} />
-                <Route path="/Request" element={<Request />} />
+                <Route path="/Request/:userId" element={<Request />} />
                 <Route path="/Requests/:systemId" element={<Requests />} />
             </Routes>
         </BrowserRouter>

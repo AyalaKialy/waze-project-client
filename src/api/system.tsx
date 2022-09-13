@@ -56,8 +56,9 @@ return res;
 export const updateSystem = async (systemId:string, updates:System) => {
     console.log("updateSystem");
     try {
- await axios.put(`http://localhost:3333/system/${systemId}`, updates,
- {headers: {Authorization: 'Bearer ' + userStore.token}}
+ await axios.put(`http://localhost:3333/system/${systemId}`, updates
+//  ,
+//  {headers: {Authorization: 'Bearer ' + userStore.token}}
  );
     }
     catch (error) {

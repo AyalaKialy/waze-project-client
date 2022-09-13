@@ -20,7 +20,7 @@ const Systems = () => {
 
     const getAll = async () => {
         try {
-            //home אולי את זה כבר לעשות בדף 
+            // meybe done at the home       
            await systemsStore.loudsystems(String(userId));
             setSystems(systemsStore.systems);
         } catch (err) {
@@ -44,8 +44,6 @@ const Systems = () => {
 
     return (
         <div>
-            {/* <NavBar/> */}
-            {/* <h1 className='pink'>my activity systems</h1> */}
             <div className='card-group'>
             {systems&& systems.map(system =>
                 <div key={system._id} className='card'>

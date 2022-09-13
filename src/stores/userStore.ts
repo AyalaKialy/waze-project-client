@@ -11,15 +11,16 @@ export class UserStore {
     @observable user:any;
     @observable token:any; 
     @observable manager:any;  
-    @observable numSystems:number | undefined; //נתון לשמירה גלובלית כמה סיסטמס למשתמש זה
+    @observable numSystems:number | undefined; 
     @observable potoUrl:string | undefined;
+    @observable systemOrlocation:boolean=false;
 
     constructor() { 
         makeAutoObservable(this);    
     }
     @action
-    setUser = async(uid:string) => {
-        const user=await getUserByUid(uid);
+    setUser = async(user:User) => {
+        // const user=await getUserByUid(uid);
         this.user = user;
         console.log(user);
     }
@@ -50,7 +51,11 @@ export class UserStore {
       console.log(this.potoUrl);
     }
 
-
+    @action
+    setSystemOrLocation = (flag:boolean) => {
+      this.systemOrlocation=flag;
+      console.log(this.systemOrlocation);
+    }
 
 }
 

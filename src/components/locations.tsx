@@ -28,8 +28,7 @@ const Locations=()=> {
 
     return (
         <div>
-            <h1 className='pink'>Locations</h1>
-             <button onClick={createNewMarker}>Create New Marker</button>
+             <button className='btn' onClick={createNewMarker}>Create New Marker</button>
             <div className='card-group'>
             {locations && locations.map(location =>
                 <div key={location._id} className='card'>

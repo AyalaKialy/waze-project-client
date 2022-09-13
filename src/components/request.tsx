@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { createSystem } from '../api/system';
 import {System} from '../models/system.model';
 import {  useNavigate, useParams } from 'react-router-dom';
-
-import userStore, { UserStore } from '../stores/userStore';
-
+import userStore from '../stores/userStore';
 import { observer } from 'mobx-react';
-
 import systemsStore from '../stores/systemsStore';
 import { createManager, getManagerByUserIdAndBySystemId } from '../api/manager';
 import { Role } from "../models/manager.model";
@@ -19,7 +16,15 @@ import { createRequest } from '../api/request';
 import Autocomplete from './autocomplete';
 
  const Request = () => {
+    const {userId}= useParams();
      const marker = markersStore.marker;
+     console.log(systemsStore.system);
+    //  console.log(systemsStore.system._id);
+     const system=systemsStore.system;
+
+     useEffect(() => { 
+         console.log(system._id);
+     },[]);
 
     const [firstName,setFirstName] =useState('');
     const [lastName,setLastName] =useState('');
@@ -27,25 +32,29 @@ import Autocomplete from './autocomplete';
     const [phone, setPhone] = useState('');
     const [display_name, setDisplay_name] = useState('');
     const [notes, setNotes] = useState('');
-
-    // lat: number,
-    // lng: number,
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
 
     const create = async () => {
+        debugger;
         const request = {
+        userId:String(userId),
         firstName:firstName,
         lastName:lastName,
         email:email,
         phone:phone,
-        systemId: String(systemsStore.system._id),
+        systemId: String(system._id),
         display_name:display_name,
         status:Status.sent,
         notes:notes,
+        name:name,
+        description:description,
         lat:marker.lat,
         lng:marker.lng,
             }
             try{
-             const data=await createRequest(request);
+                debugger;
+                 await createRequest(request);
             }catch{
                 console.log("failed to createRequest");
             }
@@ -106,6 +115,24 @@ import Autocomplete from './autocomplete';
             className="form-control"
                     placeholder="Enter notes"
                     onChange={(e) => setNotes(e.target.value)}
+          />
+        </div>
+          <div className="mb-3">
+          <label>name</label>
+          <input
+            type="string"
+            className="form-control"
+                    placeholder="Enter name"
+                    onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+          <div className="mb-3">
+          <label>description</label>
+          <input
+            type="string"
+            className="form-control"
+                    placeholder="Enter description"
+                    onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="mb-3">

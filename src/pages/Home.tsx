@@ -11,26 +11,29 @@ import Systems from '../components/systems';
 
   const HomePage = () => {
     const navigate = useNavigate();
-    const [userId,setUserId] = useState('');
-    const {uid} = useParams();
+    // const [userId,setUserId] = useState('');
+    const {userId} = useParams();
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
-      //אולי בלוגין לטעון בעצם תיוזר שנכנס?
-      //אולי כאן אין צורך בכל זה בכלל
-      const h = async () => {
-            await userStore.setUser(String(uid));
-            console.log(userStore.user.email);
-      };
-      h();
-      getUserByUidFromServer();
+      // //אולי בלוגין לטעון בעצם תיוזר שנכנס?
+      // //אולי כאן אין צורך בכל זה בכלל
+      // const h = async () => {
+      //       await userStore.setUser(String(uid));
+      //       console.log(userStore.user.email);
+      // };
+      // h();
+      // getUserByUidFromServer();
+      console.log(userId);
+      console.log(userStore.user)
+      userStore.setNumSystems(String(userStore.user._id));
     },[]);
     
-    const getUserByUidFromServer = async () => {
-      const user = await getUserByUid(String(uid));
-        setUserId(user._id);
-        userStore.setNumSystems(user._id);
-    }
+    // const getUserByUidFromServer = async () => {
+    //   const user = await getUserByUid(String(uid));
+    //     setUserId(user._id);
+    //     userStore.setNumSystems(user._id);
+    // }
     ////////
 
      useEffect(() => {
@@ -45,19 +48,16 @@ import Systems from '../components/systems';
 
     return (
       <div>
-        {/* <NavBar/> */}
-
             <p> </p>
-            {/* Home Page (Protected by Firebase!) */}
             {/* <Systems></Systems> */}
           {(Number(userStore.numSystems)<3) ?
           <>
-            <button type="button" onClick={e => navigate(`/CreateSystem/${userId}`)}>Create System</button>
+            <button className='btn' type="button" onClick={e => navigate(`/CreateSystem/${userStore.user._id}`)}>Create System</button>
            </> 
           : <div> alert('you created the max num of systems you can...')</div>
           }
           <p> </p>
-            <button type="button" onClick={e => navigate(`/Systems/${userId}`)}>Systems</button>
+            <button className='btn' type="button" onClick={e => navigate(`/Systems/${userStore.user._id}`)}>Systems</button>
         </div>
     );
 };

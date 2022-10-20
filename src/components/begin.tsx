@@ -15,6 +15,7 @@ import AutoCompleteSystem from './autoCompleteSystem';
 import Grid from '@mui/material/Grid';
 // import requestStore from '../store/request';
 import userStore from '../stores/userStore';
+import NavBar from './navBar';
 
 const Begin=() => {
 
@@ -45,6 +46,7 @@ const Begin=() => {
 
     return (
         <div id="allBusiness" >
+            <NavBar></NavBar>
             <Typography sx={{ textAlign: 'center' }} variant="h4" gutterBottom>
             </Typography>
             <Grid container spacing={2}>

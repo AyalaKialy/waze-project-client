@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react';
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
+import { auth, logInWithEmailAndPassword, signInWithGoogle, sendPasswordReset} from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from 'react-router-dom';
 import '../css/login.css'
 import userStore from '../stores/userStore';
 import { observer } from 'mobx-react';
 import { getUserByUid } from '../api/user';
+import NavBar from '../components/navBar';
 
  const LoginPage = () => {
     const navigate = useNavigate();
@@ -52,9 +53,9 @@ import { getUserByUid } from '../api/user';
    const navigateTo= () => {
      navigate(`/signUp`); 
    }
-   
-  
+
     return (
+              <><NavBar></NavBar>
         <div className='auth-inner' >
         <h3>Sign In</h3>
         <div className="mb-3">
@@ -89,15 +90,19 @@ import { getUserByUid } from '../api/user';
              </button>
           </div>
           </div>
-        <p className="forgot-password text-right">
-          Forgot <a href="#">password?</a>
-        </p>
+        {/* <p className="forgot-password text-right"> */}
+          {/* Forgot  */}
+          {/* <a href="#">password?</a> */}
+          {/* <span onClick={()=>sendPasswordReset(email)}> password?</span> */}
+        {/* </p> */}
+        
         <p className="forgot-password text-right">
           Already registered 
           {/* <a href="/signUp">Sign Up</a> */}
-        <span onClick={navigateTo}>Sign Up</span>
+        <span onClick={navigateTo}> Sign Up</span>
         </p>
       </div>
+      </>
     );
 };
 

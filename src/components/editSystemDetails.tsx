@@ -6,6 +6,7 @@ import { getSystemByUrlName ,updateSystem} from '../api/system';
 import  userStore  from '../stores/userStore';
 import { observer } from 'mobx-react';
 import systemsStore from '../stores/systemsStore';
+import NavBar from '../components/navBar';
 
 const EditSystemDetails = () => {
     const {systemUrl} = useParams();
@@ -57,6 +58,8 @@ const EditSystemDetails = () => {
         }
 
   return (
+    <>      <NavBar></NavBar>
+
     <form className='auth-inner' onSubmit={update}>
       <h3>update system</h3>
          <div className="mb-3">
@@ -118,6 +121,7 @@ const EditSystemDetails = () => {
           </button>
             </div>
     </form>
+    </>
   );
 }
 

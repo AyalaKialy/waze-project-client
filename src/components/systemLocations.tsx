@@ -36,6 +36,7 @@ const style = {
   }));
 
 const SystemLocations = (props: any) => {
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,6 +47,7 @@ const SystemLocations = (props: any) => {
   }, [])
 
   const callSystem = async () => {
+    console.log(props.systemUrl);
     const SYSTEM = await getSystemByUrlName(String(props.systemUrl));
     systemsStore.setSystem(SYSTEM);
     console.log(systemsStore.system._id);

@@ -12,7 +12,6 @@ export class SystemsStore {
 
 @observable AllSystems: System[] = [];
 
-
     constructor() {
         makeAutoObservable(this);
     }
@@ -25,6 +24,7 @@ export class SystemsStore {
 
     @action
     loudsystems = async (managerId: string) => {
+        console.log(managerId);
         const systems = await getSystemByManagerId(managerId);
         this.systems = systems;
     }
@@ -49,40 +49,13 @@ export class SystemsStore {
     addSystem = async(system:System) => {
         const data = await createSystem(system);
         return data;
-        // this.system = data;
-        // console.log(this.system);
     }
-
 
      @action
      setSystem = (newSystem: System) => {
          this.system = newSystem;
+         console.log(this.system);
     }
-//   public addMarker = (marker: IMarker) => {
-//     console.log("addMarker");
-//     this.markers.push(marker);
-//   };
-
-
-//   public updateMarker = (updateMarker: IMarker) => {
-//   console.log("updateMarker");
-//     // const updateMarkers = this.markers.map(todo => {
-//     //   if (todo.id === updatedTodo.id) {
-//     //     return { ...updatedTodo };
-//     //   }
-//     //   return todo;
-//     // });
-//     // this.markers = updateMarkers;
-//   };
-
-//   public deleteMarker = (id: number) => {
-//     console.log("deleteMarker");
-//     // const updatedTodos = this.todos.filter(todo => todo.id !== id);
-//     // this.todos = updatedTodos;
-//     // toast.info("Todo deleted", {
-//     //   position: toast.POSITION.BOTTOM_CENTER
-//     // });
-//   };
 
 }
 const systemsStore = new SystemsStore();

@@ -29,7 +29,7 @@ const MapContainer = () => {
   directionsService: google.maps.DirectionsService,
   directionsRenderer: google.maps.DirectionsRenderer,
   ) => {
-    if (markersStore.indexMarker === null || markersStore.marker.lat === 0)
+    if (markersStore.indexMarker === null || markersStore.marker.lat === 0 )
       return;
   directionsRenderer.setMap(map);
   directionsService

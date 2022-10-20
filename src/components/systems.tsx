@@ -12,7 +12,6 @@ const Systems = () => {
     const navigate = useNavigate();
     const [systems, setSystems] = useState<System[]>([]);
     const {userId} = useParams();
-    // const USERID=userStore.user._id;
 
     useEffect(() => {
         getAll();
@@ -20,7 +19,6 @@ const Systems = () => {
 
     const getAll = async () => {
         try {
-            // meybe done at the home       
            await systemsStore.loudsystems(String(userId));
             setSystems(systemsStore.systems);
         } catch (err) {
@@ -44,16 +42,17 @@ const Systems = () => {
 
     return (
         <div>
+            <NavBar></NavBar>
             <div className='card-group'>
             {systems&& systems.map(system =>
                 <div key={system._id} className='card'>
                     <div className='card-body'>
-                        <div ><img width={300} height={300} src={system.systemUrl}/></div>
+                        <div ><img width={250} height={250} src={system.systemUrl}/></div>
                         <h5 className='card-title'>{ system.topic}</h5>
                         <p className='card-text'>{system.description}</p>
                         <a onClick={() => navigate(`/MySystem/${system.urlName}`)} className='btn btn-primary'>for details</a>
                         <br />
-                        {/* לבדוק שאא למחוק רק אם כשאין מרקרים */}
+                        {/* check that you can delete only when there are no markers*/}
                         <a onClick={() => deleteASystem(system._id)} className='btn btn-primary'>delete system</a>
                        <a onClick={() => navigate(`/EditSystemDetails/${system.urlName}`)} className='btn btn-primary'>edit details</a>
                     </div>

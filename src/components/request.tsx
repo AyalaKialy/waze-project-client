@@ -18,13 +18,7 @@ import Autocomplete from './autocomplete';
  const Request = () => {
     const {userId}= useParams();
      const marker = markersStore.marker;
-     console.log(systemsStore.system);
-    //  console.log(systemsStore.system._id);
      const system=systemsStore.system;
-
-     useEffect(() => { 
-         console.log(system._id);
-     },[]);
 
     const [firstName,setFirstName] =useState('');
     const [lastName,setLastName] =useState('');
@@ -36,7 +30,6 @@ import Autocomplete from './autocomplete';
     const [description, setDescription] = useState('');
 
     const create = async () => {
-        debugger;
         const request = {
         userId:String(userId),
         firstName:firstName,
@@ -53,7 +46,6 @@ import Autocomplete from './autocomplete';
         lng:marker.lng,
             }
             try{
-                debugger;
                  await createRequest(request);
             }catch{
                 console.log("failed to createRequest");

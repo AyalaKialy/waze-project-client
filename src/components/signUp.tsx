@@ -6,6 +6,7 @@ import { createUser} from '../api/user';
 import { observer } from 'mobx-react';
 import userStore from '../stores/userStore';
 import systemsStore from '../stores/systemsStore';
+import NavBar from '../components/navBar';
 
  const SignUpPage = () => {
     const {userId}=useParams();
@@ -22,7 +23,6 @@ import systemsStore from '../stores/systemsStore';
       return;
     }
       if (user) {
-      //get-Token
       user.getIdToken().then((value=>{
       const token=value;
       userStore.setToken(token);
@@ -32,7 +32,6 @@ import systemsStore from '../stores/systemsStore';
     }, [user, loading]);
 
   const createInMongo=async()=>{
-    debugger;
       const newUser = {
         uid: String(user?.uid),
         firstName: firstName,
@@ -49,7 +48,6 @@ import systemsStore from '../stores/systemsStore';
               console.log(userStore.systemOrlocation);
               console.log(systemsStore.system?._id);
               if(!userStore.systemOrlocation){
-                debugger;
                 console.log("--reqqq--");
                 console.log(data._id);
                  navigate(`/Request/${data._id}`); 
@@ -66,7 +64,8 @@ import systemsStore from '../stores/systemsStore';
   };
   
     return (
-       <form  className='auth-inner'       >
+        <><NavBar></NavBar>
+       <form  className='auth-inner'>
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
@@ -128,6 +127,7 @@ import systemsStore from '../stores/systemsStore';
           Already registered <a href="/login">sign in?</a>
         </p>
       </form>
+      </>
     )
 }
 

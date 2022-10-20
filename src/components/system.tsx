@@ -105,7 +105,8 @@ const SingleSystem = () => {
       userStore.setSystemOrLocation(false);
        navigate(`/Login/${system._id}`);
   }
-  return (   
+  return ( 
+    <div className='background'> 
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         {/* <Grid item xs={12}>
@@ -130,6 +131,7 @@ const SingleSystem = () => {
           </Grid>
       </Grid>
     </Box>
+    </div> 
   );
 }
 

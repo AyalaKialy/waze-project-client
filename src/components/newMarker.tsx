@@ -5,6 +5,8 @@ import markersStore from '../stores/markersStore'
 import systemsStore from '../stores/systemsStore';
 import { useNavigate, useParams } from "react-router-dom";
 import { observer } from 'mobx-react';
+import NavBar from './navBar';
+
 
 const NewMarker = () => {
   const marker = markersStore.marker;
@@ -36,6 +38,7 @@ const NewMarker = () => {
         }
 
     return (
+      <>            <NavBar></NavBar>
       <form className='auth-inner' onSubmit={create}>
       <h3>create new marker</h3>
          <div className="mb-3">
@@ -93,6 +96,7 @@ const NewMarker = () => {
           </button>
             </div>
     </form>
+    </>
     );
 };
   

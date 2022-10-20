@@ -4,7 +4,6 @@ import{ getSystemByManagerId, deleteSystem } from '../api/system';
 import { useParams ,useNavigate} from 'react-router-dom';
 import systemsStore from '../stores/systemsStore';
 import { observer } from 'mobx-react';
-import NavBar from './navBar';
 import { getLocationsBySystemId } from '../api/location';
 import userStore from '../stores/userStore';
 import requestStore from '../stores/requestStore';
@@ -13,7 +12,8 @@ import usePlacesAutocomplete,{ getGeocode,getLatLng,} from 'use-places-autocompl
 import { Role } from '../models/manager.model';
 import { createManager } from '../api/manager';
 import markersStore from '../stores/markersStore';
-import { updateRequest, updateStatus } from '../api/request';
+import { updateRequest, updateStatus, sendEmailConfirm } from '../api/request';
+import NavBar from './navBar';
 
 const Requests = () => {
     const navigate = useNavigate();
@@ -79,7 +79,6 @@ const Requests = () => {
     }
 
     const approve=async(req: Request)=>{
-        debugger;
         //status
         await requestUpdate(req);
         //manager
@@ -87,29 +86,12 @@ const Requests = () => {
         //location
         await locationNew(req,data._id);
         //mail to user that ok
-        
+        await sendEmailConfirm(String(req.email));
     }
-
-//      const getLocationNameByLatLng = async() => {
-//     debugger
-//   await  Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k');
-//   await  Geocode.enableDebug();
-//     await Geocode.fromLatLng(lat.toString(), lng.toString()).then(
-//       async (response: any) => {
-//         debugger;
-//          const address =await response.results[0].formatted_address;
-        
-//         requestStore.currentRequestAddressesName = address;
-//         console.log(address);
-//       },
-//       (error) => {
-//         console.error(error);
-//       }
-//     );
-//   }
 
     return (
         <div>
+             <NavBar></NavBar>
             <h3>sent</h3>
             <div className='card-group'>
             {requests&& requests.filter(req => req.status==0).map(request =>
@@ -118,11 +100,6 @@ const Requests = () => {
                         <h5 className='card-title'>{ request.firstName} {request.lastName}</h5>
                         <h4 className='card-title'>{ request.phone}</h4>
                              <button className='btn' onClick={()=> approve(request)}>approve</button>
-                             {/* <button className='btn' onClick={showRequests}>all requests</button> */}
-
-                        {/* <a onClick={() => navigate(`/MySystem/${system.urlName}`)} className='btn btn-primary'>for details</a>
-                        <br /> */}
-                        {/* <a onClick={() => deleteASystem(system._id)} className='btn btn-primary'>delete system</a> */}
                     </div>
                 </div>
                 )}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/Home';
-import LoginPage from './pages/Login';
-import SignUpPage from './pages/signUp';
+import HomePage from './components/home';
+import LoginPage from './components/login';
+import SignUpPage from './components/signUp';
 import AuthRoute from './components/autocomplete';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CreateSystem from './components/createSystem';
@@ -12,22 +12,19 @@ import { Wrapper } from '@googlemaps/react-wrapper';
 import Marker from './components/marker';
 import MapContainer from './components/map';
 import NewMarker from './components/newMarker';
-import EditSystemDetails from './pages/editSystemDetails';
+import EditSystemDetails from './components/editSystemDetails';
 import { useObserver } from 'mobx-react-lite';
 import Locations from './components/locations';
 import EditLocationDetails from './components/editLocationDetails';
 import Request from './components/request';
 import Requests from './components/requests';
 import Begin from './components/begin';
-import NavBar from './components/navBar';
 
  export default function App() {
 
     return useObserver(() =>(
         <BrowserRouter>
-        <NavBar></NavBar>
             <Routes>
-                {/* <Route path="/" element={<LoginPage/>}/> */}
                 <Route path="/" element={<Begin/>}/>
                 <Route path="/Login" element={<LoginPage />} />
                 <Route path="/Login/:systemId" element={<LoginPage />} />

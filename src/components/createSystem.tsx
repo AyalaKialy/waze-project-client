@@ -9,6 +9,7 @@ import { observer } from 'mobx-react';
 import systemsStore from '../stores/systemsStore';
 import { createManager, getManagerByUserIdAndBySystemId } from '../api/manager';
 import { Role } from "../models/manager.model";
+import NavBar from './navBar';
 
  const CreateSystem = () => {
 
@@ -49,11 +50,13 @@ import { Role } from "../models/manager.model";
         }
 
   return (
+    <><NavBar></NavBar>
     <form className='auth-inner' onSubmit={create}>
       <h3>create new system</h3>
          <div className="mb-3">
           <label>topic</label>
                 <input
+                //Add validations!!
                     type="string"
                     className="form-control"
                     placeholder="Enter topic"
@@ -90,6 +93,7 @@ import { Role } from "../models/manager.model";
           <div className="mb-3">
           <label>email</label>
           <input
+          required
             type="string"
             className="form-control"
                     placeholder="Enter email"
@@ -120,6 +124,7 @@ import { Role } from "../models/manager.model";
           </button>
             </div>
     </form>
+    </>
   );
 }
 

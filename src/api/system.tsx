@@ -41,6 +41,7 @@ export const getSystemsBySearchWord = async (searchWord: String) => {
 //getSystemByUrlName
 export const getSystemByUrlName = async (urlName: string) => {
     console.log("getSystemByurlName");
+    console.log(urlName);
     try {
         const { data } = await axios.get(`http://localhost:3333/system/getSystemByurlName/${urlName}`);
         console.log(data);

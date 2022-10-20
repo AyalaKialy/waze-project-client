@@ -35,7 +35,6 @@ export const getRequestsBySystemId= async (systemId: string) => {
 
 //post 
 export const createRequest = async (newRequest:Request) => {
-    debugger
     try {
         const data = await axios.post('http://localhost:3333/request/', newRequest);
         console.log(data.data);
@@ -73,4 +72,17 @@ export const updateStatus= async (Id:string) => {
     catch (error) {
         console.log('error in updateRequest',error);
     }
+}
+
+//mail
+export const sendEmailConfirm = async (userMail:string) => {
+    console.log(userMail);
+    try {
+        const res = await axios.post(`http://localhost:3333/mail/confirm/?email=${userMail}`);
+        let tempList = await res.data;
+        if (tempList !== "")
+            return tempList;
+        throw new Error(`Could not send email`)
+    }
+    catch (error) { console.log(error); }
 }

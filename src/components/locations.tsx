@@ -7,6 +7,8 @@ import systemsStore from '../stores/systemsStore';
 import markersStore from '../stores/markersStore';
 import { deleteLocation } from '../api/location';
 import { observer } from 'mobx-react';
+import NavBar from './navBar';
+
 
 const Locations=()=> {
     const navigate = useNavigate();
@@ -28,6 +30,7 @@ const Locations=()=> {
 
     return (
         <div>
+            <NavBar></NavBar>
              <button className='btn' onClick={createNewMarker}>Create New Marker</button>
             <div className='card-group'>
             {locations && locations.map(location =>

@@ -10,6 +10,7 @@ import systemsStore, { SystemsStore } from '../stores/systemsStore';
 import { observer } from 'mobx-react';
 import { getLocationsByLocationId, getLocationsBySystemId, updateLocation } from '../api/location';
 import markersStore from '../stores/markersStore';
+import NavBar from './navBar';
 
 const EditLocationDetails=()=> {
 
@@ -66,6 +67,7 @@ const EditLocationDetails=()=> {
         }
 
   return (
+    <><NavBar></NavBar>
     <form className='auth-inner' onSubmit={put}>
       <h3>update location</h3>
          <div className="mb-3">
@@ -121,6 +123,7 @@ const EditLocationDetails=()=> {
           </button>
             </div>
     </form>
+    </>
   );
 }
 export default observer(EditLocationDetails);

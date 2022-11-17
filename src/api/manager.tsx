@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Manager } from '../models/manager.model';
 
-//getAll
 export const getAllManagers = async () => {
     try {
         const {data} = await axios.get(`http://localhost:3333/manager`);
@@ -12,7 +11,6 @@ export const getAllManagers = async () => {
     }
 }
 
-//getManagerByUserIdAndBySystemId
 export const getManagerByUserIdAndBySystemId = async (userId: string,systemId:string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/manager/${userId}/${systemId}`);
@@ -23,7 +21,6 @@ export const getManagerByUserIdAndBySystemId = async (userId: string,systemId:st
     }
 }
 
-//getManagerByUserId
 export const getManagerByUserId = async (userId: string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/manager/getManagerByUserId/${userId}`);
@@ -34,7 +31,6 @@ export const getManagerByUserId = async (userId: string) => {
     }
 }
 
-//post 
 export const createManager = async (newManager :Manager) => {
     try {
         const data= await axios.post('http://localhost:3333/manager/', newManager);
@@ -46,7 +42,6 @@ export const createManager = async (newManager :Manager) => {
     }
 }
 
-//delete
 export const deleteManager = async (Id:string) => {
     try {
         await axios.delete(`http://localhost:3333/manager/${Id}`);
@@ -56,7 +51,6 @@ export const deleteManager = async (Id:string) => {
     }
 }
 
-//put
 export const updateManager= async (Id:string, updates:Manager) => {
     try {
          await axios.put(`http://localhost:3333/manager/${Id}`, updates);

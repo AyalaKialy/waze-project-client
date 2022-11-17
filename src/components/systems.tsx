@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import NavBar from './navBar';
 import { getLocationsBySystemId } from '../api/location';
 import userStore from '../stores/userStore';
+import Swal from 'sweetalert2';
 
 const Systems = () => {
     const navigate = useNavigate();
@@ -30,10 +31,12 @@ const Systems = () => {
         if(data.length > 0) {
             window.confirm('You cannot delete this system because it still has locations!');
         }else{
+        // Swal.fire("you want to delete?", "You clicked the button!", "question");
         const choice = window.confirm('Are you sure you want to delete this system?');
         if (!choice) return;
         //delete system
         await deleteSystem(systemId);
+        Swal.fire("deleted!", "You clicked the button!", "success");
         //set 
         await userStore.setNumSystems(String(userId));
         window.location.reload();
@@ -52,7 +55,6 @@ const Systems = () => {
                         <p className='card-text'>{system.description}</p>
                         <a onClick={() => navigate(`/MySystem/${system.urlName}`)} className='btn btn-primary'>for details</a>
                         <br />
-                        {/* check that you can delete only when there are no markers*/}
                         <a onClick={() => deleteASystem(system._id)} className='btn btn-primary'>delete system</a>
                        <a onClick={() => navigate(`/EditSystemDetails/${system.urlName}`)} className='btn btn-primary'>edit details</a>
                     </div>

@@ -25,6 +25,7 @@ import Begin from './components/begin';
     return useObserver(() =>(
         <BrowserRouter>
             <Routes>
+                <Route path="/Begin" element={<Begin/>}/>
                 <Route path="/" element={<Begin/>}/>
                 <Route path="/Login" element={<LoginPage />} />
                 <Route path="/Login/:systemId" element={<LoginPage />} />

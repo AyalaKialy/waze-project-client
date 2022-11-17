@@ -28,7 +28,6 @@ const AutoCompleteSystem= () => {
             setSelect(false);
             const nameSystem = inputNameSystem.current?.value;
             await systemStore.SearchSystem(String(nameSystem));
-            // navigate(`/Map/${systemStore.currentSystem.urlName}/${systemStore.currentSystem._id}`)
         }
     }
 
@@ -38,7 +37,7 @@ const AutoCompleteSystem= () => {
             return undefined;
         }
         (async () => {
-            await sleep(1e3); // For demo purposes.
+            await sleep(1e3); 
 
             if (active) {
                 setOptions([...systemsStore.AllSystems]);

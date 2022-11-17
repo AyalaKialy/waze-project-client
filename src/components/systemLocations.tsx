@@ -63,7 +63,7 @@ const SystemLocations = (props: any) => {
  const change = (lat: number, lng: number,name: string,phone: string,email: string,index: number) => {
       markersStore.markers.map(marker => { console.log(marker.name)});
       mapStore.currentMap.center = {  lat, lng };
-      mapStore.currentMap.zoom = 13;
+      mapStore.currentMap.zoom = 16;
       markersStore.indexMarker = index;
       setName(name);
       setPhone(phone);

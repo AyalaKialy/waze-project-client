@@ -3,7 +3,6 @@ import { connectFirestoreEmulator } from 'firebase/firestore';
 import { Location } from '../models/location.model';
 import userStore from '../stores/userStore';
 
-//getAllLocations
 export const getAlllocations = async () => {
     try {
         const {data} = await axios.get(`http://localhost:3333/location/`);
@@ -14,7 +13,7 @@ export const getAlllocations = async () => {
     }
 }
 
-//getLocationsByManagerId
+
 export const getLocationsBySystemId = async (systemId: string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/location/${systemId}`);
@@ -25,7 +24,6 @@ export const getLocationsBySystemId = async (systemId: string) => {
     }
 }
 
-//getLocationsByLocationId
 export const getLocationsByLocationId = async (locationId: string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/location/getByLocationId/${locationId}`);
@@ -36,9 +34,7 @@ export const getLocationsByLocationId = async (locationId: string) => {
         console.log('error in getLocationsByLocationId: ', error);
     }
 }
-
-
-//post 
+ 
 export const createLocation = async (newLocation :Location) => {
     try {
         const {data} = await axios.post('http://localhost:3333/location/', newLocation);
@@ -50,7 +46,6 @@ export const createLocation = async (newLocation :Location) => {
     }
 }
 
-//delete
 export const deleteLocation = async (locationId:string) => {
     try {
         await axios.delete(`http://localhost:3333/location/${locationId}`);
@@ -60,7 +55,6 @@ export const deleteLocation = async (locationId:string) => {
     }
 }
 
-//put
 export const updateLocation = async (locationId:string, updates:Location) => {
     console.log(updates);
     try {

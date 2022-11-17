@@ -16,6 +16,11 @@ import NavBar from '../components/navBar';
     const {systemId}=useParams();
     const [userId, setUserId] = useState('');
 
+     function isValidEmail(email: string) {
+    
+    return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
+}
+
    useEffect(() => {
       console.log('useEffect');
     if (loading) {
@@ -24,14 +29,12 @@ import NavBar from '../components/navBar';
     if (user)  {
       console.log('if user');
       console.log(user);
-      //get token
       user.getIdToken().then((value=>{
       const token=value;
       userStore.setToken(token);
     }));
   const path='https://files.slack.com/files-pri/T03KMPWTK0A-F0421S4H872/images.png'
    userStore.setPotoUrl(String(user.photoURL|| path));
-      //
       const getUserByUidFromServer = async () => {
       const data = await getUserByUid(String(user.uid));
       setUserId(data._id);
@@ -39,10 +42,8 @@ import NavBar from '../components/navBar';
       userStore.setUser(data);
     if(systemId){
     console.log(userId);
-    //request
     navigate(`/Request/${data._id}`); 
    }else{
-    //admin
       navigate(`/HomePage`);  
    }
     }
@@ -98,7 +99,6 @@ import NavBar from '../components/navBar';
         
         <p className="forgot-password text-right">
           Already registered 
-          {/* <a href="/signUp">Sign Up</a> */}
         <span onClick={navigateTo}> Sign Up</span>
         </p>
       </div>

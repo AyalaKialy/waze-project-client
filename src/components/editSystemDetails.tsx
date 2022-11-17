@@ -50,8 +50,6 @@ const EditSystemDetails = () => {
             }
             try{              
              await updateSystem(String(system?._id), updatedSystem);          
-            // getSystem();
-            //   
             }catch{
                 console.log("failed to create system");
             }

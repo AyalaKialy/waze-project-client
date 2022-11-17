@@ -20,7 +20,6 @@ export class UserStore {
     }
     @action
     setUser = async(user:User) => {
-        // const user=await getUserByUid(uid);
         this.user = user;
         console.log(user);
     }

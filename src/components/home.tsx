@@ -22,6 +22,8 @@ import NavBar from '../components/navBar';
 
         const getAll = async () => {
         try {
+          debugger;
+          console.log(userStore.user._id);
            await systemsStore.loudsystems(String(userStore.user._id));
             // setSystems(systemsStore.systems);
         } catch (err) {
@@ -43,14 +45,9 @@ import NavBar from '../components/navBar';
       <div>
       <NavBar></NavBar>
             <p> </p>
-            {/* <Systems></Systems> */}
-          {/* {(Number(userStore.numSystems)<3) ? */}
           <>
             <button className='btn' type="button" onClick={e => navigate(`/CreateSystem/${userStore.user._id}`)}>Create System</button>
            </> 
-          {/* // : <h1>you created the max num of systems you can...</h1>
-          // } */}
-          <p> </p>
           {systemsStore.systems.length>0?
             <button className='btn' type="button" onClick={e => navigate(`/Systems/${userStore.user._id}`)}>Systems</button> : <h1> </h1>
           }

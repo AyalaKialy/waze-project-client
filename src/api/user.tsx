@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { User } from '../models/user.model';
 
-//getAllUsers
 export const getAllUsers = async () => {
     try {
         const users = await axios.get(`http://localhost:3333/user`);
@@ -12,7 +11,7 @@ export const getAllUsers = async () => {
     }
 }
 
-//getUserByEmail
+
 export const getUserByEmail = async (email: string)=> {
     try {
         const user = await axios.get(`http://localhost:3333/user/getUserByEmail/${email}`);
@@ -23,7 +22,7 @@ export const getUserByEmail = async (email: string)=> {
     }
 }
 
-//getUserByUid
+
 export const getUserByUid = async (uid: string) => {
     try {
         const user = await axios.get(`http://localhost:3333/user/${uid}`);
@@ -34,7 +33,7 @@ export const getUserByUid = async (uid: string) => {
     }
 }
 
-//post 
+ 
 export const createUser = async (newUser:User) => {
     try {
         const user= await axios.post('http://localhost:3333/user/', newUser);
@@ -46,7 +45,6 @@ export const createUser = async (newUser:User) => {
     }
 }
 
-//delete
 export const deleteUser = async (Id:string) => {
     try {
         await axios.delete(`http://localhost:3333/user/${Id}`);
@@ -56,7 +54,6 @@ export const deleteUser = async (Id:string) => {
     }
 }
 
-//put
 export const updateUser= async (Id:string, updates:User) => {
     try {
          await axios.put(`http://localhost:3333/user/${Id}`, updates);

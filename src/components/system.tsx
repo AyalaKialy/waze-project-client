@@ -59,7 +59,7 @@ const SingleSystem = () => {
 
     origins.map((origin: any, i: number) => { 
           let results = response.rows[i].elements;
-      results.map((element: any, j: number) => { 
+          results.map((element: any, j: number) => { 
         if (element.duration.value < smallestDest1) {
             smallestDest3 = smallestDest2;
             smallest3 = smallest2;
@@ -109,9 +109,6 @@ const SingleSystem = () => {
     <div className='background'> 
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {/* <Grid item xs={12}>
-          <h1 className='pink'>{system?.topic}</h1>
-        </Grid> */}
         <Grid item xs={6}>
           <Item className="item"><MapContainer/></Item>
         </Grid>

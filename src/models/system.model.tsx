@@ -10,4 +10,3 @@ export type System = {
     phone:string,
     systemUrl:string,
 }
-

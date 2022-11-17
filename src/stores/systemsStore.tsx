@@ -1,13 +1,11 @@
 
 import {  observable, computed ,makeAutoObservable,action} from "mobx";
 import { createSystem, getAllSystems, getSystemByManagerId, getSystemByUrlName, getSystemsBySearchWord } from "../api/system";
-
 import { System } from "../models/system.model";
 
 export class SystemsStore {
 @observable systems: System[] = [];
 
-// @observable system: System = {_id:'',   topic:'', objectName:'', managerId:'', urlName:'',description:'', email:'', phone:'',systemUrl:''};
 @observable system:any;
 
 @observable AllSystems: System[] = [];
@@ -48,6 +46,7 @@ export class SystemsStore {
     @action
     addSystem = async(system:System) => {
         const data = await createSystem(system);
+        debugger
         return data;
     }
 

@@ -5,7 +5,6 @@ export type Manager = {
   active: boolean;
   display_name: string;
   role: Role;
-// invitation_sent
 }
 
 export enum Role{

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Request, Status } from '../models/request.model';
 
-//getAll
 export const getAllRequests = async () => {
     try {
         const {data} = await axios.get(`http://localhost:3333/request`);
@@ -12,7 +11,6 @@ export const getAllRequests = async () => {
     }
 }
 
-//getRequestById
 export const getRequestById = async (id: string) => {
     try {
         const {data} = await axios.get(`http://localhost:3333/request/${id}`);
@@ -33,7 +31,6 @@ export const getRequestsBySystemId= async (systemId: string) => {
     }
 }
 
-//post 
 export const createRequest = async (newRequest:Request) => {
     try {
         const data = await axios.post('http://localhost:3333/request/', newRequest);
@@ -45,7 +42,6 @@ export const createRequest = async (newRequest:Request) => {
     }
 }
 
-//delete
 export const deleteRequest = async (Id:string) => {
     try {
         await axios.delete(`http://localhost:3333/request/${Id}`);
@@ -55,7 +51,7 @@ export const deleteRequest = async (Id:string) => {
     }
 }
 
-//put
+
 export const updateRequest= async (Id:string, updates:Request) => {
     try {
          await axios.put(`http://localhost:3333/request/${Id}`, updates);
@@ -64,7 +60,7 @@ export const updateRequest= async (Id:string, updates:Request) => {
         console.log('error in updateRequest',error);
     }
 }
-//patch
+
 export const updateStatus= async (Id:string) => {
     try {
          await axios.patch(`http://localhost:3333/request/${Id}`);
@@ -74,7 +70,6 @@ export const updateStatus= async (Id:string) => {
     }
 }
 
-//mail
 export const sendEmailConfirm = async (userMail:string) => {
     console.log(userMail);
     try {

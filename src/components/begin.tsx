@@ -13,7 +13,6 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import AutoCompleteSystem from './autoCompleteSystem';
 import Grid from '@mui/material/Grid';
-// import requestStore from '../store/request';
 import userStore from '../stores/userStore';
 import NavBar from './navBar';
 
@@ -86,7 +85,7 @@ const Begin=() => {
                     </Grid>
                     <Grid sx={{ marginTop: '20%', marginLeft: '15%' }} item xs={8} md={6}>
                         <Button sx={{
-                            width: '100%', height: '20vh',border: '1px solid #1C8EF9; '
+                            width: '100%', height: '10vh',border: '1px solid #1C8EF9; '
                         }}
                             variant="outlined" onClick={addSystem}>
                             add system

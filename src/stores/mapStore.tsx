@@ -8,10 +8,9 @@ export interface IMap {
 export class MapStore {
 
  @observable currentMap: IMap = {
-    zoom:8,
-     center: { lat: 31.0461, lng: 34.8516 },
+    zoom:15,
+    center: { lat: 31.0461, lng: 34.8516 },
 };
-// 31.9338572 35.0466771
 
     constructor() {
         makeAutoObservable(this);

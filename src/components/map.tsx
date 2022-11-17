@@ -4,6 +4,8 @@ import Marker from './marker';
 import  mapStore from '../stores/mapStore';
 import markersStore from '../stores/markersStore';
 import { observer } from 'mobx-react';
+import { config } from '../config/config';
+
 
 const MapContainer = () => {
   const [map, setMap] = useState(null);
@@ -18,9 +20,7 @@ const MapContainer = () => {
         ({ coords: { latitude: lat, longitude: lng } }) => {
           console.log(lat,lng);
            mapStore.currentMap.center = { lat, lng }
-           mapStore.currentMap.zoom = 13;
-          // mapStore.setCenter(lat,lng);
-          // mapStore.setZoom(14);
+           mapStore.currentMap.zoom = 16;
         }
     );
    };
@@ -49,7 +49,7 @@ const MapContainer = () => {
     return (
         <div style = {{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys = {{ key: 'AIzaSyCbqPxgu_xAJ_hfku1xxaQpyejnGHKBmp4' }}
+          bootstrapURLKeys = {{ key: config.key }}
           center = { mapStore.currentMap.center}
           zoom = { mapStore.currentMap.zoom }
            yesIWantToUseGoogleMapApiInternals
